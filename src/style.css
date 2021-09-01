@@ -1,5 +1,43 @@
 body {
   background-color: black;
+  font-family: Arial, sans-serif;
   color: white;
+}
+
+.tasksContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.tasks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.task {
+  margin: 20px;
+}
+
+.taskCircle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E8A807;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.taskIcon {
+  padding: 100px;
+}
+
+.taskName {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 20px;
+  text-align: center;
+  width: 200px;
 }
 
