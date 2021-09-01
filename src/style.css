@@ -23,20 +23,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E8A807;
   height: 200px;
   width: 200px;
+  border: 15px solid gray;
   border-radius: 50%;
-}
-
-.taskIcon {
-  padding: 100px;
 }
 
 .taskName {
   font-weight: bold;
+  font-size: 20px;
   text-transform: uppercase;
   margin-top: 20px;
+  margin-left: 20px;
   text-align: center;
   width: 200px;
 }

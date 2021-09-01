@@ -5,17 +5,7 @@ const Tasks = () => {
     <div className="tasksContainer">
       <div className="tasks">
         <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
+
       </div>
     </div>
   )
