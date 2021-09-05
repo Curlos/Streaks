@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Tasks from './components/Tasks'
-import AddNewTaskButton from './components/AddNewTaskButton'
-import NewTaskForm from './components/NewTaskForm'
+import AddNewTaskButton from './components/AddTaskComponents/AddNewTaskButton'
+import NewTaskForm from './components/AddTaskComponents/NewTaskForm'
 import './style.css';
 
-function App() {
+const App = () => {
 
   const [tasks, setTasks] = useState([{
     title: '',
@@ -18,10 +18,10 @@ function App() {
     currentStreak: 0,
     completed: false,
   }])
-  const [showNewTaskForm, setShowNewTaskForm] = useState(false)
+  const [showNewTaskForm, setShowNewTaskForm] = useState(true)
 
-  const handleAddNewTask = () => {
-    setShowNewTaskForm(true)
+  const toggleModal = () => {
+    setShowNewTaskForm(!showNewTaskForm)
   }
 
   const handleNewTaskFormSubmit = (newTask) => {
@@ -32,8 +32,8 @@ function App() {
     <div className="App">
       Streaks App
       <Tasks />
-      <AddNewTaskButton handleAddNewTask={handleAddNewTask}/>
-      {showNewTaskForm ? <NewTaskForm handleNewTaskFormSubmit={handleNewTaskFormSubmit}/> : null}
+      <AddNewTaskButton toggleModal={toggleModal}/>
+      {showNewTaskForm ? <NewTaskForm toggleModal={toggleModal} handleNewTaskFormSubmit={handleNewTaskFormSubmit}/> : null}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 body {
   background-color: black;
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica-Neue, sans-serif;
+  font-weight: bold;
   color: white;
 }
 
@@ -38,4 +39,9 @@ body {
   text-align: center;
   width: 200px;
 }
-
+.addSmallTask {
+  height: 60px;
+  width: 60px;
+  border: none;
+  background-color: rgb(99, 99, 99);
+}

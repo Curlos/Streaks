@@ -1,12 +1,12 @@
-const Task = () => {
+const Task = ({ name, icon, taskSize }) => {
   
   return (
-    <div className="task">
-      <div className="taskCircle">
-        <div className="taskIcon"><i class="far fa-clock fa-6x"></i></div>
-      </div>
-      <div className="taskName">Focus for 6 hours</div>
-    </div>
+    <span className="task">
+      <span className={`taskCircle ${taskSize}`}>
+        <span className="taskIcon">{icon}</span>
+      </span>
+      <span className="taskName">{name}</span>
+    </span>
   )
 }
 
