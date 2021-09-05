@@ -3,20 +3,20 @@ import PresetTask from '../PresetTask'
 import { CreateTaskHeader } from './PresetTaskHelper'
 
 
-const GeneralPresetTasks = () => {
+const HealthPresetTasks = () => {
   return (
     <div>
       <CreateTaskHeader>CREATE A HEALTH TASK:</CreateTaskHeader>
 
-      <PresetTask name="Eat a Healthy Meal" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>}/>
-      <PresetTask name="Do Your Homework" icon={<i value="customTask" className="fas fa-highlighter fa-2x"></i>}/>
-      <PresetTask name="Walk the Dog" icon={<i value="customTask" className="fas fa-dog fa-2x"></i>}/>
+      <PresetTask name="Walk or Run" icon={<i value="customTask" className="fas fa-walking fa-2x"></i>}/>
+      <PresetTask name="Stand Minutes" icon={<i value="customTask" className="fas fa-shoe-prints fa-2x"></i>}/>
+      <PresetTask name="Cycle" icon={<i value="customTask" className="fas fa-biking fa-2x"></i>}/>
 
-      <PresetTask name="Drink a Smoothie" icon={<i value="customTask" className="fas fa-blender fa-2x"></i>}/>
-      <PresetTask name="Take Vitamins" icon={<i value="customTask" className="fas fa-capsules fa-2x"></i>}/>
-      <PresetTask name="Take a Photo" icon={<i value="customTask" className="fas fa-camera fa-2x"></i>}/>
+      <PresetTask name="Swim" icon={<i value="customTask" className="fas fa-swimmer fa-2x"></i>}/>
+      <PresetTask name="Mindful Minutes" icon={<i value="customTask" className="fas fa-wind fa-2x"></i>}/>
+      <PresetTask name="Climb Flights" icon={<i value="customTask" className="fas fa-running fa-2x"></i>}/>
     </div>
   )
 }
 
-export default GeneralPresetTasks;
+export default HealthPresetTasks;
