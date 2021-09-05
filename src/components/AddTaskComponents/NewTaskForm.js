@@ -1,6 +1,11 @@
 import './addTaskForm.css'
 import Task from '../Task'
 import FormTasks from './FormTasks'
+import GeneralPresetTasks from './PresetTasks/GeneralPresetTasks'
+import HealthPresetTasks from './PresetTasks/HealthPresetTasks'
+import EatPresetTasks from './PresetTasks/EatPresetTasks'
+import TimedPresetTasks from './PresetTasks/TimedPresetTasks'
+import NegativePresetTasks from './PresetTasks/NegativePresetTasks'
 
 const NewTaskForm = ({ toggleModal }) => {
   
@@ -16,7 +21,7 @@ const NewTaskForm = ({ toggleModal }) => {
           </div>
 
           <FormTasks />
-          
+          <HealthPresetTasks />
         </div>
 
       </div>

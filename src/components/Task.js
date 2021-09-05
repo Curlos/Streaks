@@ -1,7 +1,9 @@
 import styled, { css, ThemeProvider } from 'styled-components'
 
 const TaskContainer = styled.span`
-  margin: 20px;
+  display: ${props => props.theme.display};
+  margin: ${props => props.theme.margin};
+  padding: ${props => props.theme.padding};
 `
 
 const TaskCircle = styled.span`
@@ -15,7 +17,7 @@ const TaskCircle = styled.span`
   border-radius: 50%;
 `
 
-const TaskName = styled.span`
+const TaskNameLarge = styled.span`
   font-weight: bold;
   font-size: 20px;
   text-transform: uppercase;
@@ -25,33 +27,67 @@ const TaskName = styled.span`
   width: 200px;
 `
 
-
+const TaskNameForm = styled.span`
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: normal;
+  margin: 20px;
+  width: 200px;
+`
 
 const smallTaskTheme = {
   "height": "60px",
   "width": "60px",
   "border": "none",
-  "background-color": "rgb(99, 99, 99)"
+  "background-color": "rgb(99, 99, 99)",
+  "padding": "0px",
+  "margin": "20px",
+}
+
+const smallTaskFormTheme = {
+  "height": "60px",
+  "width": "60px",
+  "border": "none",
+  "background-color": "rgb(99, 99, 99)",
+  "display": "flex",
+  "padding": "10px",
+  "margin": "0",
 }
 
 const largeTaskTheme = {
   "height": "200px",
   "width": "200px",
   "border": "15px solid gray",
-  "background-color": "none"
+  "background-color": "none",
+  "display": "flex"
 }
 
-const Task = ({ name, icon, taskSize, clickHandler, theme }) => {
+const getTheme = (theme) => {
+
+  switch(theme) {
+    case 'small':
+      return smallTaskTheme
+    case 'smallForm':
+      return smallTaskFormTheme
+    case 'large':
+      return largeTaskTheme
+    default:
+      return largeTaskTheme
+  }
+}
+
+const Task = ({ name, icon, taskSize, clickHandler, theme, type }) => {
+
   
   return (
-    <TaskContainer onClick={clickHandler}>
-      <ThemeProvider theme={theme === 'small' ? smallTaskTheme : largeTaskTheme}>
+    <ThemeProvider theme={getTheme(theme)}>
+      <TaskContainer onClick={clickHandler}>
         <TaskCircle>
           <span className="taskIcon">{icon}</span>
         </TaskCircle>
-        <TaskName>{name}</TaskName>
-      </ThemeProvider>
-    </TaskContainer>
+        {type === 'form' ? <TaskNameForm>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
+      </TaskContainer>
+    </ThemeProvider>
   )
 }
 
