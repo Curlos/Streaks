@@ -15,33 +15,3 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
-
-.task {
-  margin: 20px;
-}
-
-.taskCircle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  width: 200px;
-  border: 15px solid gray;
-  border-radius: 50%;
-}
-
-.taskName {
-  font-weight: bold;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-top: 20px;
-  margin-left: 20px;
-  text-align: center;
-  width: 200px;
-}
-.addSmallTask {
-  height: 60px;
-  width: 60px;
-  border: none;
-  background-color: rgb(99, 99, 99);
-}

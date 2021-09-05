@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
 import Task from '../Task'
+
+const HeaderTasks = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const FormTasks = () => {
 
@@ -7,18 +13,19 @@ const FormTasks = () => {
 
   
   const handleClick = (e) => {
-    console.log(e)
-    console.log('clicked bitch')
+    const newSelectedTaskType = e.target.attributes[0].nodeValue
+    setSelectedTaskType(newSelectedTaskType)
+    console.log(newSelectedTaskType)
   }
 
   return (
-    <div class="formTasks">
-      <Task name="" icon={<i className="fas fa-check fa-2x"></i>} taskSize="addSmallTask" onClick={handleClick}/>
-      <Task name="" icon={<i className="fas fa-heart fa-2x"></i>} taskSize="addSmallTask" onClick={handleClick}/>
-      <Task name="" icon={<i className="fas fa-utensils fa-2x"></i>} taskSize="addSmallTask" onClick={handleClick}/>
-      <Task name="" icon={<i className="far fa-clock fa-2x"></i>} taskSize="addSmallTask" onClick={handleClick}/>
-      <Task name="" icon={<i className="fas fa-ban fa-2x"></i>} taskSize="addSmallTask" onClick={handleClick}/>
-    </div>
+    <HeaderTasks>
+      <Task name="" icon={<i value="customTask" className="fas fa-check fa-2x"></i>} taskSize="addSmallTask" clickHandler={handleClick} theme="small"/>
+      <Task name="" icon={<i value="healthTask" className="fas fa-heart fa-2x"></i>} taskSize="addSmallTask" clickHandler={handleClick} theme="small"/>
+      <Task name="" icon={<i value="eatTask" className="fas fa-utensils fa-2x"></i>} taskSize="addSmallTask" clickHandler={handleClick} theme="small"/>
+      <Task name="" icon={<i value="timedTask" className="far fa-clock fa-2x"></i>} taskSize="addSmallTask" clickHandler={handleClick} theme="small"/>
+      <Task name="" icon={<i value="negativeTask" className="fas fa-ban fa-2x"></i>} taskSize="addSmallTask" clickHandler={handleClick} theme="small"/>
+    </HeaderTasks>
   )
 }
 
