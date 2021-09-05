@@ -21,7 +21,7 @@ const NewTaskForm = ({ toggleModal }) => {
           </div>
 
           <FormTasks />
-          <HealthPresetTasks />
+          <EatPresetTasks />
         </div>
 
       </div>

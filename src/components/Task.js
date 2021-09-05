@@ -1,5 +1,6 @@
 import styled, { css, ThemeProvider } from 'styled-components'
 
+// Styled components to act as parent to children
 const TaskContainer = styled.span`
   display: ${props => props.theme.display};
   margin: ${props => props.theme.margin};
@@ -35,6 +36,13 @@ const TaskNameForm = styled.span`
   width: 200px;
 `
 
+const TaskNameArrow = styled.span`
+  margin: 20px;
+  float: right;
+`
+
+
+// Themes to be used depending on the type of the task and the size of the screen
 const smallTaskTheme = {
   "height": "60px",
   "width": "60px",
@@ -86,6 +94,10 @@ const Task = ({ name, icon, taskSize, clickHandler, theme, type }) => {
           <span className="taskIcon">{icon}</span>
         </TaskCircle>
         {type === 'form' ? <TaskNameForm>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
+        
+        {type === 'form' ? <TaskNameArrow>
+          <i value="arrow" className="fas fa-greater-than fa-2x"></i>
+        </TaskNameArrow> : null}
       </TaskContainer>
     </ThemeProvider>
   )

@@ -3,7 +3,9 @@ import Task from '../Task'
 
 const PresetTaskBody = styled.div`
   background-color: #202020;
-  
+  &:hover {
+    background-color: rgb(20, 20, 20);;
+  }
 
 `
 
