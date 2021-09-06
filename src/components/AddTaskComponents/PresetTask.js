@@ -13,7 +13,7 @@ const PresetTask = ({ name, icon, presetIcon, handleNewDisplay }) => {
 
   const handleClick = () => {
     console.log('clicked preset')
-    // handleNewDisplay()
+    handleNewDisplay()
   }
 
   return (

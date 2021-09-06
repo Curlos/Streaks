@@ -7,15 +7,17 @@ const HeaderTasks = styled.div`
   justify-content: center;
 `
 
-const FormTasks = ({ clickHandler }) => {
+const FormTasks = ({ clickHandler, selectedTaskType }) => {
+
+
 
   return (
     <HeaderTasks>
-      <Task name="" icon={<i value="customTask" className="fas fa-check fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small"/>
-      <Task name="" icon={<i value="healthTask" className="fas fa-heart fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small"/>
-      <Task name="" icon={<i value="eatTask" className="fas fa-utensils fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small"/>
-      <Task name="" icon={<i value="timedTask" className="far fa-clock fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small"/>
-      <Task name="" icon={<i value="negativeTask" className="fas fa-ban fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small"/>
+      <Task name="" icon={<i value="customTask" className="fas fa-check fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small" selectedTaskType={selectedTaskType}/>
+      <Task name="" icon={<i value="healthTask" className="fas fa-heart fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small" selectedTaskType={selectedTaskType}/>
+      <Task name="" icon={<i value="eatTask" className="fas fa-utensils fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small" selectedTaskType={selectedTaskType}/>
+      <Task name="" icon={<i value="timedTask" className="far fa-clock fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small" selectedTaskType={selectedTaskType}/>
+      <Task name="" icon={<i value="negativeTask" className="fas fa-ban fa-2x"></i>} taskSize="addSmallTask" clickHandler={clickHandler} theme="small" selectedTaskType={selectedTaskType}/>
     </HeaderTasks>
   )
 }

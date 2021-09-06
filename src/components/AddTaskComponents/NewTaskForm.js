@@ -7,7 +7,7 @@ import HealthPresetTasks from './PresetTasks/HealthPresetTasks'
 import EatPresetTasks from './PresetTasks/EatPresetTasks'
 import TimedPresetTasks from './PresetTasks/TimedPresetTasks'
 import NegativePresetTasks from './PresetTasks/NegativePresetTasks'
-import ConfirmationScreen from './ConfirmationScreen/ConfirmationScreen'
+import GeneralConfirmationScreen from './ConfirmationScreen/GeneralConfirmationScreen'
 
 const NewTaskForm = ({ toggleModal }) => {
 
@@ -51,15 +51,15 @@ const NewTaskForm = ({ toggleModal }) => {
       <div id="myModal" className="modal">
 
         <div className="modal-content">
-          <div className="addTaskHeader">
-            <span className="close" onClick={toggleModal}>&times;</span>
-            <p className="addTaskTitle">Add Task</p>
-          </div>
 
-          {displayConfirmationScreen ? ConfirmationScreen : 
+          {displayConfirmationScreen ? <GeneralConfirmationScreen /> : 
           
           <span>
-            <FormTasks clickHandler={handleTaskHeaderClick}/>
+            <div className="addTaskHeader">
+            <span className="close" onClick={toggleModal}>&times;</span>
+              <p className="addTaskTitle">Add Task</p>
+            </div>
+            <FormTasks clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
             {getPresetTasks(selectedTaskType)}
           </span>}
           

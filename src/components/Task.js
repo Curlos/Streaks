@@ -19,6 +19,10 @@ const TaskCircle = styled.span`
   border-radius: 50%;
 `
 
+const SelectedTaskCircle = styled(TaskCircle)`
+  background-color: red;
+`
+
 const TaskNameLarge = styled.span`
   font-weight: bold;
   font-size: 20px;
@@ -89,15 +93,22 @@ const getTheme = (theme) => {
   }
 }
 
-const Task = ({ name, icon, taskSize, clickHandler, theme, type, presetIcon }) => {
+const Task = ({ name, icon, taskSize, clickHandler, theme, type, presetIcon, selectedTaskType }) => {
+
+  console.log(name)
 
   
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <TaskContainer onClick={clickHandler}>
+        {selectedTaskType === name ? 
+        <SelectedTaskCircle>
+          <span className="taskIcon">{icon}</span>
+        </SelectedTaskCircle> : 
         <TaskCircle>
           <span className="taskIcon">{icon}</span>
         </TaskCircle>
+        }
         
         {type === 'form' ? <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
         
