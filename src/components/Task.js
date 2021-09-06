@@ -3,6 +3,8 @@ import styled, { css, ThemeProvider } from 'styled-components'
 // Styled components to act as parent to children
 const TaskContainer = styled.span`
   display: ${props => props.theme.display};
+  flex-direction: ${props => props.theme['flex-direction']};
+  align-items: ${props => props.theme['align-items']};;
   margin: ${props => props.theme.margin};
   padding: ${props => props.theme.padding};
   width: 100%;
@@ -28,7 +30,7 @@ const TaskNameLarge = styled.span`
   font-size: 20px;
   text-transform: uppercase;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 0px;
   text-align: center;
   width: 200px;
 `
@@ -41,7 +43,8 @@ const TaskNameForm = styled.span`
   margin: 20px;
 `
 
-const TaskNameArrow = styled.span`
+const TaskContainerRight = styled.span`
+  
   margin: 20px;
   float: right;
 `
@@ -71,6 +74,16 @@ const smallTaskFormTheme = {
   "margin": "0",
 }
 
+const mediumTaskFormTheme = {
+  "height": "100px",
+  "width": "100px",
+  "border": "7px solid gray",
+  "background-color": "none",
+  "display": "flex",
+  "flex-direction": "column",
+  "align-items": "center",
+}
+
 const largeTaskTheme = {
   "height": "200px",
   "width": "200px",
@@ -79,13 +92,30 @@ const largeTaskTheme = {
   "display": "flex"
 }
 
+const TaskIconSmall = styled.div`
+  font-size: .1.33em;
+`
+
+const TaskIconMedium = styled.div`
+  font-size: 1.75em;
+`
+
+const TaskIconLarge = styled.div`
+  font-size: 2em;
+`
+
+
 const getTheme = (theme) => {
+
+  console.log(theme)
 
   switch(theme) {
     case 'small':
       return smallTaskTheme
     case 'smallForm':
       return smallTaskFormTheme
+    case 'mediumForm':
+      return mediumTaskFormTheme
     case 'large':
       return largeTaskTheme
     default:
@@ -93,9 +123,57 @@ const getTheme = (theme) => {
   }
 }
 
-const Task = ({ name, icon, taskSize, clickHandler, theme, type, presetIcon, selectedTaskType }) => {
+const getTaskType = (type) => {
+
+  console.log(type)
+
+  switch(type) {
+    case 'form':
+      return (
+        <TaskContainerRight>
+          <i value="arrow" className="fas fa-greater-than fa-2x"></i>
+        </TaskContainerRight>
+      )
+    case 'plusMinusForm':
+      return (
+        <TaskContainerRight>
+          <TaskCircle>
+            <i value="arrow" className="fas fa-minus fa-2x"></i>
+          </TaskCircle>
+          <TaskCircle>
+            <i value="arrow" className="fas fa-plus fa-2x"></i>
+          </TaskCircle>
+        </TaskContainerRight>
+      )
+    default:
+      return null
+  }
+}
+
+const getIconSize = (theme) => {
+
+  console.log(`Getting icon size: ${theme}`)
+
+  switch(theme) {
+    case 'small':
+      return TaskIconSmall
+    case 'smallForm':
+      return TaskIconSmall
+    case 'mediumForm':
+      return TaskIconMedium
+    case 'large':
+      return TaskIconLarge
+    default:
+      return TaskIconSmall
+  }
+}
+
+const Task = ({ name, icon, iconSize, taskSize, clickHandler, theme, type, presetIcon, selectedTaskType }) => {
 
   console.log(name)
+
+  const TaskIcon = getIconSize(theme)
+  const TaskRightIcon = getTaskType(type)
 
   
   return (
@@ -103,18 +181,18 @@ const Task = ({ name, icon, taskSize, clickHandler, theme, type, presetIcon, sel
       <TaskContainer onClick={clickHandler}>
         {selectedTaskType === name ? 
         <SelectedTaskCircle>
-          <span className="taskIcon">{icon}</span>
+          <TaskIcon>{icon}</TaskIcon>
         </SelectedTaskCircle> : 
         <TaskCircle>
-          <span className="taskIcon">{icon}</span>
+          <TaskIcon>{icon}</TaskIcon>
         </TaskCircle>
         }
+
+{type === 'form' || type == 'plusMinusForm' ? <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
         
-        {type === 'form' ? <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
-        
-        {type === 'form' ? <TaskNameArrow>
-          <i value="arrow" className="fas fa-greater-than fa-2x"></i>
-        </TaskNameArrow> : null}
+
+        {TaskRightIcon !== null ? TaskRightIcon : null}
+
       </TaskContainer>
     </ThemeProvider>
   )

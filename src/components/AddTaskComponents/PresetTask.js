@@ -9,16 +9,19 @@ const PresetTaskBody = styled.div`
 
 `
 
-const PresetTask = ({ name, icon, presetIcon, handleNewDisplay }) => {
+const PresetTask = ({ name, icon, presetIcon, displayType, handleNewDisplay, buttonType }) => {
 
   const handleClick = () => {
     console.log('clicked preset')
-    handleNewDisplay()
+
+    if (handleNewDisplay) {
+      handleNewDisplay(name, icon, displayType)
+    }
   }
 
   return (
     <PresetTaskBody>
-      <Task name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type="form" clickHandler={handleClick}/>
+      <Task name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={handleClick}/>
     </PresetTaskBody>
   )
 }

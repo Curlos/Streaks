@@ -6,7 +6,7 @@ const GeneralPresetTasks = ({ handleNewDisplay }) => {
     <div>
       <CreateTaskHeader>CREATE YOUR OWN:</CreateTaskHeader>
 
-      <PresetTask name="Eat a Healthy Meal" icon={<i value="customTask" className="fas fa-carrot fa-2x" handleNewDisplay={handleNewDisplay}></i>}/>
+      <PresetTask name="Eat a Healthy Meal" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} handleNewDisplay={handleNewDisplay}/>
       <PresetTask name="Do Your Homework" icon={<i value="customTask" className="fas fa-highlighter fa-2x"></i>} handleNewDisplay={handleNewDisplay}/>
       <PresetTask name="Walk the Dog" icon={<i value="customTask" className="fas fa-dog fa-2x"></i>} handleNewDisplay={handleNewDisplay}/>
 

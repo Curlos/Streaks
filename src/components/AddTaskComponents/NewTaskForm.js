@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './addTaskForm.css'
-import Task from '../Task'
-import FormTasks from './FormTasks'
+import HeaderTasks from './HeaderTasks'
 import GeneralPresetTasks from './PresetTasks/GeneralPresetTasks'
 import HealthPresetTasks from './PresetTasks/HealthPresetTasks'
 import EatPresetTasks from './PresetTasks/EatPresetTasks'
@@ -12,7 +11,9 @@ import GeneralConfirmationScreen from './ConfirmationScreen/GeneralConfirmationS
 const NewTaskForm = ({ toggleModal }) => {
 
   const [displayConfirmationScreen, setDisplayConfirmationScreen] = useState(false)
+  const [displayDailyTaskScreen, setDisplayDailyTaskScreen] = useState(false)
   const [selectedTaskType, setSelectedTaskType] = useState('customTask')
+  const [selectedTask, setSelectedTask] = useState({title: '', icon: ''})
 
   
   const handleTaskHeaderClick = (e) => {
@@ -29,9 +30,20 @@ const NewTaskForm = ({ toggleModal }) => {
     }
   }
 
-  const handleNewDisplay = () => {
-    setDisplayConfirmationScreen(true)
+  const handleNewDisplay = (title, icon, displayType) => {
+    
+    if (displayType === 'Daily Task') {
+      setDisplayConfirmationScreen(false)
+      setDisplayDailyTaskScreen(true)
+
+    }
+    else {
+      setDisplayConfirmationScreen(true)
+      setSelectedTask({title, icon })
+    }
   }
+
+
 
   const getPresetTasks = (selectedTaskType) => {
     const taskTypes = {
@@ -52,14 +64,14 @@ const NewTaskForm = ({ toggleModal }) => {
 
         <div className="modal-content">
 
-          {displayConfirmationScreen ? <GeneralConfirmationScreen /> : 
+          {displayConfirmationScreen ? <GeneralConfirmationScreen title={selectedTask.title} icon={selectedTask.icon}/> : 
           
           <span>
             <div className="addTaskHeader">
             <span className="close" onClick={toggleModal}>&times;</span>
               <p className="addTaskTitle">Add Task</p>
             </div>
-            <FormTasks clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
+            <HeaderTasks clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
             {getPresetTasks(selectedTaskType)}
           </span>}
           
