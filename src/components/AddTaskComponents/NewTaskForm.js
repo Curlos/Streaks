@@ -12,9 +12,37 @@ import ConfirmationScreen from './ConfirmationScreen/ConfirmationScreen'
 const NewTaskForm = ({ toggleModal }) => {
 
   const [displayConfirmationScreen, setDisplayConfirmationScreen] = useState(false)
+  const [selectedTaskType, setSelectedTaskType] = useState('customTask')
+
+  
+  const handleTaskHeaderClick = (e) => {
+    const newSelectedTaskType = e.target.attributes[0].nodeValue
+
+    if (newSelectedTaskType.includes("Task")) {
+      setSelectedTaskType(newSelectedTaskType)
+      console.log(newSelectedTaskType)
+    } else if (newSelectedTaskType.includes("sc-gsTEea ")){
+      // If the task circle is clicked then get the taskName which is two children below the current element (the task circle)
+      const newSelectedTaskType = e.target.firstElementChild.firstElementChild.attributes[0].nodeValue
+      setSelectedTaskType(newSelectedTaskType)
+      console.log(newSelectedTaskType)
+    }
+  }
 
   const handleNewDisplay = () => {
     setDisplayConfirmationScreen(true)
+  }
+
+  const getPresetTasks = (selectedTaskType) => {
+    const taskTypes = {
+      'customTask': <GeneralPresetTasks handleNewDisplay={handleNewDisplay}/>,
+      'healthTask': <HealthPresetTasks handleNewDisplay={handleNewDisplay}/>,
+      'eatTask': <EatPresetTasks handleNewDisplay={handleNewDisplay}/>,
+      'timedTask': <TimedPresetTasks handleNewDisplay={handleNewDisplay}/>,
+      'negativeTask': <NegativePresetTasks handleNewDisplay={handleNewDisplay}/>
+    }
+
+    return taskTypes[selectedTaskType]
   }
   
   return (
@@ -31,8 +59,8 @@ const NewTaskForm = ({ toggleModal }) => {
           {displayConfirmationScreen ? ConfirmationScreen : 
           
           <span>
-            <FormTasks />
-            <TimedPresetTasks handleNewDisplay={handleNewDisplay} />
+            <FormTasks clickHandler={handleTaskHeaderClick}/>
+            {getPresetTasks(selectedTaskType)}
           </span>}
           
         </div>
