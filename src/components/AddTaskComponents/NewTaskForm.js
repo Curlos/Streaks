@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import './addTaskForm.css'
 import Task from '../Task'
 import FormTasks from './FormTasks'
@@ -6,8 +7,15 @@ import HealthPresetTasks from './PresetTasks/HealthPresetTasks'
 import EatPresetTasks from './PresetTasks/EatPresetTasks'
 import TimedPresetTasks from './PresetTasks/TimedPresetTasks'
 import NegativePresetTasks from './PresetTasks/NegativePresetTasks'
+import ConfirmationScreen from './ConfirmationScreen/ConfirmationScreen'
 
 const NewTaskForm = ({ toggleModal }) => {
+
+  const [displayConfirmationScreen, setDisplayConfirmationScreen] = useState(false)
+
+  const handleNewDisplay = () => {
+    setDisplayConfirmationScreen(true)
+  }
   
   return (
     <div className="newTaskForm">
@@ -20,8 +28,13 @@ const NewTaskForm = ({ toggleModal }) => {
             <p className="addTaskTitle">Add Task</p>
           </div>
 
-          <FormTasks />
-          <EatPresetTasks />
+          {displayConfirmationScreen ? ConfirmationScreen : 
+          
+          <span>
+            <FormTasks />
+            <TimedPresetTasks handleNewDisplay={handleNewDisplay} />
+          </span>}
+          
         </div>
 
       </div>

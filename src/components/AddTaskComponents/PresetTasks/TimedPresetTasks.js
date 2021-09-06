@@ -1,21 +1,37 @@
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader } from './PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks, TaskInput } from './PresetTaskHelper'
 
+const TimerIcon = <i value="customTask" className="fas fa-book fa-xs"></i>
 
-const GeneralPresetTasks = () => {
+const TimedPresetTasks = ({ handleNewDisplay }) => {
   return (
     <div>
-      <CreateTaskHeader>CREATE A HEALTH TASK:</CreateTaskHeader>
+      <CreateTaskHeader>CREATE YOUR OWN:</CreateTaskHeader>
 
-      <PresetTask name="Eat a Healthy Meal" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>}/>
-      <PresetTask name="Do Your Homework" icon={<i value="customTask" className="fas fa-highlighter fa-2x"></i>}/>
-      <PresetTask name="Walk the Dog" icon={<i value="customTask" className="fas fa-dog fa-2x"></i>}/>
+      <TaskInput />
 
-      <PresetTask name="Drink a Smoothie" icon={<i value="customTask" className="fas fa-blender fa-2x"></i>}/>
-      <PresetTask name="Take Vitamins" icon={<i value="customTask" className="fas fa-capsules fa-2x"></i>}/>
-      <PresetTask name="Take a Photo" icon={<i value="customTask" className="fas fa-camera fa-2x"></i>}/>
+      <GroupedTasks>
+        <PresetTask name="Read for 10 minutes" icon={<i value="customTask" className="fas fa-book fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+        <PresetTask name="Learn a Language" icon={<i value="customTask" className="fas fa-language fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+        <PresetTask name="Practice Instrument" icon={<i value="customTask" className="fas fa-guitar fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+        <PresetTask name="Tidy Up" icon={<i value="customTask" className="fas fa-broom fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+      </GroupedTasks>
+
+      <GroupedTasks>
+        <PresetTask name="Pomodoro" icon={<i value="customTask" className="fas fa-hourglass-start fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+      </GroupedTasks> 
+
+      <GroupedTasks>
+        <PresetTask name="Decrease Screen Time" icon={<i value="customTask" className="fas fa-mobile-alt fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+      </GroupedTasks>
+
+      <GroupedTasks>
+        <PresetTask name="Mindful Minutes" icon={<i value="customTask" className="fas fa-wind fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+        <PresetTask name="Brush Your Teeth" icon={<i value="customTask" className="fas fa-tooth fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+      </GroupedTasks>
+
     </div>
   )
 }
 
-export default GeneralPresetTasks;
+export default TimedPresetTasks;

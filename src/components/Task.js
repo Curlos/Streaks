@@ -5,6 +5,7 @@ const TaskContainer = styled.span`
   display: ${props => props.theme.display};
   margin: ${props => props.theme.margin};
   padding: ${props => props.theme.padding};
+  width: 100%;
 `
 
 const TaskCircle = styled.span`
@@ -32,13 +33,17 @@ const TaskNameForm = styled.span`
   font-weight: bold;
   font-size: 20px;
   text-transform: normal;
+  width: 350px;
   margin: 20px;
-  width: 200px;
 `
 
 const TaskNameArrow = styled.span`
   margin: 20px;
   float: right;
+`
+
+const PresetIcon = styled.span`
+  margin-right: 10px;
 `
 
 
@@ -84,7 +89,7 @@ const getTheme = (theme) => {
   }
 }
 
-const Task = ({ name, icon, taskSize, clickHandler, theme, type }) => {
+const Task = ({ name, icon, taskSize, clickHandler, theme, type, presetIcon }) => {
 
   
   return (
@@ -93,7 +98,8 @@ const Task = ({ name, icon, taskSize, clickHandler, theme, type }) => {
         <TaskCircle>
           <span className="taskIcon">{icon}</span>
         </TaskCircle>
-        {type === 'form' ? <TaskNameForm>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
+        
+        {type === 'form' ? <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
         
         {type === 'form' ? <TaskNameArrow>
           <i value="arrow" className="fas fa-greater-than fa-2x"></i>
