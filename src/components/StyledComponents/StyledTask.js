@@ -6,7 +6,7 @@ export const TaskContainer = styled.span`
   flex-direction: ${props => props.theme['flex-direction']};
   align-items: ${props => props.theme['align-items']};;
   margin: ${props => props.theme.margin};
-  padding: ${props => props.theme.padding};
+  padding: 15px;
   width: 100%;
 `
 
@@ -25,36 +25,17 @@ export const SelectedTaskCircle = styled(TaskCircle)`
   background-color: red;
 `
 
-export const TaskNameLarge = styled.span`
-  font-weight: bold;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-top: 20px;
-  margin-left: 0px;
-  text-align: center;
-  width: 200px;
-`
-
-export const TaskNameForm = styled.span`
-  font-weight: bold;
-  font-size: 20px;
-  text-transform: normal;
-  width: 350px;
-  margin: 20px;
-`
-
 export const TaskContainerRight = styled.span`
-  
   margin: 20px;
   float: right;
 `
 
-export const PresetIcon = styled.span`
-  margin-right: 10px;
+
+// Small
+export const TaskIconSmall = styled.div`
+  font-size: .1.33em;
 `
 
-
-// Themes to be used depending on the type of the task and the size of the screen
 export const smallTaskTheme = {
   "height": "60px",
   "width": "60px",
@@ -74,6 +55,16 @@ export const smallTaskFormTheme = {
   "margin": "0",
 }
 
+export const PresetIcon = styled.span`
+  margin-right: 10px;
+`
+
+// Medium
+
+export const TaskIconMedium = styled.div`
+  font-size: 1.75em;
+`
+
 export const mediumTaskFormTheme = {
   "height": "100px",
   "width": "100px",
@@ -84,6 +75,21 @@ export const mediumTaskFormTheme = {
   "align-items": "center",
 }
 
+export const TaskNameLarge = styled.span`
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-left: 0px;
+  text-align: center;
+  width: 200px;
+`
+
+// Large
+export const TaskIconLarge = styled.div`
+  font-size: 2em;
+`
+
 export const largeTaskTheme = {
   "height": "200px",
   "width": "200px",
@@ -92,14 +98,10 @@ export const largeTaskTheme = {
   "display": "flex"
 }
 
-export const TaskIconSmall = styled.div`
-  font-size: .1.33em;
-`
-
-export const TaskIconMedium = styled.div`
-  font-size: 1.75em;
-`
-
-export const TaskIconLarge = styled.div`
-  font-size: 2em;
+export const TaskNameForm = styled.span`
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: normal;
+  width: 350px;
+  margin: 20px;
 `
