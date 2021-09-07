@@ -1,8 +1,8 @@
 import { GroupedTasks } from '../../../StyledComponents/StyledPresetTask'
 import { ListTitle, ListHeader, ListBody, ListDesc } from '../../../StyledComponents/StyledConfirmation'
-import PresetTask from '../../PresetTask'
+import ListElem from '../../ListElem' 
 import { Link } from 'react-router-dom'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 
 const TaskDaysScreen = () => {
@@ -20,15 +20,15 @@ const TaskDaysScreen = () => {
           Determines the period of time a single completion is measured over.
         </ListDesc>
         <GroupedTasks>
-          <PresetTask name="Specific Task" type="smallForm" />
+          <ListElem name="Specific Task" type="smallForm" />
         </GroupedTasks>
 
         <GroupedTasks>
-          <PresetTask name="Weekly Task" />
+          <ListElem name="Weekly Task" />
         </GroupedTasks>
 
         <GroupedTasks>
-          <PresetTask name="Monthly Task" />
+          <ListElem name="Monthly Task" />
         </GroupedTasks>
       </ListBody>
     </div>

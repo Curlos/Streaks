@@ -1,4 +1,4 @@
-import styled, { css, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { TaskContainer, TaskCircle, SelectedTaskCircle, TaskNameLarge, TaskNameForm, TaskContainerRight, PresetIcon, smallTaskTheme, smallTaskFormTheme, mediumTaskFormTheme, largeTaskTheme, TaskIconSmall, TaskIconMedium, TaskIconLarge} from './StyledComponents/StyledTask'
 
 

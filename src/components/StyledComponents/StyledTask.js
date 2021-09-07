@@ -1,4 +1,4 @@
-import styled, { css, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 // Styled components to act as parent to children
 export const TaskContainer = styled.span`

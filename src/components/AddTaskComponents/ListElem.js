@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Task from '../Task'
 
 const PresetTaskBody = styled.div`
@@ -9,7 +9,7 @@ const PresetTaskBody = styled.div`
 
 `
 
-const PresetTask = ({ name, icon, presetIcon, displayType, handleNewDisplay, buttonType }) => {
+const ListElem = ({ name, icon, presetIcon, displayType, handleNewDisplay, buttonType }) => {
 
   const handleClick = () => {
     console.log('clicked preset')
@@ -26,4 +26,4 @@ const PresetTask = ({ name, icon, presetIcon, displayType, handleNewDisplay, but
   )
 }
 
-export default PresetTask;
+export default ListElem 

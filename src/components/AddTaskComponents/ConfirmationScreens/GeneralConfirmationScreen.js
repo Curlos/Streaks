@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PresetTask from '../PresetTask'
+import ListElem from '../ListElem' 
 import { GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 import { ConfirmTaskTitle, ConfirmTaskHeader, ConfirmTaskBody } from '../../StyledComponents/StyledConfirmTask'
 import Task from '../../Task'
@@ -19,18 +19,18 @@ const ConfirmationScreen = ({ title, icon, handleNewDisplay}) => {
         <div>Title:</div>
         <GroupedTasks>
           <Link to="/measurement-duration">
-            <PresetTask name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} displayType="Daily Task" />
+            <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} displayType="Daily Task" />
           </Link>
 
           <Link to="/task-days">
-            <PresetTask name="Task Days" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} displayType="Task Days" />
+            <ListElem name="Task Days" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} displayType="Task Days" />
           </Link>
 
-          <PresetTask name="1 time/day" icon={<i value="customTask" className="far fa-circle fa-2x"></i>} buttonType="plusMinusForm" displayType="Frequency"/>
+          <ListElem name="1 time/day" icon={<i value="customTask" className="far fa-circle fa-2x"></i>} buttonType="plusMinusForm" displayType="Frequency"/>
         </GroupedTasks>
 
         <GroupedTasks>
-          <PresetTask name="Color" icon={<i value="customTask" className="fas fa-palette fa-2x"></i>} />
+          <ListElem name="Color" icon={<i value="customTask" className="fas fa-palette fa-2x"></i>} />
         </GroupedTasks>
       </ConfirmTaskBody>
     </div>

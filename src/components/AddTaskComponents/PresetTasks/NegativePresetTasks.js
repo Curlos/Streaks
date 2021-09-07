@@ -1,4 +1,4 @@
-import PresetTask from '../PresetTask'
+import ListElem from '../ListElem' 
 import { CreateTaskHeader, GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 
 const NegativeIcon = <i value="customTask" className="fas fa-ban fa-xs"></i>
@@ -11,62 +11,62 @@ const NegativePresetTasks = ({ handleNewDisplay }) => {
       </CreateTaskHeader>
 
       <GroupedTasks>
-        <PresetTask name="Don't Smoke" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Swear" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Slouch" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Bite Nails" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Pick Nose" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Drink Alcohol" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Drink Coffee" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Don't Eat Bad Food" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Smoke" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Swear" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem ListElem ListElem ListElem 
+        <ListElem name="Don't Slouch" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem ListElem ListElem 
+        <ListElem name="Don't Bite Nails" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Pick Nose" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Drink Alcohol" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Drink Coffee" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Eat Bad Food" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <PresetTask name="Decrease Screen Time" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Screen Time" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <PresetTask name="Decrease Calorie Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Sugar Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Caffeine Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Calorie Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
+        <ListElem name="Decrease Sugar Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem 
+        <ListElem name="Decrease Caffeine Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <PresetTask name="Decrease Total Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Saturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Monounsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Polyunsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Total Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem 
+        <ListElem name="Decrease Saturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
+        <ListElem name="Decrease Monounsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem 
+        <ListElem name="Decrease Polyunsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <PresetTask name="Decrease Biotin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Calcium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Carbohydrate Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Cholesterol Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Chloride Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Chromium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Copper Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Fiber Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Folate Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Iodine Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Iron Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Magnesium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Manganese Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Chloride Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Niacin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Phosphorus Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Potassium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Riboflavin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Selenium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Sodium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Thiamin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Decrease Zinc Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Biotin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Calcium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Carbohydrate Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Cholesterol Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Chloride Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Chromium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Copper Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Fiber Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Folate Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Iodine Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Iron Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Magnesium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Manganese Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Chloride Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Niacin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Phosphorus Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Potassium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Riboflavin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Selenium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Sodium Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Thiamin Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Zinc Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <PresetTask name="Irregular Heart Rhythm" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="Low Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <PresetTask name="High Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Irregular Heart Rhythm" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
+        <ListElem name="Low Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="High Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
     </div>

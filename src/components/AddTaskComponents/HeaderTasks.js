@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Task from '../Task'
 
 const HeaderContainer = styled.div`
@@ -8,8 +8,6 @@ const HeaderContainer = styled.div`
 `
 
 const HeaderTasks = ({ clickHandler, selectedTaskType }) => {
-
-
 
   return (
     <HeaderContainer>

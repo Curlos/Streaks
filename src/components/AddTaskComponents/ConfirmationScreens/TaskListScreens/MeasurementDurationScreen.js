@@ -1,10 +1,10 @@
 
 import { GroupedTasks } from '../../../StyledComponents/StyledPresetTask'
 import { ListTitle, ListHeader, ListBody, ListDesc } from '../../../StyledComponents/StyledConfirmation'
-import PresetTask from '../../PresetTask'
+import ListElem from '../../ListElem' 
 import { Link } from 'react-router-dom'
 import Task from '../../../Task'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const GroupedTasksLarge = styled(GroupedTasks)`
   margin-bottom: 45px;
@@ -23,15 +23,15 @@ const MeasurementDurationScreen = () => {
       <ListBody>
         <ListDesc>Determines the period of time a single completion is measured over.</ListDesc>
         <GroupedTasksLarge>
-          <PresetTask name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} />
+          <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} />
         </GroupedTasksLarge>
 
         <GroupedTasksLarge>
-          <PresetTask name="Weekly Task" icon={<i value="customTask" className="fas fa-calendar-week fa-2x"></i>} />
+          <ListElem name="Weekly Task" icon={<i value="customTask" className="fas fa-calendar-week fa-2x"></i>} />
         </GroupedTasksLarge>
 
         <GroupedTasksLarge>
-          <PresetTask name="Monthly Task" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} />
+          <ListElem name="Monthly Task" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} />
         </GroupedTasksLarge>
       </ListBody>
     </div>
