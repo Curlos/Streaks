@@ -1,6 +1,6 @@
 
-import { GroupedTasks } from '../../PresetTasks/PresetTaskHelper'
-import { ListTitle, ListHeader, ListBody, ListDesc } from '../confirmationHelpers'
+import { GroupedTasks } from '../../../StyledComponents/StyledPresetTask'
+import { ListTitle, ListHeader, ListBody, ListDesc } from '../../../StyledComponents/StyledConfirmation'
 import PresetTask from '../../PresetTask'
 import { Link } from 'react-router-dom'
 import Task from '../../../Task'

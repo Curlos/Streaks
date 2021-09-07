@@ -1,5 +1,5 @@
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader, GroupedTasks } from './PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 
 const NegativeIcon = <i value="customTask" className="fas fa-ban fa-xs"></i>
 

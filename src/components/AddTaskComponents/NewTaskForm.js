@@ -7,8 +7,9 @@ import HealthPresetTasks from './PresetTasks/HealthPresetTasks'
 import EatPresetTasks from './PresetTasks/EatPresetTasks'
 import TimedPresetTasks from './PresetTasks/TimedPresetTasks'
 import NegativePresetTasks from './PresetTasks/NegativePresetTasks'
-import GeneralConfirmationScreen from './ConfirmationScreen/GeneralConfirmationScreen'
-import MeasurementDurationScreen from './ConfirmationScreen/TaskListScreens/MeasurementDurationScreen'
+import GeneralConfirmationScreen from './ConfirmationScreens/GeneralConfirmationScreen'
+import MeasurementDurationScreen from './ConfirmationScreens/TaskListScreens/MeasurementDurationScreen'
+import TaskDaysScreen from './ConfirmationScreens/TaskListScreens/TaskDaysScreen'
 
 const NewTaskForm = ({ toggleModal }) => {
 
@@ -96,6 +97,10 @@ const NewTaskForm = ({ toggleModal }) => {
 
               <Route path="/measurement-duration" exact>
                 <MeasurementDurationScreen title={selectedTask.title} icon={selectedTask.icon}/>
+              </Route>
+
+              <Route path="/task-days" exact>
+                <TaskDaysScreen title={selectedTask.title} icon={selectedTask.icon}/>
               </Route>
             </Switch>
             

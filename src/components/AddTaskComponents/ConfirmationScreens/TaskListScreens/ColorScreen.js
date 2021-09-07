@@ -1,5 +1,5 @@
 
-import { CreateTaskHeader, GroupedTasks } from '../../PresetTasks/PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks } from '../../../StyledComponents/StyledPresetTask'
 import styled, { css } from 'styled-components'
 
 const ColorScreen = () => {

@@ -1,5 +1,5 @@
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader } from './PresetTaskHelper'
+import { CreateTaskHeader } from '../../StyledComponents/StyledPresetTask'
 import { Link } from 'react-router-dom'
 
 const GeneralPresetTasks = ({ handleNewDisplay }) => {

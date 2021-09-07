@@ -1,5 +1,5 @@
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader, GroupedTasks, TaskInput } from './PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks, TaskInput } from '../../StyledComponents/StyledPresetTask'
 
 const TimerIcon = <i value="customTask" className="fas fa-book fa-xs"></i>
 

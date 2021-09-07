@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader, GroupedTasks } from './PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 
 const HealthIcon = <i value="customTask" className="fas fa-heart fa-xs"></i>
 

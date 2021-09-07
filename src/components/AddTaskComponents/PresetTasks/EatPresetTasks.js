@@ -1,5 +1,5 @@
 import PresetTask from '../PresetTask'
-import { CreateTaskHeader, GroupedTasks } from './PresetTaskHelper'
+import { CreateTaskHeader, GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 
 const EatIcon = <i value="customTask" className="fas fa-heart fa-xs"></i>
 
