@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Task from '../Task'
+import CheckableTask from '../CheckableTask'
 
 const PresetTaskBody = styled.div`
   background-color: #202020;
@@ -9,20 +10,18 @@ const PresetTaskBody = styled.div`
 
 `
 
-const ListElem = ({ name, icon, presetIcon, displayType, handleNewDisplay, buttonType }) => {
-
-  const handleClick = () => {
-    console.log('clicked preset')
-
-    if (handleNewDisplay) {
-      handleNewDisplay(name, icon, displayType)
-    }
-  }
+const ListElem = ({ name, icon, presetIcon, clickHandler, buttonType, checked, checkable }) => {
 
   return (
-    <PresetTaskBody>
-      <Task name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={handleClick}/>
-    </PresetTaskBody>
+    <span>
+      <PresetTaskBody>
+        {checkable ? (
+          <CheckableTask name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={clickHandler} checked={checked} checkable={checkable}/>
+        ) : (
+          <Task name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} />
+        )}
+      </PresetTaskBody>
+    </span>
   )
 }
 

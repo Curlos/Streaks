@@ -1,4 +1,4 @@
-
+import React, { useState } from 'react'
 import { GroupedTasks } from '../../../StyledComponents/StyledPresetTask'
 import { ListTitle, ListHeader, ListBody, ListDesc } from '../../../StyledComponents/StyledConfirmation'
 import ListElem from '../../ListElem' 
@@ -10,7 +10,41 @@ const GroupedTasksLarge = styled(GroupedTasks)`
   margin-bottom: 45px;
 `
 
-const MeasurementDurationScreen = () => {
+const MeasurementDurationScreen = ({ }) => {
+
+  const [checkedDuration, setCheckedDuration] = useState({
+    daily: true,
+    weekly: false,
+    monthly: false
+  })
+
+  const handleCheck = (durationType) => {
+    const newCheckedDuration = {}
+    Object.keys(checkedDuration).forEach((duration) => {
+      if (duration === durationType) {
+        newCheckedDuration[duration] = true
+      } else {
+        newCheckedDuration[duration] = false
+      }
+    })
+
+    setCheckedDuration(newCheckedDuration)
+  }
+
+  const handleCheckDaily = () => {
+    handleCheck('daily')
+  }
+
+  const handleCheckWeekly = () => {
+    handleCheck('weekly')
+  }
+
+  const handleCheckMonthly = () => {
+    handleCheck('monthly')
+  }
+
+  console.log(`IS THIS CHECKED? ${checkedDuration.monthly} `)
+
   return (
     <div>
       <ListHeader>
@@ -23,15 +57,15 @@ const MeasurementDurationScreen = () => {
       <ListBody>
         <ListDesc>Determines the period of time a single completion is measured over.</ListDesc>
         <GroupedTasksLarge>
-          <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} />
+          <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} clickHandler={handleCheckDaily} checkable={true} checked={checkedDuration.daily}/>
         </GroupedTasksLarge>
 
         <GroupedTasksLarge>
-          <ListElem name="Weekly Task" icon={<i value="customTask" className="fas fa-calendar-week fa-2x"></i>} />
+          <ListElem name="Weekly Task" icon={<i value="customTask" className="fas fa-calendar-week fa-2x"></i>} clickHandler={handleCheckWeekly} checkable={true} checked={checkedDuration.weekly}/>
         </GroupedTasksLarge>
 
         <GroupedTasksLarge>
-          <ListElem name="Monthly Task" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} />
+          <ListElem name="Monthly Task" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} clickHandler={handleCheckMonthly} checkable={true} checked={checkedDuration.monthly}/>
         </GroupedTasksLarge>
       </ListBody>
     </div>
