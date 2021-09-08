@@ -9,7 +9,7 @@ const StartWeekOnScreen = () => {
   return (
     <div>
       <ListHeader>
-        <Link to="/">
+        <Link to="/confirm">
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ListTitle>Start Week On</ListTitle>

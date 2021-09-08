@@ -85,11 +85,14 @@ const CheckableTask = ({ name, icon, clickHandler, theme, type, presetIcon, sele
   const TaskIcon = getIconSize(theme)
   const TaskRightIcon = getTaskType(type, checked, checkable)
 
+  console.log('ICON: ')
+  console.log(icon)
   
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <TaskContainer onClick={clickHandler}>
-        {selectedTaskType === name ? 
+        {icon === undefined ? null
+        : selectedTaskType === name ? 
         <SelectedTaskCircle>
           <TaskIcon>{icon}</TaskIcon>
         </SelectedTaskCircle> : 

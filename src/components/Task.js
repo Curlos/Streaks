@@ -1,6 +1,10 @@
+import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { TaskContainer, TaskCircle, SelectedTaskCircle, TaskNameLarge, TaskNameForm, TaskContainerRight, PresetIcon, smallTaskTheme, smallTaskFormTheme, mediumTaskFormTheme, largeTaskTheme, TaskIconSmall, TaskIconMedium, TaskIconLarge} from './StyledComponents/StyledTask'
 
+const HiddenElem = styled.span`
+  visibility: hidden;
+`
 
 const getTheme = (theme) => {
 
@@ -18,9 +22,24 @@ const getTheme = (theme) => {
   }
 }
 
-const getTaskType = (type) => {
-
-  console.log(type)
+const getTaskType = (type, checked, checkable) => {
+  if (checkable) {
+    if (checked) {
+      return (
+        <TaskContainerRight>
+          <i className="fas fa-check fa-2x"></i>
+        </TaskContainerRight>
+      )
+    } else {
+      return (
+        <HiddenElem>
+          <TaskContainerRight>
+            <i className="fas fa-greater-than fa-2x"></i>
+          </TaskContainerRight>
+        </HiddenElem>
+      )
+    }
+  }
 
   switch(type) {
     case 'form':
@@ -40,20 +59,12 @@ const getTaskType = (type) => {
           </TaskCircle>
         </TaskContainerRight>
       )
-    case 'checked':
-      return (
-        <TaskContainerRight>
-          <i className="fas fa-check fa-2x"></i>
-        </TaskContainerRight>
-      )
     default:
       return null
   }
 }
 
 const getIconSize = (theme) => {
-
-  console.log(`Getting icon size: ${theme}`)
 
   switch(theme) {
     case 'small':
@@ -69,12 +80,10 @@ const getIconSize = (theme) => {
   }
 }
 
-const Task = ({ name, icon, iconSize, taskSize, clickHandler, theme, type, presetIcon, selectedTaskType }) => {
-
-  console.log(name)
+const Task = ({ name, icon, clickHandler, theme, type, presetIcon, selectedTaskType, checked, checkable }) => {
 
   const TaskIcon = getIconSize(theme)
-  const TaskRightIcon = getTaskType(type)
+  const TaskRightIcon = getTaskType(type, checked, checkable)
 
   
   return (
@@ -89,7 +98,8 @@ const Task = ({ name, icon, iconSize, taskSize, clickHandler, theme, type, prese
         </TaskCircle>
         }
 
-{type === 'form' || type === 'plusMinusForm' ? <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
+    {type === 'form' || type === 'plusMinusForm' ? 
+    <TaskNameForm><PresetIcon>{presetIcon}</PresetIcon>{name}</TaskNameForm> : <TaskNameLarge>{name}</TaskNameLarge>}
         
 
         {TaskRightIcon !== null ? TaskRightIcon : null}

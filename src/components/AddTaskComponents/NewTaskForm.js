@@ -15,13 +15,39 @@ import ColorScreen from './ConfirmationScreens/TaskListScreens/ColorScreen'
 
 const NewTaskForm = ({ toggleModal }) => {
 
-  const [displayConfirmationScreen, setDisplayConfirmationScreen] = useState(false)
-  const [displayMeasurementDurationScreen, setDisplayMeasurementDurationScreen] = useState(false)
-  const [displayTaskDaysScreen, setDisplayTaskDaysScreen] = useState(false)
-  const [selectedTaskType, setSelectedTaskType] = useState('customTask')
-  const [selectedTask, setSelectedTask] = useState({title: '', icon: ''})
-
   
+  const [selectedTaskType, setSelectedTaskType] = useState('customTask')
+
+  const [currentTask, setCurrentTask] = useState({
+    title: '',
+    icon: '',
+    color: 'automatic',
+    measurementDuration: {
+      type: 'daily',
+      iconName: 'calendar-day',
+    },
+    daily: {
+      taskDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      frequency: 1,
+
+    },
+    weekly: {
+      startWeekOn: 'Sunday',
+      frequency: 1,
+    },
+    monthly: {
+      frequency: 1,
+    },
+    currentStreak: 0,
+    completed: false,
+  })
+
+  const handleTaskChange = (newTask) => {
+    console.log(currentTask)
+    setCurrentTask(newTask)
+
+  }
+
   const handleTaskHeaderClick = (e) => {
     const newSelectedTaskType = e.target.attributes[0].nodeValue
 
@@ -33,24 +59,6 @@ const NewTaskForm = ({ toggleModal }) => {
       const newSelectedTaskType = e.target.firstElementChild.firstElementChild.attributes[0].nodeValue
       setSelectedTaskType(newSelectedTaskType)
       console.log(newSelectedTaskType)
-    }
-  }
-
-  const handleNewDisplay = (title, icon, displayType) => {
-
-    switch(displayType) {
-      case 'Daily Task':
-        setDisplayConfirmationScreen(false)
-        setDisplayMeasurementDurationScreen(true)
-        break
-      case 'Task Days':
-        setDisplayConfirmationScreen(false)
-        setDisplayTaskDaysScreen(true)
-        break
-      default:
-        setDisplayConfirmationScreen(true)
-        setSelectedTask({title, icon })
-        break
     }
   }
 
@@ -77,60 +85,56 @@ const NewTaskForm = ({ toggleModal }) => {
               <Route path="/" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <GeneralPresetTasks handleNewDisplay={handleNewDisplay}/>
+                  <GeneralPresetTasks currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
               <Route path="/health-task" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <HealthPresetTasks handleNewDisplay={handleNewDisplay}/>
+                  <HealthPresetTasks currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
               <Route path="/eat-task" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <EatPresetTasks handleNewDisplay={handleNewDisplay}/>
+                  <EatPresetTasks currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
               <Route path="/timed-task" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <TimedPresetTasks handleNewDisplay={handleNewDisplay}/>
+                  <TimedPresetTasks currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
               <Route path="/negative-task" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <NegativePresetTasks handleNewDisplay={handleNewDisplay}/>
+                  <NegativePresetTasks currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
               <Route path="/confirm" exact>
-                <GeneralConfirmationScreen title={selectedTask.title} icon={selectedTask.icon} selectedTaskType={selectedTaskType}/>
+                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
               </Route>
 
               <Route path="/confirm/measurement-duration" exact>
-                <MeasurementDurationScreen title={selectedTask.title} icon={selectedTask.icon}/>
+                <MeasurementDurationScreen title={currentTask.title} icon={currentTask.icon} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
               </Route>
 
               <Route path="/confirm/task-days" exact>
-                <TaskDaysScreen title={selectedTask.title} icon={selectedTask.icon}/>
-              </Route>
-
-              <Route path="/confirm/task-days" exact>
-                <TaskDaysScreen title={selectedTask.title} icon={selectedTask.icon}/>
+                <TaskDaysScreen title={currentTask.title} icon={currentTask.icon} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
               </Route>
 
               <Route path="/confirm/start-week-on" exact>
-                <StartWeekOnScreen title={selectedTask.title} icon={selectedTask.icon}/>
+                <StartWeekOnScreen title={currentTask.title} icon={currentTask.icon} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
               </Route>
 
               <Route path="/confirm/color" exact>
-                <ColorScreen title={selectedTask.title} icon={selectedTask.icon}/>
+                <ColorScreen title={currentTask.title} icon={currentTask.icon}/>
               </Route>
             </Switch>
             

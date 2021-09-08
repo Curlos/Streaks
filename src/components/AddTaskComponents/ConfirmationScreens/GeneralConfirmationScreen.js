@@ -1,51 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ListElem from '../ListElem' 
 import { GroupedTasks } from '../../StyledComponents/StyledPresetTask'
 import { ConfirmTaskTitle, ConfirmTaskHeader, ConfirmTaskBody } from '../../StyledComponents/StyledConfirmTask'
 import Task from '../../Task'
 import { Link } from 'react-router-dom'
 
-const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
+const ConfirmationScreen = ({ title, icon, selectedTaskType, currentTask, handleTaskChange }) => {
 
-  const [currentTask, setCurrentTask] = useState({
-    title: title,
-    icon: icon,
-    color: 'automatic',
-    measurementDuration: 'daily',
-    daily: {
-      taskDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      frequency: 1,
+  console.log(title)
+  console.log(icon)
 
-    },
-    weekly: {
-      startWeekOn: 'Sunday',
-      frequency: 1,
-    },
-    monthly: {
-      frequency: 1,
-    },
-    currentStreak: 0,
-    completed: false,
-  })
+  useEffect(() => {
+    handleTaskChange({...currentTask, title: title, icon: icon})
+  }, [])
 
   const changeMeasurementDuration = (newMeasurementDuration) => {
-    setCurrentTask({...currentTask, measurementDuration: newMeasurementDuration})
+    handleTaskChange({...currentTask, measurementDuration: newMeasurementDuration})
   }
 
   const changeFrequency = (numChange) => {
 
-    switch (currentTask.measurementDuration) {
+    switch (currentTask.measurementDuration.type) {
       case 'daily':
         const newDaily = {...currentTask.daily, frequency: currentTask.daily.frequency + numChange}
-        setCurrentTask({...currentTask, daily: newDaily})
+        handleTaskChange({...currentTask, daily: newDaily})
         break
       case 'weekly':
         const newWeekly = {...currentTask.daily, frequency: currentTask.daily.frequency + numChange}
-        setCurrentTask({...currentTask, daily: newWeekly})
+        handleTaskChange({...currentTask, daily: newWeekly})
         break
       case 'monthly':
         const newMonthly = {...currentTask.daily, frequency: currentTask.daily.frequency + numChange}
-        setCurrentTask({...currentTask, daily: newMonthly})
+        handleTaskChange({...currentTask, daily: newMonthly})
         break
       default:
         break
@@ -54,16 +40,16 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
 
   const changeTaskDays = (newTaskDays) => {
     const newDaily = {...currentTask.daily, taskDays: newTaskDays}
-    setCurrentTask({...currentTask, daily: newDaily})
+    handleTaskChange({...currentTask, daily: newDaily})
   }
 
   const changeStartWeekOn = (newStartDay) => {
     const newWeekly = {...currentTask.weekly, startWeekOn: newStartDay}
-    setCurrentTask({...currentTask, weekly: newWeekly})
+    handleTaskChange({...currentTask, weekly: newWeekly})
   }
 
   const changeColor = (newColor) => {
-    setCurrentTask({...currentTask, color: newColor})
+    handleTaskChange({...currentTask, color: newColor})
   }
 
   const getTaskDuration = () => {
@@ -77,7 +63,7 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
   }
 
   const getTaskFrequency = () => {
-    return currentTask[currentTask.measurementDuration].frequency
+    return currentTask[currentTask.measurementDuration.type].frequency
   }
 
   const getLinkURL = (selectedTaskType) => {
@@ -92,7 +78,10 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
     return LinkTypes[selectedTaskType]
   }
 
-  console.log(getLinkURL())
+  const measurementTitle = `${currentTask.measurementDuration.type[0].toUpperCase() + currentTask.measurementDuration.type.slice(1,).toLowerCase()} Task`
+  const measurementIconName = currentTask.measurementDuration.iconName
+
+  console.log(currentTask.measurementDuration)
 
 
   return (
@@ -109,10 +98,10 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
         <div>Title:</div>
         <GroupedTasks>
           <Link to="/confirm/measurement-duration">
-            <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} displayType="Daily Task" changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask}/>
+            <ListElem name={measurementTitle} icon={<i value="customTask" className={`fas fa-${measurementIconName} fa-2x`}></i>} displayType="Daily Task" changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask}/>
           </Link>
 
-          {currentTask.measurementDuration === 'daily' ? 
+          {currentTask.measurementDuration.type === 'daily' ? 
           (<Link to="/confirm/task-days">
             <ListElem name="Task Days" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} changeTaskDays={changeTaskDays} currentTask={currentTask}/>
           </Link>) : null
@@ -120,7 +109,7 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
 
           <ListElem name={`${getTaskFrequency()}/${getTaskDuration()}`} icon={<i value="customTask" className="far fa-circle fa-2x"></i>} buttonType="plusMinusForm" changeFrequency={changeFrequency} currentTask={currentTask}/>
 
-          {currentTask.measurementDuration === 'weekly' ? 
+          {currentTask.measurementDuration.type === 'weekly' ? 
           (<Link to="/confirm/start-week-on">
             <ListElem name="Start Week On" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} />
           </Link>) : null
@@ -128,7 +117,9 @@ const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
         </GroupedTasks>
 
         <GroupedTasks>
-          <ListElem name="Color" icon={<i value="customTask" className="fas fa-palette fa-2x"></i>} changeColor={changeColor} currentTask={currentTask} />
+          <Link to="/confirm/color">
+            <ListElem name="Color" icon={<i value="customTask" className="fas fa-palette fa-2x"></i>} changeColor={changeColor} currentTask={currentTask} />
+          </Link>
         </GroupedTasks>
       </ConfirmTaskBody>
     </div>

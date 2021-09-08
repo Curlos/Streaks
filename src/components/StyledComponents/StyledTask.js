@@ -44,7 +44,6 @@ export const TaskNameForm = styled.span`
 `
 
 export const TaskContainerRight = styled.span`
-  
   margin: 20px;
   float: right;
 `
