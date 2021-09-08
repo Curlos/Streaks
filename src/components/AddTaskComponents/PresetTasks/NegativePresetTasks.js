@@ -12,8 +12,8 @@ const NegativePresetTasks = ({ handleNewDisplay }) => {
 
       <GroupedTasks>
         <ListElem name="Don't Smoke" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
-        <ListElem name="Don't Swear" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem ListElem ListElem ListElem 
-        <ListElem name="Don't Slouch" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem ListElem ListElem 
+        <ListElem name="Don't Swear" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Don't Slouch" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Don't Bite Nails" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Don't Pick Nose" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Don't Drink Alcohol" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
@@ -26,15 +26,14 @@ const NegativePresetTasks = ({ handleNewDisplay }) => {
       </GroupedTasks>
 
       <GroupedTasks>
-        <ListElem name="Decrease Calorie Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
-        <ListElem name="Decrease Sugar Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem 
+        <ListElem name="Decrease Calorie Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Decrease Sugar Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Decrease Caffeine Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
       <GroupedTasks>
-        <ListElem name="Decrease Total Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem 
-        <ListElem name="Decrease Saturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
-        <ListElem name="Decrease Monounsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem 
+        <ListElem name="Decrease Total Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>        <ListElem name="Decrease Saturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/> 
+        <ListElem name="Decrease Monounsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Decrease Polyunsaturated Fat Intake" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
@@ -64,7 +63,7 @@ const NegativePresetTasks = ({ handleNewDisplay }) => {
       </GroupedTasks>
 
       <GroupedTasks>
-        <ListElem name="Irregular Heart Rhythm" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
+        <ListElem name="Irregular Heart Rhythm" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Low Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="High Heart Rate" icon={<i value="customTask" className="fas fa-carrot fa-2x"></i>} presetIcon={NegativeIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>

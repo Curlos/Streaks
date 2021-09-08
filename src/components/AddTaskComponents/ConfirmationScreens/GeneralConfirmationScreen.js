@@ -5,7 +5,7 @@ import { ConfirmTaskTitle, ConfirmTaskHeader, ConfirmTaskBody } from '../../Styl
 import Task from '../../Task'
 import { Link } from 'react-router-dom'
 
-const ConfirmationScreen = ({ title, icon, handleNewDisplay}) => {
+const ConfirmationScreen = ({ title, icon, selectedTaskType }) => {
 
   const [currentTask, setCurrentTask] = useState({
     title: title,
@@ -80,11 +80,27 @@ const ConfirmationScreen = ({ title, icon, handleNewDisplay}) => {
     return currentTask[currentTask.measurementDuration].frequency
   }
 
+  const getLinkURL = (selectedTaskType) => {
+    const LinkTypes = {
+      'customTask': '/',
+      'healthTask': '/health-task',
+      'eatTask': '/eat-task',
+      'timedTask': '/timed-task',
+      'negativeTask': '/negative-task'
+    }
+
+    return LinkTypes[selectedTaskType]
+  }
+
+  console.log(getLinkURL())
+
 
   return (
     <div>
       <ConfirmTaskHeader>
-        <span className="close">&times;</span>
+        <Link to={getLinkURL(selectedTaskType)}>
+          <i value="goBack" className="fas fa-less-than fa-2x"></i>
+        </Link>
         <ConfirmTaskTitle>Confirm Task</ConfirmTaskTitle>
         <Task name={title} icon={icon} theme="mediumForm"/>
       </ConfirmTaskHeader>
@@ -92,12 +108,12 @@ const ConfirmationScreen = ({ title, icon, handleNewDisplay}) => {
       <ConfirmTaskBody>
         <div>Title:</div>
         <GroupedTasks>
-          <Link to="/measurement-duration">
+          <Link to="/confirm/measurement-duration">
             <ListElem name="Daily Task" icon={<i value="customTask" className="fas fa-calendar-day fa-2x"></i>} displayType="Daily Task" changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask}/>
           </Link>
 
           {currentTask.measurementDuration === 'daily' ? 
-          (<Link to="/task-days">
+          (<Link to="/confirm/task-days">
             <ListElem name="Task Days" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} changeTaskDays={changeTaskDays} currentTask={currentTask}/>
           </Link>) : null
           }
@@ -105,8 +121,8 @@ const ConfirmationScreen = ({ title, icon, handleNewDisplay}) => {
           <ListElem name={`${getTaskFrequency()}/${getTaskDuration()}`} icon={<i value="customTask" className="far fa-circle fa-2x"></i>} buttonType="plusMinusForm" changeFrequency={changeFrequency} currentTask={currentTask}/>
 
           {currentTask.measurementDuration === 'weekly' ? 
-          (<Link to="/start-week-on">
-            <ListElem name="Start Week On" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} changeTaskDays={changeTaskDays} currentTask={currentTask} />
+          (<Link to="/confirm/start-week-on">
+            <ListElem name="Start Week On" icon={<i value="customTask" className="fas fa-calendar fa-2x"></i>} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} />
           </Link>) : null
           }
         </GroupedTasks>

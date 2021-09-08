@@ -10,6 +10,8 @@ import NegativePresetTasks from './PresetTasks/NegativePresetTasks'
 import GeneralConfirmationScreen from './ConfirmationScreens/GeneralConfirmationScreen'
 import MeasurementDurationScreen from './ConfirmationScreens/TaskListScreens/MeasurementDurationScreen'
 import TaskDaysScreen from './ConfirmationScreens/TaskListScreens/TaskDaysScreen'
+import StartWeekOnScreen from './ConfirmationScreens/TaskListScreens/StartWeekOnScreen'
+import ColorScreen from './ConfirmationScreens/TaskListScreens/ColorScreen'
 
 const NewTaskForm = ({ toggleModal }) => {
 
@@ -52,24 +54,16 @@ const NewTaskForm = ({ toggleModal }) => {
     }
   }
 
-  const getPresetTasks = (selectedTaskType) => {
-    const taskTypes = {
-      'customTask': <GeneralPresetTasks handleNewDisplay={handleNewDisplay}/>,
-      'healthTask': <HealthPresetTasks handleNewDisplay={handleNewDisplay}/>,
-      'eatTask': <EatPresetTasks handleNewDisplay={handleNewDisplay}/>,
-      'timedTask': <TimedPresetTasks handleNewDisplay={handleNewDisplay}/>,
-      'negativeTask': <NegativePresetTasks handleNewDisplay={handleNewDisplay}/>
-    }
-
-    return taskTypes[selectedTaskType]
-  }
-
-  const ScreenToDisplay = () => {
-    if (displayConfirmationScreen) {
-      return (
-        <GeneralConfirmationScreen title={selectedTask.title} icon={selectedTask.icon}/>
-      )
-    } 
+  const TaskSelectorHeader = () => {
+    return (
+      <span>
+        <div className="addTaskHeader">
+        <span className="close" onClick={toggleModal}>&times;</span>
+          <p className="addTaskTitle">Add Task</p>
+        </div>
+        <HeaderTasks clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
+      </span>
+    )
   }
   
   return (
@@ -82,25 +76,61 @@ const NewTaskForm = ({ toggleModal }) => {
             <Switch>
               <Route path="/" exact>
                 <span>
-                  <div className="addTaskHeader">
-                  <span className="close" onClick={toggleModal}>&times;</span>
-                    <p className="addTaskTitle">Add Task</p>
-                  </div>
-                  <HeaderTasks clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
-                  {getPresetTasks(selectedTaskType)}
+                  <TaskSelectorHeader />
+                  <GeneralPresetTasks handleNewDisplay={handleNewDisplay}/>
                 </span>
               </Route>
 
-              <Route path="/confirmation-screen" exact>
-                <GeneralConfirmationScreen title={selectedTask.title} icon={selectedTask.icon}/>
+              <Route path="/health-task" exact>
+                <span>
+                  <TaskSelectorHeader />
+                  <HealthPresetTasks handleNewDisplay={handleNewDisplay}/>
+                </span>
               </Route>
 
-              <Route path="/measurement-duration" exact>
+              <Route path="/eat-task" exact>
+                <span>
+                  <TaskSelectorHeader />
+                  <EatPresetTasks handleNewDisplay={handleNewDisplay}/>
+                </span>
+              </Route>
+
+              <Route path="/timed-task" exact>
+                <span>
+                  <TaskSelectorHeader />
+                  <TimedPresetTasks handleNewDisplay={handleNewDisplay}/>
+                </span>
+              </Route>
+
+              <Route path="/negative-task" exact>
+                <span>
+                  <TaskSelectorHeader />
+                  <NegativePresetTasks handleNewDisplay={handleNewDisplay}/>
+                </span>
+              </Route>
+
+              <Route path="/confirm" exact>
+                <GeneralConfirmationScreen title={selectedTask.title} icon={selectedTask.icon} selectedTaskType={selectedTaskType}/>
+              </Route>
+
+              <Route path="/confirm/measurement-duration" exact>
                 <MeasurementDurationScreen title={selectedTask.title} icon={selectedTask.icon}/>
               </Route>
 
-              <Route path="/task-days" exact>
+              <Route path="/confirm/task-days" exact>
                 <TaskDaysScreen title={selectedTask.title} icon={selectedTask.icon}/>
+              </Route>
+
+              <Route path="/confirm/task-days" exact>
+                <TaskDaysScreen title={selectedTask.title} icon={selectedTask.icon}/>
+              </Route>
+
+              <Route path="/confirm/start-week-on" exact>
+                <StartWeekOnScreen title={selectedTask.title} icon={selectedTask.icon}/>
+              </Route>
+
+              <Route path="/confirm/color" exact>
+                <ColorScreen title={selectedTask.title} icon={selectedTask.icon}/>
               </Route>
             </Switch>
             

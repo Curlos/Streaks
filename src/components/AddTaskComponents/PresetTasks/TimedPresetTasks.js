@@ -11,8 +11,7 @@ const TimedPresetTasks = ({ handleNewDisplay }) => {
       <TaskInput />
 
       <GroupedTasks>
-        <ListElem name="Read for 10 minutes" icon={<i value="customTask" className="fas fa-book fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem ListElem 
-        <ListElem name="Learn a Language" icon={<i value="customTask" className="fas fa-language fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>ListElem ListElem 
+        <ListElem name="Read for 10 minutes" icon={<i value="customTask" className="fas fa-book fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>        <ListElem name="Learn a Language" icon={<i value="customTask" className="fas fa-language fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Practice Instrument" icon={<i value="customTask" className="fas fa-guitar fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
         <ListElem name="Tidy Up" icon={<i value="customTask" className="fas fa-broom fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
@@ -26,8 +25,7 @@ const TimedPresetTasks = ({ handleNewDisplay }) => {
       </GroupedTasks>
 
       <GroupedTasks>
-        <ListElem name="Mindful Minutes" icon={<i value="customTask" className="fas fa-wind fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>ListElem 
-        <ListElem name="Brush Your Teeth" icon={<i value="customTask" className="fas fa-tooth fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
+        <ListElem name="Mindful Minutes" icon={<i value="customTask" className="fas fa-wind fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>        <ListElem name="Brush Your Teeth" icon={<i value="customTask" className="fas fa-tooth fa-2x"></i>} presetIcon={TimerIcon} handleNewDisplay={handleNewDisplay}/>
       </GroupedTasks>
 
     </div>
