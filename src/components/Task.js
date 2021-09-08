@@ -26,18 +26,24 @@ const getTaskType = (type) => {
     case 'form':
       return (
         <TaskContainerRight>
-          <i value="arrow" className="fas fa-greater-than fa-2x"></i>
+          <i className="fas fa-greater-than fa-2x"></i>
         </TaskContainerRight>
       )
     case 'plusMinusForm':
       return (
         <TaskContainerRight>
           <TaskCircle>
-            <i value="arrow" className="fas fa-minus fa-2x"></i>
+            <i className="fas fa-minus fa-2x"></i>
           </TaskCircle>
           <TaskCircle>
-            <i value="arrow" className="fas fa-plus fa-2x"></i>
+            <i className="fas fa-plus fa-2x"></i>
           </TaskCircle>
+        </TaskContainerRight>
+      )
+    case 'checked':
+      return (
+        <TaskContainerRight>
+          <i className="fas fa-check fa-2x"></i>
         </TaskContainerRight>
       )
     default:
