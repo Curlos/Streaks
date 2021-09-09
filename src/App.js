@@ -9,6 +9,7 @@ const App = () => {
     <div className="App">
       <div>Streaks App</div>
       <Tasks />
+      <i class="fas fa-cog"></i>
     </div>
   );
 }

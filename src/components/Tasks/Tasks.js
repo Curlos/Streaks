@@ -10,6 +10,7 @@ const TasksContainer = styled.div`
 `
 
 const Tasks = () => {
+
   return (
     <TasksContainer>
       <Task iconClassName="fas fa-star-and-crescent"/>

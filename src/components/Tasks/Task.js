@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const taskContainerWidth = 250
@@ -5,13 +6,16 @@ const taskContainerHeight = 250
 
 const TaskIconContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 10px solid gray;
+  border: 10px solid ${props => props.colors.color};
   border-radius: 50%;
+  background-color: ${props => props.colors.backgroundColor};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
+
 `
 
 const TaskIcon = styled.div`
@@ -19,6 +23,7 @@ const TaskIcon = styled.div`
 `
 
 const TaskName = styled.div`
+  color: ${props => props.colors.color};
   font-size: 1.5em;
   text-align: center;
   text-transform: uppercase;
@@ -29,22 +34,47 @@ const TaskName = styled.div`
   user-select: none;
 `
 
+const TaskStreakNum = styled.div`
+  font-size: 1.7em;
+`
+
 const Task = ({ iconClassName }) => {
+
+  const [colors, setColors] = useState({
+    color: "gray",
+    backgroundColor: "none",
+  })
 
   const toggleComplete = () => {
     console.log('Prayed to god today!')
+    
+    if (colors.color === 'gray') {
+      setColors({
+        ...colors,
+        color: '#00D95A',
+        backgroundColor: '#00D95A'
+      })
+    } else {
+      setColors({
+        ...colors,
+        color: "gray",
+        backgroundColor: "none"
+      })
+    }
   }
 
   console.log(iconClassName)
   return (
     <div onClick={toggleComplete}>
-      <TaskIconContainer>
-        <TaskIcon>
+      <TaskIconContainer colors={colors}>
+        <TaskIcon colors={colors}>
           <i className={iconClassName}></i>
         </TaskIcon>
+
+        <TaskStreakNum>4</TaskStreakNum>
       </TaskIconContainer>
       
-      <TaskName>pray to god</TaskName>
+      <TaskName colors={colors}>pray to god</TaskName>
     </div>
   )
 }
