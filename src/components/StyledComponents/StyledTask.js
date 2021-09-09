@@ -44,13 +44,25 @@ export const TaskNameForm = styled.span`
 `
 
 export const TaskContainerRight = styled.span`
-  margin: 20px;
-  float: right;
+  margin: ${props => props.theme.taskContainerRightMargin};
+  float: ${props => props.theme.taskContainerRightFloat};
 `
 
 export const PresetIcon = styled.span`
   margin-right: 10px;
 `
+
+export const NoIconCheckableTaskTheme = {
+  "height": "100px",
+  "width": "100px",
+  "border": "7px solid gray",
+  "background-color": "none",
+  "display": "flex",
+  "flex-direction": "column",
+  "align-items": "center",
+  "taskContainerRightMargin": "20px",
+  "taskContainerRightFloat": "right"
+}
 
 
 // Themes to be used depending on the type of the task and the size of the screen
@@ -71,6 +83,8 @@ export const smallTaskFormTheme = {
   "display": "flex",
   "padding": "10px",
   "margin": "0",
+  "taskContainerRightMargin": "20px",
+  "taskContainerRightFloat": "right"
 }
 
 export const mediumTaskFormTheme = {
@@ -81,6 +95,8 @@ export const mediumTaskFormTheme = {
   "display": "flex",
   "flex-direction": "column",
   "align-items": "center",
+  "taskContainerRightMargin": "20px",
+  "taskContainerRightFloat": "right"
 }
 
 export const largeTaskTheme = {
@@ -88,7 +104,7 @@ export const largeTaskTheme = {
   "width": "200px",
   "border": "15px solid gray",
   "background-color": "none",
-  "display": "flex"
+  "display": "flex",
 }
 
 export const TaskIconSmall = styled.div`

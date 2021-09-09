@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { TaskContainer, TaskCircle, SelectedTaskCircle, TaskNameLarge, TaskNameForm, TaskContainerRight, PresetIcon, smallTaskTheme, smallTaskFormTheme, mediumTaskFormTheme, largeTaskTheme, TaskIconSmall, TaskIconMedium, TaskIconLarge} from './StyledComponents/StyledTask'
+import { TaskContainer, TaskCircle, SelectedTaskCircle, TaskNameLarge, TaskNameForm, TaskContainerRight, PresetIcon, smallTaskTheme, smallTaskFormTheme, mediumTaskFormTheme, largeTaskTheme, NoIconCheckableTaskTheme, TaskIconSmall, TaskIconMedium, TaskIconLarge} from './StyledComponents/StyledTask'
 
 const HiddenElem = styled.span`
   visibility: hidden;
@@ -17,6 +17,8 @@ const getTheme = (theme) => {
       return mediumTaskFormTheme
     case 'large':
       return largeTaskTheme
+    case 'NoIconCheckableTaskTheme':
+      return NoIconCheckableTaskTheme
     default:
       return largeTaskTheme
   }
@@ -85,7 +87,7 @@ const Task = ({ name, icon, clickHandler, theme, type, presetIcon, selectedTaskT
   const TaskIcon = getIconSize(theme)
   const TaskRightIcon = getTaskType(type, checked, checkable)
 
-  
+  console.log(theme)
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <TaskContainer onClick={clickHandler}>

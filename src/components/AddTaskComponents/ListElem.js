@@ -10,7 +10,7 @@ const PresetTaskBody = styled.div`
 
 `
 
-const ListElem = ({ name, icon, presetIcon, clickHandler, buttonType, checked, checkable, currentTask, handleTaskChange }) => {
+const ListElem = ({ name, icon, presetIcon, clickHandler, buttonType, checked, checkable, currentTask, handleTaskChange, }) => {
 
   const handleClick = () => {
 
@@ -24,7 +24,7 @@ const ListElem = ({ name, icon, presetIcon, clickHandler, buttonType, checked, c
     <span>
       <PresetTaskBody>
         {checkable ? (
-          <CheckableTask name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={clickHandler} checked={checked} checkable={checkable}/>
+          <CheckableTask name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={clickHandler} checked={checked} checkable={checkable} />
         ) : (
           <Task name={name} icon={icon} presetIcon={presetIcon} taskSize="addSmallTask" theme="smallForm" type={buttonType || "form"} clickHandler={handleClick}/>
         )}

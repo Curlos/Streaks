@@ -7,9 +7,6 @@ import { Link } from 'react-router-dom'
 
 const ConfirmationScreen = ({ title, icon, selectedTaskType, currentTask, handleTaskChange }) => {
 
-  console.log(title)
-  console.log(icon)
-
   useEffect(() => {
     handleTaskChange({...currentTask, title: title, icon: icon})
   }, [])

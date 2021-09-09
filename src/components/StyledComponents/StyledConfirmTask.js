@@ -6,7 +6,7 @@ export const ConfirmTaskTitle = styled.div`
 `
 
 export const ConfirmTaskHeader = styled.div`
-  background-color: #202020;
+  background-color: black;
   padding: 15px;
 `
 

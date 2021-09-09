@@ -15,20 +15,49 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange }) => {
     everyTwoDays: currentTask.daily.type === 'everyTwoDays',
   })
 
-  const handleCheck = (taskDayType) => {
+  const handleCheck = (periodType) => {
     const newCheckedTaskDays = {}
-    Object.keys(checkedTaskDays).forEach((taskDay) => {
-      if (taskDay === taskDayType) {
-        newCheckedTaskDays[taskDay] = true
+    Object.keys(checkedTaskDays).forEach((period) => {
+      if (period === periodType) {
+        newCheckedTaskDays[period] = true
         const newDaily = {...currentTask.daily, taskDays: []}
         handleTaskChange({...currentTask, daily: newDaily})
       } else {
-        newCheckedTaskDays[taskDay] = false
+        newCheckedTaskDays[period] = false
       }
     })
 
     setCheckedTaskDays(newCheckedTaskDays)
   }
+
+  const toggleDropdown = (period) => {
+    if (period === 'specificDaysOfWeek') {
+      
+    }
+  }
+
+  const handleSpecificDaysOfWeek = () => {
+    handleCheck('specificDaysOfWeek')
+    toggleDropdown('specificDaysOfWeek')
+  }
+
+  const handleNumOfDaysPerWeek = () => {
+    handleCheck('numOfDaysPerWeek')
+  }
+
+  const handleNumOfDaysPerFortnight = () => {
+    handleCheck('numOfDaysPerFortnight')
+  }
+
+  const handleNumOfDaysPerMonth = () => {
+    handleCheck('numOfDaysPerMonth')
+  }
+
+  const handleEveryTwoDays = () => {
+    handleCheck('everyTwoDays')
+  }
+
+  console.log(checkedTaskDays)
 
   return (
     <div>
@@ -44,23 +73,23 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange }) => {
           Determines the period of time a single completion is measured over.
         </ListDesc>
         <GroupedTasks>
-          <ListElem name="Specific days of the week" type="smallForm" checkable={true} checked={true}/>
+          <ListElem name="Specific days of the week" type="smallForm" checkable={true} checked={checkedTaskDays['specificDaysOfWeek'] === true} clickHandler={handleSpecificDaysOfWeek}/>
         </GroupedTasks>
 
         <GroupedTasks>
-          <ListElem name="Number of days per week" checkable={true} checked={false}/>
+          <ListElem name="Number of days per week" checkable={true} checked={checkedTaskDays['numOfDaysPerWeek'] === true} clickHandler={handleNumOfDaysPerWeek}/>
         </GroupedTasks>
 
         <GroupedTasks>
-          <ListElem name="Number of days per fortnight" checkable={true} checked={false}/>
+          <ListElem name="Number of days per fortnight" checkable={true} checked={checkedTaskDays['numOfDaysPerFortnight'] === true} clickHandler={handleNumOfDaysPerFortnight}/>
         </GroupedTasks>
 
         <GroupedTasks>
-          <ListElem name="Number of days per month" checkable={true} checked={false}/>
+          <ListElem name="Number of days per month" checkable={true} checked={checkedTaskDays['numOfDaysPerMonth'] === true} clickHandler={handleNumOfDaysPerMonth}/>
         </GroupedTasks>
 
         <GroupedTasks>
-          <ListElem name="Every 2 Days" checkable={true} checked={false}/>
+          <ListElem name="Every 2 Days" checkable={true} checked={checkedTaskDays['everyTwoDays'] === true} clickHandler={handleEveryTwoDays}/>
         </GroupedTasks>
       </ListBody>
     </div>
