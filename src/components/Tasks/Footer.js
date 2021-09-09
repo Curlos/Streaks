@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const presetColors = ['#CC092F', '#BF2F38','#008853', '#1D8CAB', '#1061AC', '#046AB4', '#006BB6', '#FDB827', '#F59814', '#F48328', '#542583', '#23375B', '#00D95A']
 
 const FooterContainer = styled.div`
-  background-color: #00D95A;
+  background-color: ${props => {
+    console.log(props)
+    return (
+      props.footerColor
+    )
+  }};
   border-radius: 10px;
 `
 
@@ -39,37 +44,54 @@ const FooterColorCircle = styled.div`
   margin: 5px;
 `
 
+const DisplayElem = styled.span`
+  display: ${props => props.display};
+`
 
-const Footer = ({ chooseColor }) => {
 
-  const [showSettings, setShowSettings] = useState(false)
+const Footer = ({ handlePickColor, chosenColor, toggleShowSettings }) => {
+
+  const [display, setDisplay] = useState('none')
+  const [footerColor, setFooterColor] = useState(chosenColor)
+
+  useEffect(() => {
+    setFooterColor(chosenColor)
+  }, [chosenColor])
 
   const showFooter = () => {
     console.log('Showing footer')
-    setShowSettings(true)
+    toggleShowSettings()
+    setDisplay('inline')
   }
 
   const closeFooter = () => {
     console.log('Closing footer')
-    setShowSettings(false)
+    toggleShowSettings()
+    setDisplay('none')
   }
 
+  console.log(footerColor)
+
   return (
-    <FooterContainer>
+    <FooterContainer footerColor={footerColor} display={display}>
       <FooterIcons>
         <FooterContainerLeft>
-          <FooterIcon onClick={closeFooter}>
-            <i class="fas fa-times"></i>
-          </FooterIcon>
+          <DisplayElem display={display}>
+            <FooterIcon onClick={closeFooter}>
+              <i class="fas fa-times"></i>
+            </FooterIcon>
+          </DisplayElem>
 
           <FooterIcon onClick={showFooter}>
             <i class="fas fa-cog"></i>
           </FooterIcon>
         </FooterContainerLeft>
 
-        <FooterContainerRight>
-          {presetColors.map((color) => <FooterColorCircle color={color} onClick={chooseColor}/>)}
-        </FooterContainerRight>
+        <DisplayElem display={display}>
+          <FooterContainerRight>
+            {presetColors.map((color) => <FooterColorCircle key={color} color={color} onClick={handlePickColor}/>)}
+          </FooterContainerRight>
+        </DisplayElem>
       </FooterIcons>
     </FooterContainer>
   )
