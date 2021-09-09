@@ -9,17 +9,13 @@ const TasksContainer = styled.div`
   margin: 40px;
 `
 
-const Tasks = () => {
+const Tasks = ({ automaticColor }) => {
 
   return (
     <TasksContainer>
-      <Task iconClassName="fas fa-star-and-crescent"/>
-      <Task iconClassName="fas fa-church"/>
-      <Task iconClassName="fas fa-star-and-crescent"/>
-      <Task iconClassName="fas fa-star-and-crescent"/>
-      <Task iconClassName="fas fa-church"/>
-      <Task iconClassName="fas fa-star-and-crescent"/>
-      <Task iconClassName="fas fa-church"/>
+      <Task iconClassName="fas fa-star-and-crescent" automaticColor={automaticColor}/>
+      <Task iconClassName="fas fa-church" automaticColor={automaticColor}/>
+
     </TasksContainer>
   )
 }

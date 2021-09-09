@@ -23,7 +23,7 @@ const TaskIcon = styled.div`
 `
 
 const TaskName = styled.div`
-  color: ${props => props.colors.color};
+  color: ${props => props.colors.automaticColor};
   font-size: 1.5em;
   text-align: center;
   text-transform: uppercase;
@@ -38,11 +38,12 @@ const TaskStreakNum = styled.div`
   font-size: 1.7em;
 `
 
-const Task = ({ iconClassName }) => {
+const Task = ({ iconClassName, automaticColor }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
     backgroundColor: "none",
+    automaticColor,
   })
 
   const toggleComplete = () => {
@@ -51,8 +52,8 @@ const Task = ({ iconClassName }) => {
     if (colors.color === 'gray') {
       setColors({
         ...colors,
-        color: '#00D95A',
-        backgroundColor: '#00D95A'
+        color: automaticColor,
+        backgroundColor: automaticColor
       })
     } else {
       setColors({
