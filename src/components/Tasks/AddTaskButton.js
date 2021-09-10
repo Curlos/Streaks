@@ -4,9 +4,6 @@ import styled from 'styled-components'
 const taskContainerWidth = 200
 const taskContainerHeight = 200
 
-const taskIconSettingsContainerWidth = 50
-const taskIconSettingsContainerHeight = 50
-
 const TaskContainer = styled.span`
 
 `
@@ -27,18 +24,6 @@ const TaskIconContainer = styled.div`
 
 const TaskIcon = styled.div`
   font-size: ${taskContainerWidth / 2}px;
-`
-
-const TaskSettingsIconContainer = styled(TaskIconContainer)`
-  border: none;
-  background-color: ${props => props.colors.chosenColor};
-  width: ${taskIconSettingsContainerWidth}px;
-  height: ${taskIconSettingsContainerHeight}px;
-  padding: 10px;
-`
-
-const TaskSettingsIcon = styled.div`
-  font-size: ${taskContainerWidth / 8}px;
 `
 
 const TaskNameContainer = styled.div`
@@ -67,7 +52,7 @@ const DisplayElem = styled.div`
   display: ${props => props.display};
 `
 
-const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
+const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
@@ -87,7 +72,7 @@ const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
     })
   }, chosenColor)
 
-  const toggleComplete = () => {
+  const handleAddTask = () => {
     
     if (colors.color === 'gray') {
       setColors({
@@ -103,13 +88,15 @@ const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
         backgroundColor: "none"
       })
     }
+
+    toggleModal()
   }
 
   return (
   
       <div>
         <TaskContainer>
-            <TaskIconContainer colors={colors} onClick={toggleComplete}>
+            <TaskIconContainer colors={colors} onClick={handleAddTask}>
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
             </TaskIcon>
@@ -123,16 +110,8 @@ const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
 
           </TaskNameContainer>
         </TaskContainer>
-
-        <DisplayElem display={showSettings ? 'inline' : 'none'}>
-          <TaskSettingsIconContainer colors={colors}>
-            <TaskSettingsIcon>
-              <i className="fas fa-ellipsis-h"></i>
-            </TaskSettingsIcon>
-          </TaskSettingsIconContainer>
-        </DisplayElem>
       </div>
   )
 }
 
-export default Task;
+export default AddTaskButton;

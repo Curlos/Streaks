@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Task from './Task'
+import AddTaskButton from './AddTaskButton'
 
 const TasksContainer = styled.div`
   display: flex;
@@ -9,7 +10,11 @@ const TasksContainer = styled.div`
   margin: 40px;
 `
 
-const Tasks = ({ chosenColor, showSettings }) => {
+const Tasks = ({ chosenColor, showSettings, toggleModal }) => {
+
+  const sampleTask = {
+    title: 'ADD A TASK'
+  }
 
   return (
     <TasksContainer>
@@ -19,6 +24,8 @@ const Tasks = ({ chosenColor, showSettings }) => {
       <Task iconClassName="fas fa-bible" chosenColor={chosenColor} showSettings={showSettings}/>
       <Task iconClassName="fas fa-star-and-crescent" chosenColor={chosenColor} showSettings={showSettings}/>
       <Task iconClassName="fas fa-bible" chosenColor={chosenColor} showSettings={showSettings}/>
+
+      <AddTaskButton taskObject={sampleTask} iconClassName="fas fa-plus" chosenColor={chosenColor} toggleModal={toggleModal}/>
 
     </TasksContainer>
   )
