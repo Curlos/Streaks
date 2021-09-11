@@ -17,18 +17,18 @@
 .modal-content {
   background-color: rgb(32, 32, 32);
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 5px;
-  border: 1px solid #888;
   width: 65%; /* Could be more or less, depending on screen size */
-  border-radius: 10px;
+  border: 2px solid gray;
+  border-radius: 20px;
 }
 
 /* The Close Button */
 .close {
   color: #aaa;
   float: left;
-  font-size: 28px;
+  font-size: 2.5em;
   font-weight: bold;
+  padding: 20px;
 }
 
 .close:hover,

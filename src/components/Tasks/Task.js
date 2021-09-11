@@ -85,7 +85,7 @@ const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
       backgroundColor: newBackgroundColor,
       chosenColor
     })
-  }, chosenColor)
+  }, [chosenColor])
 
   const toggleComplete = () => {
     
