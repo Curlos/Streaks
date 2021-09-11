@@ -1,7 +1,13 @@
-
-import ListElemWithIcon from '../ListElem/ListElemWithIcon' 
+import ListElemWithIcon from '../ListElem/ListElemWithIcon'
+import styled from 'styled-components'
 import { CreateTaskHeader } from './StyledPresetTask'
 import { Link } from 'react-router-dom'
+
+const EmptyPresetTask = styled.div`
+  border-radius: 0 0 20px 20px;
+  background-color: #202020;
+  height: 30px;
+`
 
 const GeneralPresetTasks = ({ currentTask, handleTaskChange, automaticColor }) => {
 
@@ -23,9 +29,11 @@ const GeneralPresetTasks = ({ currentTask, handleTaskChange, automaticColor }) =
         return (
           <Link to="/confirm" key={i}>
             <ListElemWithIcon title={presetTask.title} iconClassName={presetTask.iconClassName} currentTask={currentTask} handleTaskChange={handleTaskChange} automaticColor={automaticColor}/>
-        </Link>
+          </Link>
         )
       })}
+
+      <EmptyPresetTask></EmptyPresetTask>
     </div>
   )
 }
