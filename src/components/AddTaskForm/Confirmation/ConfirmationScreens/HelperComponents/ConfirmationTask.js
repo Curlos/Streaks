@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-const taskContainerWidth = 200
-const taskContainerHeight = 200
+const taskContainerWidth = 100
+const taskContainerHeight = 100
+
+const taskIconSettingsContainerWidth = 50
+const taskIconSettingsContainerHeight = 50
 
 const TaskContainer = styled.span`
-
+  
 `
 
 const TaskIconContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 10px solid ${props => props.colors.color};
+  text-align: center;
+  border: 5px solid ${props => props.colors.color};
   border-radius: 50%;
   background-color: ${props => props.colors.backgroundColor};
   width: ${taskContainerWidth}px;
@@ -44,15 +47,24 @@ const TaskName = styled.span`
   text-align: center;
 `
 
-const TaskStreakNum = styled.div`
-  font-size: 1.7em;
+const TaskSettingsIconContainer = styled(TaskIconContainer)`
+  border: none;
+  background-color: ${props => props.colors.chosenColor};
+  width: ${taskIconSettingsContainerWidth}px;
+  height: ${taskIconSettingsContainerHeight}px;
+  padding: 10px;
 `
 
-const DisplayElem = styled.div`
-  display: ${props => props.display};
+const TaskSettingsIcon = styled.div`
+  font-size: ${taskContainerWidth / 8}px;
 `
 
-const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) => {
+const CenterElem = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
@@ -72,7 +84,7 @@ const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) 
     })
   }, [chosenColor])
 
-  const handleAddTask = () => {
+  const toggleComplete = () => {
     
     if (colors.color === 'gray') {
       setColors({
@@ -88,30 +100,26 @@ const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) 
         backgroundColor: "none"
       })
     }
-
-    toggleModal()
   }
 
   return (
   
       <div>
         <TaskContainer>
-            <TaskIconContainer colors={colors} onClick={handleAddTask}>
-            <TaskIcon colors={colors}>
-              <i className={iconClassName}></i>
-            </TaskIcon>
-
-            <TaskStreakNum>4</TaskStreakNum>
-          </TaskIconContainer>
+          <CenterElem>
+            <TaskIconContainer colors={colors} onClick={toggleComplete}>
+              <TaskIcon colors={colors}>
+                <i className={iconClassName}></i>
+              </TaskIcon>
+            </TaskIconContainer>
+          </CenterElem>  
           
           <TaskNameContainer colors={colors}>
-          
             <TaskName>{taskObject ? taskObject.title : 'pray to god'}</TaskName>
-
           </TaskNameContainer>
         </TaskContainer>
       </div>
   )
 }
 
-export default AddTaskButton;
+export default ConfirmationTask;

@@ -37,6 +37,8 @@ const TaskNameContainer = styled.div`
 `
 
 const ListElemBody = styled.div`
+  display: flex;
+  justify-content: space-between;
   background-color: #202020;
   &:hover {
     background-color: rgb(20, 20, 20);
@@ -48,14 +50,25 @@ const ListLeft = styled.span`
 `
 
 const ListRight = styled.span`
-  float: right;
+
 `
 
-const ListElemWithIcon = ({ title, clickHandler, iconClassName, automaticColor }) => {
+const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, automaticColor }) => {
+
+  console.log(automaticColor)
+
+  const handleClick = () => {
+
+    if (handleTaskChange) {
+      console.log('changing contents')
+      console.log(currentTask)
+      console.log({...currentTask, title: title, icon: iconClassName })
+      handleTaskChange({...currentTask, title: title, icon: iconClassName })
+    }
+  }
 
   return (
-  
-      <ListElemBody>
+      <ListElemBody onClick={handleClick}>
         <TaskContainer onClick={clickHandler}>
               <TaskIconContainer color={automaticColor}>
                 <TaskIcon>

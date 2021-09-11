@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import styled from 'styled-components'
 import './addTaskForm.css'
 import HeaderTasks from '../HeaderTasks/HeaderTasks'
 import GeneralPresetTasks from '../PresetTasks/GeneralPresetTasks'
+import HealthPresetTasks from '../PresetTasks/HealthPresetTasks'
+import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/GeneralConfirmationScreen'
+
+const AddTaskHeader = styled.div`
+  border-radius: 20px 20px 0 0;
+  background-color: #202020;
+  padding: 5px;
+`
 
 const NewTaskForm = ({ toggleModal, automaticColor }) => {
 
@@ -35,7 +44,6 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
   const handleTaskChange = (newTask) => {
     console.log(currentTask)
     setCurrentTask(newTask)
-
   }
 
   const handleTaskHeaderClick = (e) => {
@@ -57,10 +65,10 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
   const TaskSelectorHeader = () => {
     return (
       <span>
-        <div className="addTaskHeader">
+        <AddTaskHeader>
         <span className="close" onClick={toggleModal}>&times;</span>
           <p className="addTaskTitle">Add Task</p>
-        </div>
+        </AddTaskHeader>
         <HeaderTasks clickHandler={handleTaskHeaderClick} />
       </span>
     )
@@ -76,8 +84,19 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
               <Route path="/" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <GeneralPresetTasks automaticColor={automaticColor}/>
+                  <GeneralPresetTasks automaticColor={automaticColor} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
+              </Route>
+
+              <Route path="/health-task" exact>
+                <span>
+                  <TaskSelectorHeader />
+                  <HealthPresetTasks currentTask={currentTask} automaticColor={automaticColor} />
+                </span>
+              </Route>
+
+              <Route path="/confirm" exact>
+                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} automaticColor={automaticColor}/>
               </Route>
 
             </Switch>
