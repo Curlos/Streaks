@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import ListElem from '../../ListElem/ListElem'
 import ListElemWithIcon from '../../ListElem/ListElemWithIcon'
 import ConfirmationTask from './HelperComponents/ConfirmationTask'
 import { Link } from 'react-router-dom'
@@ -23,7 +22,14 @@ const GroupedTasks = styled.div`
   margin-bottom: 25px;
 `
 
-const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, automaticColor }) => {
+const SaveTaskButton = styled.div`
+  text-align: center;
+  background-color: ${props => props.color};
+  border-radius: 10px;
+  padding: 15px;
+`
+
+const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave }) => {
 
 
   console.log(currentTask)
@@ -95,8 +101,6 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, a
   const measurementTitle = `${currentTask.measurementDuration.type[0].toUpperCase() + currentTask.measurementDuration.type.slice(1,).toLowerCase()} Task`
   const measurementIconName = currentTask.measurementDuration.iconName
 
-  console.log(currentTask.measurementDuration)
-
 
   return (
     <div>
@@ -105,28 +109,28 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, a
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ConfirmTaskTitle>Confirm Task</ConfirmTaskTitle>
-        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={automaticColor}/>
+        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={chosenColor}/>
       </ConfirmTaskHeader>
 
       <ConfirmTaskBody>
         <div>Title:</div>
         <GroupedTasks>
           <Link to="/confirm/measurement-duration">
-            <ListElemWithIcon title={measurementTitle} iconClassName={`fas fa-${measurementIconName}`} changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask} automaticColor={automaticColor}/>
+            <ListElemWithIcon title={measurementTitle} iconClassName={`fas fa-${measurementIconName}`} changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask} chosenColor={chosenColor}/>
           </Link>
 
           {currentTask.measurementDuration.type === 'daily' ? 
           (<Link to="/confirm/task-days">
-            <ListElemWithIcon title={"Task Days"} iconClassName={"fas fa-calendar"} changeTaskDays={changeTaskDays} currentTask={currentTask} automaticColor={automaticColor}/>
+            <ListElemWithIcon title={"Task Days"} iconClassName={"fas fa-calendar"} changeTaskDays={changeTaskDays} currentTask={currentTask} chosenColor={chosenColor}/>
           </Link>) : null
           }
 
-          <ListElemWithIcon title={`${getTaskFrequency()}/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} automaticColor={automaticColor}/>
+          <ListElemWithIcon title={`${getTaskFrequency()}/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} chosenColor={chosenColor}/>
 
-          {currentTask.measurementDuration.type === 'weekly' ? 
+          {currentTask.measurementDuration.type === 'weekly' ?
           (<Link to="/confirm/start-week-on">
 
-            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} automaticColor={automaticColor}/>
+            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} chosenColor={chosenColor}/>
 
           </Link>) : null
           }
@@ -134,7 +138,13 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, a
 
         <GroupedTasks>
           <Link to="/confirm/color">
-            <ListElemWithIcon title={"Color"} iconClassName={"fas fa-palette"} changeColor={changeColor} currentTask={currentTask} automaticColor={automaticColor}/>
+            <ListElemWithIcon title={"Color"} iconClassName={"fas fa-palette"} changeColor={changeColor} currentTask={currentTask} chosenColor={chosenColor} description="color"/>
+          </Link>
+        </GroupedTasks>
+
+        <GroupedTasks>
+          <Link to="/">
+            <SaveTaskButton color={chosenColor} onClick={handleSave}>Save Task</SaveTaskButton>
           </Link>
         </GroupedTasks>
       </ConfirmTaskBody>
