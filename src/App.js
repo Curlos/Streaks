@@ -21,13 +21,14 @@ const FooterBottom = styled.span`
 
 const App = () => {
 
-  const [automaticColor, setAutomaticColor] = useState('#BF2F38')
+  const [automaticColor, setAutomaticColor] = useState('#41B6E6')
   const [showSettings, setShowSettings] = useState(false)
   const [showNewTaskForm, setShowNewTaskForm] = useState(true)
+  const [tasks, setTasks] = useState([])
 
   const handlePickColor = (e) => {
-    const chosenColor = e.target.attributes.color.value
-    setAutomaticColor(chosenColor)
+    const newAutomaticColor = e.target.attributes.color.value
+    setAutomaticColor(newAutomaticColor)
   }
 
   const toggleShowSettings = () => {
@@ -36,6 +37,12 @@ const App = () => {
 
   const toggleModal = () => {
     setShowNewTaskForm(!showNewTaskForm)
+  }
+
+  const handleSaveTask = (newTask) => {
+    setTasks({...tasks, newTask})
+
+    console.log(tasks)
   }
 
   return (
@@ -51,7 +58,7 @@ const App = () => {
         <Footer handlePickColor={handlePickColor} chosenColor={automaticColor} toggleShowSettings={toggleShowSettings}/>
       </FooterBottom>
 
-      {showNewTaskForm ? <NewTaskForm toggleModal={toggleModal} automaticColor={automaticColor}/> : null}
+      {showNewTaskForm ? <NewTaskForm toggleModal={toggleModal} automaticColor={automaticColor} handleSaveTask={handleSaveTask}/> : null}
     </AppBody>
   );
 }
