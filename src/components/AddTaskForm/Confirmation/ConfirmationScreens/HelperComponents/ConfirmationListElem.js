@@ -55,13 +55,6 @@ const TaskDesc = styled.span`
   color: #9e9e9e;
 `
 
-const ColorCircle = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 5px solid white;
-`
-
 const ConfirmationListElem = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, checked, chosenColor, description, listElemType }) => {
 
   const handleColorChange = (e) => {

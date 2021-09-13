@@ -8,6 +8,7 @@ import HealthPresetTasks from '../PresetTasks/HealthPresetTasks'
 import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/GeneralConfirmationScreen'
 
 import MeasurementDurationScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/MeasurementDurationScreen'
+import TaskDaysScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/TaskDaysScreen'
 import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/ColorScreen'
 
 const AddTaskHeader = styled.div`
@@ -32,7 +33,7 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
       iconName: 'calendar-day',
     },
     daily: {
-      taskDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      taskDaysType: 'everyday',
       frequency: 1,
 
     },
@@ -111,6 +112,10 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
 
               <Route path="/confirm/measurement-duration" exact>
                 <MeasurementDurationScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+              </Route>
+
+              <Route path="/confirm/task-days" exact>
+                <TaskDaysScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
               </Route>
 
               <Route path="/confirm/color" exact>
