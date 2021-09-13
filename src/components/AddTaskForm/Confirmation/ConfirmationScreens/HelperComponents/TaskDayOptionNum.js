@@ -44,8 +44,6 @@ const TaskDayOptionNum = ({ chosenColor, handleClick }) => {
       setSelectedNum(Number(e.target.textContent))
     }
 
-    console.log(e.target.value || e.target.textContent)
-
     handleClick(e)
   }
 

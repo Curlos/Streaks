@@ -54,9 +54,9 @@ const TaskDayOptionDays = ({ chosenColor, handleClick }) => {
 
   return (
     <DaysContainer>
-      {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => {
+      {['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].map((day) => {
         
-        const firstLetter = day[0]
+        const firstLetter = day[0].toUpperCase()
 
         return (
           <Day key={day} value={day} color={chosenColor} checked={selectedDays[day]} onClick={changeSelectedDay}>

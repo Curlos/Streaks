@@ -120,6 +120,11 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
       checked: true,
       days: newSelectedDays
     }})
+    console.log({...checkedDays, 'specificDaysOfWeek': {
+      checked: true,
+      days: newSelectedDays
+    }}['specificDaysOfWeek'].days)
+    console.log(newSelectedDays)
   }
   
   const handleSelectPerWeekFrequency = (e) => {
