@@ -14,7 +14,10 @@ const TaskIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: ${props => props.color};
+  background-color: ${props => {
+    console.log(props)
+    return (props.color)
+  }};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
@@ -45,17 +48,50 @@ const ListElemBody = styled.div`
   }
 `
 
-const ListLeft = styled.span`
-  float: left;
-`
-
 const ListRight = styled.span`
 
 `
 
-const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, automaticColor }) => {
+const ListDesc = styled.span`
+  display: flex;
+  align-items: center;
+`
 
-  console.log(automaticColor)
+const ColorCircle = styled.div`
+  background-color: ${props => props.color};
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid white;
+  margin-right: 10px;
+`
+
+const getDescriptionValue = (currentTask, value) => {
+  switch (value) {
+    case 'color':
+      return (
+        <ListDesc>
+          <ColorCircle color={currentTask.color.color}>
+          </ColorCircle>
+          <TaskIcon>
+            <i className="fas fa-greater-than"></i>
+          </TaskIcon>
+        </ListDesc>
+      )
+    case 'text':
+      return (
+        {value}
+      )
+    default:
+      return (
+        <TaskIcon>
+          <i className="fas fa-greater-than"></i>
+        </TaskIcon>
+      )
+  }
+}
+
+const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, chosenColor, description }) => {
 
   const handleClick = () => {
 
@@ -70,7 +106,7 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
   return (
       <ListElemBody onClick={handleClick}>
         <TaskContainer onClick={clickHandler}>
-              <TaskIconContainer color={automaticColor}>
+              <TaskIconContainer color={chosenColor}>
                 <TaskIcon>
                   <i className={iconClassName}></i>
                 </TaskIcon>
@@ -80,9 +116,8 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
 
         <ListRight>
           <TaskIconContainer color="none">
-            <TaskIcon>
-              <i className="fas fa-greater-than"></i>
-            </TaskIcon>
+            {getDescriptionValue(currentTask, description)}
+            
           </TaskIconContainer>
         </ListRight>
       </ListElemBody>

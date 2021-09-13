@@ -9,7 +9,7 @@ const EmptyPresetTask = styled.div`
   height: 30px;
 `
 
-const GeneralPresetTasks = ({ currentTask, handleTaskChange, automaticColor }) => {
+const GeneralPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
 
   const presetTasks = [
     {title: "Eat a Healthy Meal", iconClassName: "fas fa-carrot"}, 
@@ -28,7 +28,7 @@ const GeneralPresetTasks = ({ currentTask, handleTaskChange, automaticColor }) =
 
         return (
           <Link to="/confirm" key={i}>
-            <ListElemWithIcon title={presetTask.title} iconClassName={presetTask.iconClassName} currentTask={currentTask} handleTaskChange={handleTaskChange} automaticColor={automaticColor}/>
+            <ListElemWithIcon title={presetTask.title} iconClassName={presetTask.iconClassName} currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={chosenColor}/>
           </Link>
         )
       })}

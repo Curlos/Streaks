@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-const presetColors = ['#CC092F', '#BF2F38','#008853', '#1D8CAB', '#1061AC', '#046AB4', '#006BB6', '#FDB827', '#F59814', '#F48328', '#542583', '#23375B', '#00D95A']
+const presetColors = ['#CC092F', '#BF2F38','#008853', '#1D8CAB', '#1061AC', '#046AB4', '#006BB6', '#41B6E6', '#DB3EB1', '#FDB827', '#F59814', '#F48328', '#542583', '#23375B', '#00D95A']
 
 const FooterContainer = styled.div`
   background-color: ${props => {
