@@ -7,20 +7,26 @@ import GeneralPresetTasks from '../PresetTasks/GeneralPresetTasks'
 import HealthPresetTasks from '../PresetTasks/HealthPresetTasks'
 import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/GeneralConfirmationScreen'
 
+import MeasurementDurationScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/MeasurementDurationScreen'
+import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/ColorScreen'
+
 const AddTaskHeader = styled.div`
   border-radius: 20px 20px 0 0;
   background-color: #202020;
   padding: 5px;
 `
 
-const NewTaskForm = ({ toggleModal, automaticColor }) => {
+const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
 
   const [selectedTaskType, setSelectedTaskType] = useState('customTask')
 
   const [currentTask, setCurrentTask] = useState({
     title: '',
     icon: '',
-    color: 'automatic',
+    color: {
+      type: 'automatic',
+      color: automaticColor
+    },
     measurementDuration: {
       type: 'daily',
       iconName: 'calendar-day',
@@ -44,6 +50,10 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
   const handleTaskChange = (newTask) => {
     console.log(currentTask)
     setCurrentTask(newTask)
+  }
+
+  const handleSave = () => {
+    handleSaveTask(currentTask)
   }
 
   const handleTaskHeaderClick = (e) => {
@@ -84,7 +94,7 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
               <Route path="/" exact>
                 <span>
                   <TaskSelectorHeader />
-                  <GeneralPresetTasks automaticColor={automaticColor} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
+                  <GeneralPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
                 </span>
               </Route>
 
@@ -96,7 +106,15 @@ const NewTaskForm = ({ toggleModal, automaticColor }) => {
               </Route>
 
               <Route path="/confirm" exact>
-                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} automaticColor={automaticColor}/>
+                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} />
+              </Route>
+
+              <Route path="/confirm/measurement-duration" exact>
+                <MeasurementDurationScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+              </Route>
+
+              <Route path="/confirm/color" exact>
+                <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
               </Route>
 
             </Switch>
