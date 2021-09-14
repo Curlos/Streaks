@@ -35,11 +35,14 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
 
   const handleCheck = (checkedDayType) => {
     const newDaily = {...checkedDays}
+
     Object.keys(checkedDays).forEach((checkedDay) => {
       if (checkedDay === checkedDayType) {
         newDaily[checkedDay].checked = true
       } else {
-        newDaily[checkedDay].checked = false
+        if (checkedDay !== 'frequency') {
+          newDaily[checkedDay].checked = false
+        }
       }
     })
 

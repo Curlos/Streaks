@@ -8,6 +8,12 @@ const TaskContainer = styled.span`
   display: flex;
 `
 
+const TaskIcons = styled.span`
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 40px;
+`
+
 const TaskIconContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,57 +56,26 @@ const ListRight = styled.span`
 
 `
 
-const ListDesc = styled.span`
-  display: flex;
-  align-items: center;
-`
+const PlusMinusListElem = ({ title, iconClassName, currentTask, handleTaskChange, chosenColor }) => {
 
-const ColorCircle = styled.div`
-  background-color: ${props => props.color};
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 5px solid white;
-  margin-right: 10px;
-`
+  const handleIncrement = () => {
 
-const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, chosenColor, description }) => {
+    const newFreq = {...currentTask[currentTask.measurementDuration.type], frequency: currentTask[currentTask.measurementDuration.type].frequency + 1}
 
-  const handleClick = () => {
-
-    if (handleTaskChange) {
-      handleTaskChange({...currentTask, title: title, icon: iconClassName })
-    }
+    handleTaskChange({...currentTask, [currentTask.measurementDuration.type]: newFreq})
   }
   
-  const getDescriptionValue = (currentTask, value) => {
-    switch (value) {
-      case 'color':
-        return (
-          <ListDesc>
-            <ColorCircle color={currentTask.color.color}>
-            </ColorCircle>
-            <TaskIcon>
-              <i className="fas fa-greater-than"></i>
-            </TaskIcon>
-          </ListDesc>
-        )
-      case 'text':
-        return (
-          {value}
-        )
-      default:
-        return (
-          <TaskIcon>
-            <i className="fas fa-greater-than"></i>
-          </TaskIcon>
-        )
+  const handleDecrement = () => {
+    if (currentTask[currentTask.measurementDuration.type].frequency > 1) {
+      const newFreq = {...currentTask[currentTask.measurementDuration.type], frequency: currentTask[currentTask.measurementDuration.type].frequency - 1}
+
+      handleTaskChange({...currentTask, [currentTask.measurementDuration.type]: newFreq})
     }
   }
 
   return (
-      <ListElemBody onClick={handleClick}>
-        <TaskContainer onClick={clickHandler}>
+      <ListElemBody>
+        <TaskContainer>
               <TaskIconContainer color={chosenColor}>
                 <TaskIcon>
                   <i className={iconClassName}></i>
@@ -111,7 +86,22 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
 
         <ListRight>
           <TaskIconContainer color="none">
-            {getDescriptionValue(currentTask, description)}
+          <TaskIcons>
+  
+            <TaskIconContainer color="gray" iconType="plusMinus" onClick={handleDecrement}>
+              <TaskIcon onClick={handleDecrement}>
+                <i className="fas fa-minus"></i>
+              </TaskIcon>
+            </TaskIconContainer>
+
+            <TaskIconContainer color="gray" iconType="plusMinus" onClick={handleIncrement}>
+              
+              <TaskIcon onClick={handleIncrement}>
+                <i className="fas fa-plus"></i>
+              </TaskIcon>
+            </TaskIconContainer>
+
+          </TaskIcons>
             
           </TaskIconContainer>
         </ListRight>
@@ -119,4 +109,4 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
   )
 }
 
-export default ListElemWithIcon;
+export default PlusMinusListElem;

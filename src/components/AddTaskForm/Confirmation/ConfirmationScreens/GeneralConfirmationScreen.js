@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ListElemWithIcon from '../../ListElem/ListElemWithIcon'
 import ConfirmationTask from './HelperComponents/ConfirmationTask'
+import PlusMinusListElem from './HelperComponents/PlusMinusListElem'
 import { Link } from 'react-router-dom'
 
 const ConfirmTaskTitleContainer = styled.div`
@@ -101,11 +102,13 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
       monthly: 'month'
     }
 
-    return taskDuration
+    return taskDuration[currentTask.measurementDuration.type]
   }
 
   const getTaskFrequency = () => {
-    return currentTask[currentTask.measurementDuration.type].frequency
+    const taskDayType = currentTask.measurementDuration.type
+
+    return currentTask[taskDayType].frequency
   }
 
   const getLinkURL = (selectedTaskType) => {
@@ -165,12 +168,12 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
           </Link>) : null
           }
 
-          <ListElemWithIcon title={`${getTaskFrequency()}/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} chosenColor={chosenColor}/>
+          <PlusMinusListElem title={`${getTaskFrequency()} time/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} chosenColor={chosenColor} description="plusMinus" handleTaskChange={handleTaskChange}/>
 
           {currentTask.measurementDuration.type === 'weekly' ?
           (<Link to="/confirm/start-week-on">
 
-            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} chosenColor={chosenColor}/>
+            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} chosenColor={chosenColor} />
 
           </Link>) : null
           }
