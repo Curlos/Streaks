@@ -10,7 +10,9 @@ const TasksContainer = styled.div`
   margin: 40px;
 `
 
-const Tasks = ({ chosenColor, showSettings, toggleModal }) => {
+const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleCompleteTask }) => {
+
+  console.log(JSON.stringify(taskObjs))
 
   const sampleTask = {
     title: 'ADD A TASK'
@@ -18,12 +20,14 @@ const Tasks = ({ chosenColor, showSettings, toggleModal }) => {
 
   return (
     <TasksContainer>
-      <Task iconClassName="fas fa-star-and-crescent" chosenColor={chosenColor} showSettings={showSettings}/>
-      <Task iconClassName="fas fa-bible" chosenColor={chosenColor} showSettings={showSettings}/>
-      <Task iconClassName="fas fa-star-and-crescent" chosenColor={chosenColor} showSettings={showSettings}/>
-      <Task iconClassName="fas fa-bible" chosenColor={chosenColor} showSettings={showSettings}/>
-      <Task iconClassName="fas fa-star-and-crescent" chosenColor={chosenColor} showSettings={showSettings}/>
-      <Task iconClassName="fas fa-bible" chosenColor={chosenColor} showSettings={showSettings}/>
+      {Object.keys(taskObjs).map((id) => {
+        const task = taskObjs[id]
+        console.log(id)
+
+        return (
+          <Task iconClassName={task.icon} chosenColor={task.color.color} showSettings={showSettings} taskObj={task} toggleCompleteTask={toggleCompleteTask}/>
+        )
+      })}
 
       <AddTaskButton taskObject={sampleTask} iconClassName="fas fa-plus" chosenColor={chosenColor} toggleModal={toggleModal}/>
 

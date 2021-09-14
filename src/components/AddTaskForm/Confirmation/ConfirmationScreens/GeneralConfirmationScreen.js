@@ -53,9 +53,7 @@ const TitleText = styled.div`
   margin: 10px;
 `
 
-const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave }) => {
-
-  console.log(currentTask)
+const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave, revertTaskSettingsToDefault }) => {
 
   const changeMeasurementDuration = (newMeasurementDuration) => {
     handleTaskChange({...currentTask, measurementDuration: newMeasurementDuration})
