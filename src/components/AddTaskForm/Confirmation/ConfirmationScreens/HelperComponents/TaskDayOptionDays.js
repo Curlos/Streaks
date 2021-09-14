@@ -28,16 +28,8 @@ const DayName = styled.span`
   user-select: none;
 `
 
-const TaskDayOptionDays = ({ chosenColor, handleClick }) => {
-  const [selectedDays, setSelectedDays] = useState({
-    sunday: true,
-    monday: true,
-    tuesday: true,
-    wednesday: true,
-    thursday: true,
-    friday: true,
-    saturday: true
-  })
+const TaskDayOptionDays = ({ days, chosenColor, handleClick }) => {
+  const [selectedDays, setSelectedDays] = useState(days)
 
   const changeSelectedDay = (e) => {
     

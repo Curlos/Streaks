@@ -13,7 +13,6 @@ const ListHeader = styled.div`
   border-radius: 20px 20px 0 0;
   background-color: #202020;
   padding: 15px;
-  border-radius: 0 20px 20px 20px;
 `
 
 const ListBody = styled.div`
@@ -32,57 +31,19 @@ const GroupedTasks = styled.div`
 
 const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
 
-  const [checkedDays, setCheckedDays] = useState({
-    specificDaysOfWeek: {
-      checked: currentTask.daily.taskDaysType === 'specificDaysOfWeek',
-      days: {
-        sunday: true,
-        monday: true,
-        tuesday: true,
-        wednesday: true,
-        thursday: true,
-        friday: true,
-        saturday: true
-      }
-    },
-    numOfDaysPerWeek: {
-      checked: currentTask.daily.taskDaysType === 'numOfDaysPerWeek',
-      frequency: 7
-    },
-    numOfDaysPerFortnight: {
-      checked: currentTask.daily.taskDaysType === 'numOfDaysPerFortnight',
-      frequency: 7
-    },
-    numOfDaysPerMonth: {
-      checked: currentTask.daily.taskDaysType === 'numOfDaysPerMonth',
-      frequency: 7
-    },
-    everyXDays: {
-      checked: currentTask.daily.taskDaysType === 'everyXDays',
-      frequency: 2
-    },
-  })
+  const checkedDays = {...currentTask.daily}
 
   const handleCheck = (checkedDayType) => {
-    const newCheckedDays = {...checkedDays}
+    const newDaily = {...checkedDays}
     Object.keys(checkedDays).forEach((checkedDay) => {
-
-      console.log(checkedDay)
       if (checkedDay === checkedDayType) {
-        newCheckedDays[checkedDay].checked = true
-        const newCheckedDay = {
-          taskDaysType: checkedDay,
-          frequency: newCheckedDays[checkedDay].frequency,
-        }
-        handleTaskChange({...currentTask, daily: newCheckedDay})
+        newDaily[checkedDay].checked = true
       } else {
-        newCheckedDays[checkedDay].checked = false
+        newDaily[checkedDay].checked = false
       }
     })
 
-    console.log(newCheckedDays)
-
-    setCheckedDays(newCheckedDays)
+    handleTaskChange({...currentTask, daily: newDaily})
   }
 
   const handleCheckSpecificDaysOfWeek = () => {
@@ -106,25 +67,27 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
   }
 
   const handleSelectFrequency = (checkedDaysType, frequency) => {
-    console.log([checkedDaysType, frequency])
     const newCheckedDaysType = {
       checked: true, frequency: frequency
     }
-    setCheckedDays({...checkedDays, [checkedDaysType]: newCheckedDaysType})
 
-    console.log({...checkedDays, [checkedDaysType]: newCheckedDaysType})
+    const newDaily = {
+      ...currentTask.daily,
+      [checkedDaysType]: newCheckedDaysType
+    }
+
+    handleTaskChange({...currentTask, daily: newDaily})
   }
 
   const handleToggleDay = (newSelectedDays) => {
-    setCheckedDays({...checkedDays, 'specificDaysOfWeek': {
+    const newDaily = {...checkedDays, 'specificDaysOfWeek': {
       checked: true,
       days: newSelectedDays
-    }})
-    console.log({...checkedDays, 'specificDaysOfWeek': {
-      checked: true,
-      days: newSelectedDays
-    }}['specificDaysOfWeek'].days)
-    console.log(newSelectedDays)
+    }}
+
+    handleTaskChange({...currentTask, daily: newDaily})
+
+    console.log(currentTask)
   }
   
   const handleSelectPerWeekFrequency = (e) => {
@@ -143,13 +106,29 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
     }
   }
 
+  const handleSelectPerMonth = (e) => {
+    if (e.target.value) {
+      handleSelectFrequency('numOfDaysPerMonth', Number(e.target.value))
+    } else {
+      handleSelectFrequency('numOfDaysPerMonth', Number(e.target.textContent))
+    }
+  }
+
+  const handleSelectPerXDays = (e) => {
+    if (e.target.value) {
+      handleSelectFrequency('everyXDays', Number(e.target.value))
+    } else {
+      handleSelectFrequency('everyXDays', Number(e.target.textContent))
+    }
+  }
+
   return (
     <div>
       <ListHeader>
         <Link to="/confirm">
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
-        <ListTitle>Color</ListTitle>
+        <ListTitle>Task Days</ListTitle>
       </ListHeader>
 
       <ListDesc></ListDesc>
@@ -159,7 +138,7 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
           <ConfirmationListElem title="Specific days of the week" clickHandler={handleCheckSpecificDaysOfWeek} checked={checkedDays.specificDaysOfWeek.checked} chosenColor={chosenColor}/>
           
           {checkedDays.specificDaysOfWeek.checked ? (
-            <TaskDayOptionDays chosenColor={chosenColor} handleClick={handleToggleDay}/>
+            <TaskDayOptionDays days={checkedDays.specificDaysOfWeek.days} chosenColor={chosenColor} handleClick={handleToggleDay}/>
           ) : null}
         </GroupedTasks>
 
@@ -167,7 +146,7 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
           <ConfirmationListElem title="Number of days per week" clickHandler={handleCheckNumOfDaysPerWeek} checked={checkedDays.numOfDaysPerWeek.checked} chosenColor={chosenColor}/>
 
           {checkedDays.numOfDaysPerWeek.checked ? (
-            <TaskDayOptionNum chosenColor={chosenColor} handleClick={handleSelectPerWeekFrequency}/>
+            <TaskDayOptionNum chosenNum={checkedDays.numOfDaysPerWeek.frequency} chosenColor={chosenColor} handleClick={handleSelectPerWeekFrequency}/>
           ) : null}
         </GroupedTasks>
 
@@ -175,26 +154,7 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
           <ConfirmationListElem title="Number of days per fortnight" clickHandler={handleFortnight} checked={checkedDays.numOfDaysPerFortnight.checked} chosenColor={chosenColor}/>
           
           {checkedDays.numOfDaysPerFortnight.checked ? (
-            <TaskDayOptionNum chosenColor={chosenColor} handleClick={handleSelectPerFortnight}/>
-          ) : null}
-        </GroupedTasks>
-
-        {
-          /*
-          <GroupedTasks>
-          <ConfirmationListElem title="Number of days per fortnight" clickHandler={handleFortnight} checked={checkedDays.numOfDaysPerFortnight.checked} chosenColor={chosenColor}/>
-          
-          {checkedDays.numOfDaysPerFortnight.checked ? (
-            <DaysContainer>
-            {getArraySequence(14).map((num) => {
-
-              return (
-                <Day color={chosenColor}>
-                  <DayName>{num}</DayName>
-                </Day>
-              )
-            })}
-          </DaysContainer>
+            <TaskDayOptionNum chosenNum={checkedDays.numOfDaysPerFortnight.frequency} chosenColor={chosenColor} handleClick={handleSelectPerFortnight} endNum={14} startNum={1}/>
           ) : null}
         </GroupedTasks>
 
@@ -202,38 +162,20 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
           <ConfirmationListElem title="Number of days per month" clickHandler={handleMonth} checked={checkedDays.numOfDaysPerMonth.checked} chosenColor={chosenColor}/>
 
           {checkedDays.numOfDaysPerMonth.checked ? (
-            <DaysContainer>
-            {getArraySequence(31).map((num) => {
+            <TaskDayOptionNum chosenNum={checkedDays.numOfDaysPerMonth.frequency} chosenColor={chosenColor} handleClick={handleSelectPerMonth} endNum={31} startNum={1}/>
 
-              return (
-                <Day color={chosenColor}>
-                  <DayName>{num}</DayName>
-                </Day>
-              )
-            })}
-          </DaysContainer>
+          
           ) : null}
         </GroupedTasks>
 
         <GroupedTasks>
-          <ConfirmationListElem title="Every 2 Days" clickHandler={handleEveryXDays} checked={checkedDays.everyXDays.checked} chosenColor={chosenColor}/>
+          <ConfirmationListElem title={`Every ${checkedDays.everyXDays.frequency} days`} clickHandler={handleEveryXDays} checked={checkedDays.everyXDays.checked} chosenColor={chosenColor}/>
 
           {checkedDays.everyXDays.checked ? (
-            <DaysContainer>
-            {getArraySequence(15, 2).map((num) => {
+            <TaskDayOptionNum chosenNum={checkedDays.everyXDays.frequency} chosenColor={chosenColor} handleClick={handleSelectPerXDays} endNum={15} startNum={2}/>
 
-              return (
-                <Day color={chosenColor}>
-                  <DayName>{num}</DayName>
-                </Day>
-              )
-            })}
-          </DaysContainer>
           ) : null}
         </GroupedTasks>
-          */
-        }
-
       </ListBody>
     </div>
   )

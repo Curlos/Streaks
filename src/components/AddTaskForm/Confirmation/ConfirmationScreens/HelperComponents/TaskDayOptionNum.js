@@ -28,12 +28,12 @@ const DayName = styled.span`
   user-select: none;
 `
 
-const getArraySequence = (end, start=1) => {
+const getArraySequence = (end=7, start=1) => {
   return [...Array(end + 1).keys()].slice(start)
 }
 
-const TaskDayOptionNum = ({ chosenColor, handleClick }) => {
-  const [selectedNum, setSelectedNum] = useState(7)
+const TaskDayOptionNum = ({ chosenNum, chosenColor, handleClick, startNum, endNum }) => {
+  const [selectedNum, setSelectedNum] = useState(chosenNum)
 
   const changeSelectedDay = (e) => {
     
@@ -49,7 +49,7 @@ const TaskDayOptionNum = ({ chosenColor, handleClick }) => {
 
   return (
     <DaysContainer>
-      {getArraySequence(7).map((num) => {
+      {getArraySequence(endNum, startNum).map((num) => {
 
         return (
           <Day key={num} color={chosenColor} value={num} checked={num === selectedNum} onClick={changeSelectedDay}>
