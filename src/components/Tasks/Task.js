@@ -67,7 +67,7 @@ const DisplayElem = styled.div`
   display: ${props => props.display};
 `
 
-const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
+const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
@@ -89,43 +89,54 @@ const Task = ({ taskObject, iconClassName, chosenColor, showSettings }) => {
 
   const toggleComplete = () => {
     
-    if (colors.color === 'gray') {
+    if (taskObj.completed === false) {
       setColors({
         ...colors,
         color: chosenColor,
         backgroundColor: chosenColor,
         automaticColor: chosenColor
       })
+
+      
+      const completedTask = {...taskObj, completed: true, currentStreak: taskObj.currentStreak + 1}
+      toggleCompleteTask(completedTask)
     } else {
       setColors({
         ...colors,
         color: "gray",
         backgroundColor: "none"
       })
+
+      const incompleteTask = {...taskObj, completed: false, currentStreak: taskObj.currentStreak - 1}
+      toggleCompleteTask(incompleteTask)
     }
+  }
+
+  const handleEditTask = () => {
+    console.log(taskObj)
   }
 
   return (
   
       <div>
-        <TaskContainer>
+        <TaskContainer >
             <TaskIconContainer colors={colors} onClick={toggleComplete}>
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
             </TaskIcon>
 
-            <TaskStreakNum>4</TaskStreakNum>
+            <TaskStreakNum>{taskObj ? taskObj.currentStreak : 69}</TaskStreakNum>
           </TaskIconContainer>
           
           <TaskNameContainer colors={colors}>
           
-            <TaskName>{taskObject ? taskObject.title : 'pray to god'}</TaskName>
+            <TaskName>{taskObj ? taskObj.title : 'pray to god'}</TaskName>
 
           </TaskNameContainer>
         </TaskContainer>
 
         <DisplayElem display={showSettings ? 'inline' : 'none'}>
-          <TaskSettingsIconContainer colors={colors}>
+          <TaskSettingsIconContainer colors={colors} onClick={handleEditTask}>
             <TaskSettingsIcon>
               <i className="fas fa-ellipsis-h"></i>
             </TaskSettingsIcon>

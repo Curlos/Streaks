@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { nanoid } from 'nanoid'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import './addTaskForm.css'
@@ -21,8 +22,8 @@ const AddTaskHeader = styled.div`
 const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
 
   const [selectedTaskType, setSelectedTaskType] = useState('customTask')
-
-  const [currentTask, setCurrentTask] = useState({
+  const defaultTask = {
+    id: nanoid(),
     title: '',
     icon: '',
     color: {
@@ -91,7 +92,9 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     },
     currentStreak: 0,
     completed: false,
-  })
+  }
+
+  const [currentTask, setCurrentTask] = useState(defaultTask)
 
   console.log(currentTask)
 
@@ -99,8 +102,14 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     setCurrentTask(newTask)
   }
 
+  const revertTaskSettingsToDefault = () => {
+    setCurrentTask(defaultTask)
+  }
+
   const handleSave = () => {
     handleSaveTask(currentTask)
+    revertTaskSettingsToDefault()
+    toggleModal()
   }
 
   const handleTaskHeaderClick = (e) => {
@@ -153,7 +162,7 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
               </Route>
 
               <Route path="/confirm" exact>
-                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} />
+                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} handleSave={handleSave} revertTaskSettingsToDefault={revertTaskSettingsToDefault}/>
               </Route>
 
               <Route path="/confirm/measurement-duration" exact>
