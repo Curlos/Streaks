@@ -9,6 +9,7 @@ import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/Gener
 
 import MeasurementDurationScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/MeasurementDurationScreen'
 import TaskDaysScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/TaskDaysScreen'
+import StartWeekOnScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/StartWeekOnScreen'
 import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/ColorScreen'
 
 const AddTaskHeader = styled.div`
@@ -26,16 +27,51 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     icon: '',
     color: {
       type: 'automatic',
-      color: automaticColor
+      color: automaticColor,
+      taskColorTypes: {
+        automatic: {
+          checked: true,
+          color: automaticColor
+        },
+        customColor: {
+          checked: false,
+          color: automaticColor
+        }
+      }
     },
     measurementDuration: {
       type: 'daily',
       iconName: 'calendar-day',
     },
     daily: {
-      taskDaysType: 'everyday',
-      frequency: 1,
-
+      specificDaysOfWeek: {
+        checked: true,
+        days: {
+          sunday: true,
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: true
+        }
+      },
+      numOfDaysPerWeek: {
+        checked: false,
+        frequency: 7
+      },
+      numOfDaysPerFortnight: {
+        checked: false,
+        frequency: 7
+      },
+      numOfDaysPerMonth: {
+        checked: false,
+        frequency: 7
+      },
+      everyXDays: {
+        checked: false,
+        frequency: 2
+      },
     },
     weekly: {
       startWeekOn: 'Sunday',
@@ -48,8 +84,9 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     completed: false,
   })
 
+  console.log(currentTask)
+
   const handleTaskChange = (newTask) => {
-    console.log(currentTask)
     setCurrentTask(newTask)
   }
 
@@ -118,8 +155,12 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
                 <TaskDaysScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
               </Route>
 
+              <Route path="/confirm/start-week-on" exact>
+                <StartWeekOnScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+              </Route>
+
               <Route path="/confirm/color" exact>
-                <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+                <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor}/>
               </Route>
 
             </Switch>

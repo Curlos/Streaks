@@ -12,7 +12,6 @@ const ListHeader = styled.div`
   border-radius: 20px 20px 0 0;
   background-color: #202020;
   padding: 15px;
-  border-radius: 0 20px 20px 20px;
 `
 
 const ListBody = styled.div`

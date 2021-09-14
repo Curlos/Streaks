@@ -14,10 +14,7 @@ const TaskIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: ${props => {
-    console.log(props)
-    return (props.color)
-  }};
+  background-color: ${props => props.color};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
@@ -96,9 +93,6 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
   const handleClick = () => {
 
     if (handleTaskChange) {
-      console.log('changing contents')
-      console.log(currentTask)
-      console.log({...currentTask, title: title, icon: iconClassName })
       handleTaskChange({...currentTask, title: title, icon: iconClassName })
     }
   }
