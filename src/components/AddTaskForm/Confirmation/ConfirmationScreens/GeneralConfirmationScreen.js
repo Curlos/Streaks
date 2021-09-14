@@ -29,8 +29,17 @@ const SaveTaskButton = styled.div`
   padding: 15px;
 `
 
-const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave }) => {
+const CharLimit = styled.div`
+  color: lightgray;
+  margin: 10px;
+`
 
+const TitleText = styled.div`
+  color: lightgray;
+  margin: 10px;
+`
+
+const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave }) => {
 
   console.log(currentTask)
 
@@ -101,6 +110,14 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
   const measurementTitle = `${currentTask.measurementDuration.type[0].toUpperCase() + currentTask.measurementDuration.type.slice(1,).toLowerCase()} Task`
   const measurementIconName = currentTask.measurementDuration.iconName
 
+  const handleChangeTaskTitle = (e) => {
+    const newTitle = e.target.value
+    
+    if (newTitle.length <= 28) {
+      handleTaskChange({...currentTask, title: newTitle})
+    }
+  }
+
 
   return (
     <div>
@@ -113,7 +130,15 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
       </ConfirmTaskHeader>
 
       <ConfirmTaskBody>
-        <div>Title:</div>
+        <TitleText>Title:</TitleText>
+        <GroupedTasks>
+          <input value={currentTask.title} onChange={handleChangeTaskTitle} className="customInput"/>
+
+          <CharLimit>
+            {`${currentTask.title.length}/28`}
+          </CharLimit>
+        </GroupedTasks>
+
         <GroupedTasks>
           <Link to="/confirm/measurement-duration">
             <ListElemWithIcon title={measurementTitle} iconClassName={`fas fa-${measurementIconName}`} changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask} chosenColor={chosenColor}/>
