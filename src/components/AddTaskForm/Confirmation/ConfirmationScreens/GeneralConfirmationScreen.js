@@ -4,14 +4,20 @@ import ListElemWithIcon from '../../ListElem/ListElemWithIcon'
 import ConfirmationTask from './HelperComponents/ConfirmationTask'
 import { Link } from 'react-router-dom'
 
+const ConfirmTaskTitleContainer = styled.div`
+  border-radius: 20px 20px 0 0;
+  margin: 0;
+  padding: 20px;
+  background-color: #202020;
+`
+
 const ConfirmTaskTitle = styled.div`
   text-align: center;
   font-size: 25px;
 `
 
 const ConfirmTaskHeader = styled.div`
-  background-color: black;
-  padding: 15px;
+  
 `
 
 const ConfirmTaskBody = styled.div`
@@ -22,11 +28,18 @@ const GroupedTasks = styled.div`
   margin-bottom: 25px;
 `
 
+const SaveTaskContainer = styled.span`
+  display: flex;
+  justify-content: center;
+`
+
 const SaveTaskButton = styled.div`
   text-align: center;
   background-color: ${props => props.color};
   border-radius: 10px;
   padding: 15px;
+  padding-left: 35%;
+  padding-right: 35%;
 `
 
 const CharLimit = styled.div`
@@ -122,10 +135,12 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
   return (
     <div>
       <ConfirmTaskHeader>
-        <Link to={getLinkURL(selectedTaskType)}>
-          <i value="goBack" className="fas fa-less-than fa-2x"></i>
-        </Link>
-        <ConfirmTaskTitle>Confirm Task</ConfirmTaskTitle>
+        <ConfirmTaskTitleContainer>
+          <Link to={getLinkURL(selectedTaskType)}>
+            <i value="goBack" className="fas fa-less-than fa-2x"></i>
+          </Link>
+          <ConfirmTaskTitle>Confirm Task</ConfirmTaskTitle>
+        </ConfirmTaskTitleContainer>
         <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={chosenColor}/>
       </ConfirmTaskHeader>
 
@@ -169,7 +184,9 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
 
         <GroupedTasks>
           <Link to="/">
-            <SaveTaskButton color={chosenColor} onClick={handleSave}>Save Task</SaveTaskButton>
+            <SaveTaskContainer>
+              <SaveTaskButton color={chosenColor} onClick={handleSave}>Save Task</SaveTaskButton>
+            </SaveTaskContainer>
           </Link>
         </GroupedTasks>
       </ConfirmTaskBody>

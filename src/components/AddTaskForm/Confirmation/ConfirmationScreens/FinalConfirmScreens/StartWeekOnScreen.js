@@ -30,33 +30,25 @@ const GroupedTasks = styled.div`
 
 const StartWeekOnScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
 
-  const [checkedDays, setCheckedDays] = useState({
-    sunday: true,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false
-  })
+  const startWeekOn = {...currentTask.weekly.startWeekOn}
+
+  console.log(currentTask)
 
   const handleCheck = (e) => {
     const checkedDay = e.target.getAttribute('value')
-    const newCheckedDays = {}
 
-    Object.keys(checkedDays).forEach((day) => {
+    Object.keys(startWeekOn).forEach((day) => {
+      console.log([day, checkedDay])
       if (day === checkedDay) {
         console.log(`Selected ${[day]}`)
-        newCheckedDays[day] = true
-        const titleCaseDay = day[0].toUpperCase() + day.slice(1)
-        const newWeekly = {...currentTask.weekly, startWeekOn: titleCaseDay}
-        handleTaskChange({...currentTask, weekly: newWeekly})
+        startWeekOn[day] = true
       } else {
-        newCheckedDays[day] = false
+        startWeekOn[day] = false
       }
     })
 
-    setCheckedDays(newCheckedDays)
+    const newWeekly = {...currentTask.weekly, startWeekOn: startWeekOn}
+    handleTaskChange({...currentTask, weekly: newWeekly})
   }
 
   return (
@@ -75,7 +67,7 @@ const StartWeekOnScreen = ({ currentTask, handleTaskChange, automaticColor }) =>
             const titleCaseDay = day[0].toUpperCase() + day.slice(1)
 
             return (
-              <ConfirmationListElem title={titleCaseDay} clickHandler={handleCheck} checked={checkedDays[day]} automaticColor={automaticColor} value={day}/>
+              <ConfirmationListElem title={titleCaseDay} clickHandler={handleCheck} checked={startWeekOn[day]} automaticColor={automaticColor} value={day}/>
             )
           })}
         </GroupedTasks>

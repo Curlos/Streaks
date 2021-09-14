@@ -74,7 +74,15 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
       },
     },
     weekly: {
-      startWeekOn: 'Sunday',
+      startWeekOn: {
+        sunday: true,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false
+      },
       frequency: 1,
     },
     monthly: {
