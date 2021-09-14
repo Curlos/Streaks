@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import ListElem from '../../../ListElem/ListElem'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
 
@@ -12,7 +11,6 @@ const ListHeader = styled.div`
   border-radius: 20px 20px 0 0;
   background-color: #202020;
   padding: 15px;
-  border-radius: 0 20px 20px 20px;
 `
 
 const ListBody = styled.div`
@@ -31,53 +29,42 @@ const GroupedTasks = styled.div`
 
 const ColorScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
 
-  const [taskColorTypes, setTaskColorTypes] = useState({
-    automatic: {
-      checked: true,
-      color: automaticColor
-    },
-    customColor: {
-      checked: false,
-      color: null
-    }
-  })
+  const taskColorTypes = {...currentTask.color.taskColorTypes}
 
   const handleCheck = (colorType, customColor=null) => {
+    console.log('click')
     if (colorType === 'automatic') {
-      setTaskColorTypes({
-        automatic: {
-          checked: true,
-          color: automaticColor
-        },
-        customColor: {
-          checked: false,
-          color: taskColorTypes.customColor.color
-        }
-      })
-
-      handleTaskChange({...currentTask, color: {
+      const newColor = {
         type: 'automatic',
-        color: automaticColor
-      }})
+        color: automaticColor,
+        taskColorTypes: {
+          automatic: {
+            checked: true,
+            color: automaticColor
+          },
+          customColor: {
+            checked: false,
+            color: taskColorTypes.customColor.color
+          }
+        }}
+      handleTaskChange({...currentTask, color: newColor})
+
     } else {
-      setTaskColorTypes({
-        automatic: {
-          checked: false,
-          color: automaticColor
-        },
-        customColor: {
-          checked: true,
-          color: customColor
-        }
-      })
-
-      handleTaskChange({...currentTask, color: {
-        type: 'custom',
-        color: customColor
-      }})
+      const newColor = {
+        type: 'custom', 
+        color: customColor, 
+        taskColorTypes: {
+          automatic: {
+            checked: false,
+            color: automaticColor
+          },
+          customColor: {
+            checked: true,
+            color: typeof customColor === 'string' ? customColor : automaticColor
+          }
+        }}
+      handleTaskChange({...currentTask, color: newColor})
     }
-
-    console.log(taskColorTypes)
   }
 
   const handlePickAutomatic = () => {
@@ -85,6 +72,7 @@ const ColorScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
   }
 
   const handlePickCustom = (customColor) => {
+    console.log('bitches get stitches')
     handleCheck('customColor', customColor)
   }
 
@@ -104,7 +92,7 @@ const ColorScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
         </GroupedTasks>
 
         <GroupedTasks>
-          <ConfirmationListElem title="Custom" clickHandler={handlePickCustom} automaticColor={automaticColor} listElemType="color"/>
+          <ConfirmationListElem title="Custom" clickHandler={handlePickCustom} automaticColor={automaticColor} chosenColor={currentTask.color.color} checked={taskColorTypes.customColor.checked} listElemType="color" />
         </GroupedTasks>
 
       </ListBody>
