@@ -89,6 +89,8 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
         return (
           {value}
         )
+      case 'delete':
+        return null
       default:
         return (
           <TaskIcon>
@@ -99,7 +101,7 @@ const ListElemWithIcon = ({ title, clickHandler, iconClassName, currentTask, han
   }
 
   return (
-      <ListElemBody onClick={handleClick}>
+      <ListElemBody onClick={description === 'delete' ? clickHandler : handleClick}>
         <TaskContainer onClick={clickHandler}>
               <TaskIconContainer color={chosenColor}>
                 <TaskIcon>

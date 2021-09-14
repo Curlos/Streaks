@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import './addTaskForm.css'
 import HeaderTasks from '../HeaderTasks/HeaderTasks'
@@ -19,8 +19,8 @@ const AddTaskHeader = styled.div`
   padding: 5px;
 `
 
-const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
-
+const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTask, handleDeleteTask, tasksObj }) => {
+  
   const [selectedTaskType, setSelectedTaskType] = useState('customTask')
   const defaultTask = {
     id: nanoid(),
@@ -94,11 +94,21 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     completed: false,
   }
 
-  const [currentTask, setCurrentTask] = useState(defaultTask)
+  const urlParams = window.location.pathname.split("/")
+  let id = ''
+
+  if (urlParams.includes('edit')) {
+    id = window.location.pathname.split("/").pop()
+  }
+
+  console.log(id)
+
+  const [currentTask, setCurrentTask] = useState(id ? {...tasksObj[id]} : defaultTask)
 
   console.log(currentTask)
 
   const handleTaskChange = (newTask) => {
+    console.log('changing...')
     setCurrentTask(newTask)
   }
 
@@ -110,6 +120,23 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
     handleSaveTask(currentTask)
     revertTaskSettingsToDefault()
     toggleModal()
+  }
+
+  const handleEdit = () => {
+    handleEditTask(currentTask)
+    revertTaskSettingsToDefault()
+    toggleModal()
+  }
+
+  const handleDelete = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const userResponse = confirm("Delete Task - Are you sure? This cannot be undone.")
+
+    if (userResponse) {
+      handleDeleteTask(currentTask)
+      revertTaskSettingsToDefault()
+      toggleModal()
+    }
   }
 
   const handleTaskHeaderClick = (e) => {
@@ -141,53 +168,71 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask }) => {
   }
   
   return (
-    <Router>
-      <div className="newTaskForm">
-        <div id="myModal" className="modal">
+    <div className="newTaskForm">
+      <div id="myModal" className="modal">
 
-          <div className="modal-content">
-            <Switch>
-              <Route path="/" exact>
-                <span>
-                  <TaskSelectorHeader />
-                  <GeneralPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
-                </span>
-              </Route>
+        <div className="modal-content">
+          <Switch>
+            <Route path="/" exact>
+              <span>
+                <TaskSelectorHeader />
+                <GeneralPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
+              </span>
+            </Route>
 
-              <Route path="/health-task" exact>
-                <span>
-                  <TaskSelectorHeader />
-                  <HealthPresetTasks currentTask={currentTask} automaticColor={automaticColor} />
-                </span>
-              </Route>
+            <Route path="/health-task" exact>
+              <span>
+                <TaskSelectorHeader />
+                <HealthPresetTasks currentTask={currentTask} automaticColor={automaticColor} />
+              </span>
+            </Route>
 
-              <Route path="/confirm" exact>
-                <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} handleSave={handleSave} revertTaskSettingsToDefault={revertTaskSettingsToDefault}/>
-              </Route>
+            <Route path="/confirm" exact>
+              <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} task={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} handleSave={handleSave} revertTaskSettingsToDefault={revertTaskSettingsToDefault} />
+            </Route>
 
-              <Route path="/confirm/measurement-duration" exact>
-                <MeasurementDurationScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
-              </Route>
+            <Route path="/confirm/measurement-duration" exact>
+              <MeasurementDurationScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
 
-              <Route path="/confirm/task-days" exact>
-                <TaskDaysScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
-              </Route>
+            <Route path="/confirm/task-days" exact>
+              <TaskDaysScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
 
-              <Route path="/confirm/start-week-on" exact>
-                <StartWeekOnScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
-              </Route>
+            <Route path="/confirm/start-week-on" exact>
+              <StartWeekOnScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
 
-              <Route path="/confirm/color" exact>
-                <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor}/>
-              </Route>
+            <Route path="/confirm/color" exact>
+              <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor}/>
+            </Route>
 
-            </Switch>
-            
-          </div>
+            <Route path="/confirm/edit/:id" exact>
+              <GeneralConfirmationScreen title={currentTask.title} icon={currentTask.icon} selectedTaskType={selectedTaskType} task={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} handleSave={handleSave} handleEdit={handleEdit} handleDelete={handleDelete} revertTaskSettingsToDefault={revertTaskSettingsToDefault} tasksObj={tasksObj} edit={true} toggleModal={toggleModal}/>
+            </Route>
 
+            <Route path="/confirm/edit/measurement-duration/:id" exact>
+              <MeasurementDurationScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
+
+            <Route path="/confirm/edit/task-days/:id" exact>
+              <TaskDaysScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
+
+            <Route path="/confirm/edit/start-week-on/:id" exact>
+              <StartWeekOnScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color}/>
+            </Route>
+
+            <Route path="/confirm/edit/color/:id" exact>
+              <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={true}/>
+            </Route>
+
+          </Switch>
+          
         </div>
+
       </div>
-    </Router>
+    </div>
   )
 }
 

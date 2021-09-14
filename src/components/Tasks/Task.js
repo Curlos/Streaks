@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { Link, useParams } from 'react-router-dom'
 
 const taskContainerWidth = 200
 const taskContainerHeight = 200
@@ -67,7 +68,7 @@ const DisplayElem = styled.div`
   display: ${props => props.display};
 `
 
-const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask }) => {
+const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask, handleEditTask, toggleModal }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
@@ -112,8 +113,9 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     }
   }
 
-  const handleEditTask = () => {
-    console.log(taskObj)
+  const displayEditScreen = () => {
+    toggleModal()
+    handleEditTask(taskObj)
   }
 
   return (
@@ -136,14 +138,17 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
         </TaskContainer>
 
         <DisplayElem display={showSettings ? 'inline' : 'none'}>
-          <TaskSettingsIconContainer colors={colors} onClick={handleEditTask}>
-            <TaskSettingsIcon>
-              <i className="fas fa-ellipsis-h"></i>
-            </TaskSettingsIcon>
-          </TaskSettingsIconContainer>
+        <Link to={`/confirm/edit/${taskObj.id}`}>
+            <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
+              <TaskSettingsIcon>
+                <i className="fas fa-ellipsis-h"></i>
+              </TaskSettingsIcon>
+            </TaskSettingsIconContainer>
+        </Link>
         </DisplayElem>
       </div>
   )
 }
+
 
 export default Task;

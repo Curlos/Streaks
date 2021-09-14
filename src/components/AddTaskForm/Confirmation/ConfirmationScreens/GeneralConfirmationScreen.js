@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ListElemWithIcon from '../../ListElem/ListElemWithIcon'
 import ConfirmationTask from './HelperComponents/ConfirmationTask'
 import PlusMinusListElem from './HelperComponents/PlusMinusListElem'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const ConfirmTaskTitleContainer = styled.div`
   border-radius: 20px 20px 0 0;
@@ -53,7 +53,10 @@ const TitleText = styled.div`
   margin: 10px;
 `
 
-const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, chosenColor, handleSave, revertTaskSettingsToDefault }) => {
+const ConfirmationScreen = ({ selectedTaskType, task, handleTaskChange, chosenColor, handleSave, handleEdit, handleDelete, edit, tasksObj, toggleModal }) => {
+
+  const { id } = useParams()
+  const currentTask = {...task}
 
   const changeMeasurementDuration = (newMeasurementDuration) => {
     handleTaskChange({...currentTask, measurementDuration: newMeasurementDuration})
@@ -118,6 +121,10 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
       'negativeTask': '/negative-task'
     }
 
+    if (edit) {
+      return LinkTypes[selectedTaskType] + `/edit/${id}`
+    }
+
     return LinkTypes[selectedTaskType]
   }
 
@@ -132,17 +139,22 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
     }
   }
 
-
   return (
     <div>
       <ConfirmTaskHeader>
         <ConfirmTaskTitleContainer>
-          <Link to={getLinkURL(selectedTaskType)}>
-            <i value="goBack" className="fas fa-less-than fa-2x"></i>
-          </Link>
-          <ConfirmTaskTitle>Confirm Task</ConfirmTaskTitle>
+          {edit ? (
+            <Link to="/">
+              <i value="start" className="fas fa-times fa-2x" onClick={toggleModal}></i>
+            </Link>
+          ) : (
+            <Link to={getLinkURL(selectedTaskType)}>
+              <i value="goBack" className="fas fa-less-than fa-2x"></i>
+            </Link>
+          )}
+          <ConfirmTaskTitle>{edit ? 'Edit Task' : 'Confirm Task'}</ConfirmTaskTitle>
         </ConfirmTaskTitleContainer>
-        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={chosenColor}/>
+        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={currentTask.color.color}/>
       </ConfirmTaskHeader>
 
       <ConfirmTaskBody>
@@ -156,40 +168,57 @@ const ConfirmationScreen = ({ selectedTaskType, currentTask, handleTaskChange, c
         </GroupedTasks>
 
         <GroupedTasks>
-          <Link to="/confirm/measurement-duration">
-            <ListElemWithIcon title={measurementTitle} iconClassName={`fas fa-${measurementIconName}`} changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask} chosenColor={chosenColor}/>
+          <Link to={edit ? `/confirm/edit/measurement-duration/${id}` : "/confirm/measurement-duration"}>
+            <ListElemWithIcon title={measurementTitle} iconClassName={`fas fa-${measurementIconName}`} changeMeasurementDuration={changeMeasurementDuration} currentTask={currentTask} chosenColor={currentTask.color.color}/>
           </Link>
 
           {currentTask.measurementDuration.type === 'daily' ? 
-          (<Link to="/confirm/task-days">
-            <ListElemWithIcon title={"Task Days"} iconClassName={"fas fa-calendar"} changeTaskDays={changeTaskDays} currentTask={currentTask} chosenColor={chosenColor}/>
+          (<Link to={edit ? `/confirm/edit/task-days/${id}` : "/confirm/task-days"}>
+            <ListElemWithIcon title={"Task Days"} iconClassName={"fas fa-calendar"} changeTaskDays={changeTaskDays} currentTask={currentTask} chosenColor={currentTask.color.color}/>
           </Link>) : null
           }
 
-          <PlusMinusListElem title={`${getTaskFrequency()} time/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} chosenColor={chosenColor} description="plusMinus" handleTaskChange={handleTaskChange}/>
+          <PlusMinusListElem title={`${getTaskFrequency()} time/${getTaskDuration()}`} iconClassName={"far fa-circle"} changeFrequency={changeFrequency} currentTask={currentTask} chosenColor={currentTask.color.color} description="plusMinus" handleTaskChange={handleTaskChange}/>
 
           {currentTask.measurementDuration.type === 'weekly' ?
-          (<Link to="/confirm/start-week-on">
+          (<Link to={edit ? `/confirm/edit/start-week-on/${id}`: "/confirm/start-week-on"}>
 
-            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} chosenColor={chosenColor} />
+            <ListElemWithIcon title={"Start Week On"} iconClassName={"fas fa-calendar"} changeStartWeekOn={changeStartWeekOn} currentTask={currentTask} chosenColor={currentTask.color.color} />
 
           </Link>) : null
           }
         </GroupedTasks>
 
         <GroupedTasks>
-          <Link to="/confirm/color">
-            <ListElemWithIcon title={"Color"} iconClassName={"fas fa-palette"} changeColor={changeColor} currentTask={currentTask} chosenColor={chosenColor} description="color"/>
+          <Link to={edit ? `/confirm/edit/color/${id}`: "/confirm/color"}>
+            <ListElemWithIcon title={"Color"} iconClassName={"fas fa-palette"} changeColor={changeColor} currentTask={currentTask} chosenColor={currentTask.color.color} description="color"/>
           </Link>
         </GroupedTasks>
 
-        <GroupedTasks>
+        {edit ? (
+          <GroupedTasks>
+            <ListElemWithIcon title={"Delete Task"} iconClassName={"far fa-trash-alt"} clickHandler={handleDelete} currentTask={currentTask} chosenColor={currentTask.color.color} description="delete"/>
+        </GroupedTasks>
+        ) : null}
+        
+        {edit ? (
+          <GroupedTasks>
           <Link to="/">
             <SaveTaskContainer>
-              <SaveTaskButton color={chosenColor} onClick={handleSave}>Save Task</SaveTaskButton>
+              <SaveTaskButton color={currentTask.color.color} onClick={handleEdit}>Done</SaveTaskButton>
             </SaveTaskContainer>
           </Link>
         </GroupedTasks>
+        ) : (
+          <GroupedTasks>
+            <Link to="/">
+              <SaveTaskContainer>
+                <SaveTaskButton color={currentTask.color.color} onClick={handleSave}>Save Task</SaveTaskButton>
+              </SaveTaskContainer>
+            </Link>
+          </GroupedTasks>
+        )}
+
       </ConfirmTaskBody>
     </div>
   )

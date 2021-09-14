@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Task from './Task'
 import AddTaskButton from './AddTaskButton'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 const TasksContainer = styled.div`
   display: flex;
@@ -10,9 +11,7 @@ const TasksContainer = styled.div`
   margin: 40px;
 `
 
-const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleCompleteTask }) => {
-
-  console.log(JSON.stringify(taskObjs))
+const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleCompleteTask, handleEditTask }) => {
 
   const sampleTask = {
     title: 'ADD A TASK'
@@ -22,10 +21,9 @@ const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleComplet
     <TasksContainer>
       {Object.keys(taskObjs).map((id) => {
         const task = taskObjs[id]
-        console.log(id)
 
         return (
-          <Task iconClassName={task.icon} chosenColor={task.color.color} showSettings={showSettings} taskObj={task} toggleCompleteTask={toggleCompleteTask}/>
+          <Task iconClassName={task.icon} chosenColor={task.color.color} showSettings={showSettings} taskObj={task} toggleCompleteTask={toggleCompleteTask} handleEditTask={handleEditTask} toggleModal={toggleModal}/>
         )
       })}
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import Tasks from './components/Tasks/Tasks'
 import Footer from './components/Tasks/Footer'
@@ -19,6 +20,12 @@ const LoginButton = styled.span`
 const FooterBottom = styled.span`
   margin-top: auto;
 `
+
+const filteredTasks = (obj, idToFilterOut) => {
+  const asArray = Object.entries(obj)
+  const filtered = asArray.filter(([id, value]) => id !== idToFilterOut)
+  return Object.fromEntries(filtered)
+}
 
 const App = () => {
 
@@ -47,8 +54,21 @@ const App = () => {
     console.log({...tasks, [newTask.id]: newTask})
   }
 
-  const handleEditTask = () => {
+  const handleEditTask = (taskObj) => {
+    setTasks({...tasks, [taskObj.id]: taskObj})
 
+    console.log({...tasks, [taskObj.id]: taskObj})
+  }
+
+  const handleDeleteTask = (taskObj) => {
+    console.log(taskObj)
+
+    const newTasks = {...tasks}
+    delete newTasks[taskObj.id]
+
+    setTasks(newTasks)
+
+    console.log(tasks)
   }
 
   const toggleCompleteTask = (completedTask) => {
@@ -56,20 +76,23 @@ const App = () => {
     setTasks({...tasks, [completedTask.id]: completedTask})
   }
 
+
   return (
     <AppBody>
-      <div>
-        <span>Streaks App</span>
-        <LoginButton>
-          <i class="fas fa-user"></i>
-        </LoginButton>
-      </div>
-      <Tasks chosenColor={automaticColor} showSettings={showSettings} toggleModal={toggleModal} taskObjs={tasks} toggleCompleteTask={toggleCompleteTask}/>
-      <FooterBottom>
-        <Footer handlePickColor={handlePickColor} chosenColor={automaticColor} toggleShowSettings={toggleShowSettings}/>
-      </FooterBottom>
+      <Router>
+        <div>
+          <span>Streaks App</span>
+          <LoginButton>
+            <i class="fas fa-user"></i>
+          </LoginButton>
+        </div>
+        <Tasks chosenColor={automaticColor} showSettings={showSettings} toggleModal={toggleModal} taskObjs={tasks} toggleCompleteTask={toggleCompleteTask} handleEditTask={handleEditTask}/>
+        <FooterBottom>
+          <Footer handlePickColor={handlePickColor} chosenColor={automaticColor} toggleShowSettings={toggleShowSettings}/>
+        </FooterBottom>
 
-      {showNewTaskForm ? <NewTaskForm toggleModal={toggleModal} automaticColor={automaticColor} handleSaveTask={handleSaveTask}/> : null}
+        {showNewTaskForm ? <NewTaskForm toggleModal={toggleModal} automaticColor={automaticColor} handleSaveTask={handleSaveTask} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} tasksObj={tasks}/> : null}
+      </Router>
     </AppBody>
   );
 }
