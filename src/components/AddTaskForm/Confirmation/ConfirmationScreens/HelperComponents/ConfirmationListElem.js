@@ -16,8 +16,8 @@ const TaskIconContainer = styled.div`
   background-color: ${props => props.color};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
-  margin: 20px;
-
+  margin-right: ${props => props.colorType === 'colorPicker' ? 45 : 20}px;
+  margin-top: ${props => props.colorType === 'colorPicker' ? 5 : 0}px;
 `
 
 const TaskIcon = styled.div`
@@ -55,40 +55,44 @@ const TaskDesc = styled.span`
   color: #9e9e9e;
 `
 
-const ConfirmationListElem = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, checked, chosenColor, description, listElemType }) => {
+const ColorPicker = styled.span`
+  visibility: ${props => props.visibility}
+`
+
+const ConfirmationListElem = ({ title, clickHandler, iconClassName, currentTask, handleTaskChange, checked, chosenColor, description, listElemType, value }) => {
 
   const handleColorChange = (e) => {
     const newColor = e.target.value
     clickHandler(newColor)
   }
 
+
   return (
-      <ListElemBody onClick={listElemType !== 'color' ? clickHandler : null}>
-        <TaskContainer onClick={listElemType !== 'color' ? clickHandler : null}>
+      <ListElemBody onClick={clickHandler} value={value}>
+        <TaskContainer onClick={clickHandler} value={value}>
               {iconClassName ? (
-                <TaskIconContainer color={chosenColor}>
-                  <TaskIcon>
+                <TaskIconContainer color={chosenColor} value={value}>
+                  <TaskIcon value={value}>
                     <i className={iconClassName}></i>
                   </TaskIcon>
                 </TaskIconContainer>
               ) : null}
-              <TaskInfo>
-                {iconClassName ? <TaskNameContainer>{title}</TaskNameContainer> : <TaskNameContainer margin="20">{title}</TaskNameContainer>}
-                <TaskDesc>{description}</TaskDesc>
+              <TaskInfo value={value}>
+                {iconClassName ? <TaskNameContainer value={value}>{title}</TaskNameContainer> : <TaskNameContainer margin="20" value={value}>{title}</TaskNameContainer>}
+                <TaskDesc value={value}>{description}</TaskDesc>
               </TaskInfo>
         </TaskContainer>
 
-        <TaskIconContainer color="none">
+        <TaskIconContainer color="none" value={value} colorType={listElemType === 'color' ? 'colorPicker' : null}>
               {listElemType === 'color' ? (
-                <span>
+                <ColorPicker visibility={checked ? 'inline-block' : 'hidden'}>
                   <input type="color"
-                    value={chosenColor} onChange={handleColorChange}/>
-                </span>
+                    value={chosenColor || currentTask.color.color} onChange={handleColorChange}/>
+                </ColorPicker>
               ): null}
-            <TaskIcon>
-              {checked === true ? <i className="fas fa-check"></i> :
-              null}
+            <TaskIcon value={value}>
               {listElemType === 'color' ? <i className="fas fa-greater-than"></i> : null}
+              {listElemType !== 'color' && checked ? <i className="fas fa-check"></i> : null}
             </TaskIcon>
           </TaskIconContainer>
       </ListElemBody>
