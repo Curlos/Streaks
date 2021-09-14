@@ -5,7 +5,6 @@ const presetColors = ['#CC092F', '#BF2F38','#008853', '#1D8CAB', '#1061AC', '#04
 
 const FooterContainer = styled.div`
   background-color: ${props => {
-    console.log(props)
     return (
       props.footerColor
     )
@@ -69,8 +68,6 @@ const Footer = ({ handlePickColor, chosenColor, toggleShowSettings }) => {
     toggleShowSettings()
     setDisplay('none')
   }
-
-  console.log(footerColor)
 
   return (
     <FooterContainer footerColor={footerColor} display={display}>

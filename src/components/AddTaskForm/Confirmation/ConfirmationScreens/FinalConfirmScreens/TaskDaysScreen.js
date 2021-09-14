@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import TaskDayOptionDays from '../HelperComponents/TaskDayOptionDays'
 import TaskDayOptionNum from '../HelperComponents/TaskDayOptionNum'
@@ -31,6 +31,7 @@ const GroupedTasks = styled.div`
 
 const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
 
+  const { id } = useParams()
   const checkedDays = {...currentTask.daily}
 
   const handleCheck = (checkedDayType) => {
@@ -125,10 +126,18 @@ const TaskDaysScreen = ({ currentTask, handleTaskChange, chosenColor }) => {
     }
   }
 
+  const getLinkURL = () => {
+    if (id) {
+      return `/confirm/edit/${id}`
+    }
+
+    return '/confirm'
+  }
+
   return (
     <div>
       <ListHeader>
-        <Link to="/confirm">
+        <Link to={getLinkURL()}>
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ListTitle>Task Days</ListTitle>

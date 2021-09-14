@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
 
@@ -27,9 +27,10 @@ const GroupedTasks = styled.div`
   margin-bottom: 25px;
 `
 
-const ColorScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
+const ColorScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, edit }) => {
 
   const taskColorTypes = {...currentTask.color.taskColorTypes}
+  const { id } = useParams()
 
   const handleCheck = (colorType, customColor=null) => {
     console.log('click')
@@ -76,10 +77,18 @@ const ColorScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
     handleCheck('customColor', customColor)
   }
 
+  const getLinkURL = () => {
+    if (edit) {
+      return `/confirm/edit/${id}`
+    }
+
+    return '/confirm'
+  }
+
   return (
     <div>
       <ListHeader>
-        <Link to="/confirm">
+        <Link to={getLinkURL()}>
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ListTitle>Color</ListTitle>

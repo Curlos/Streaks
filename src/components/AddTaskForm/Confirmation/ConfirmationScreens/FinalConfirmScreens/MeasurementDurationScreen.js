@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ListElemWithIcon from '../../../ListElem/ListElemWithIcon'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
@@ -33,6 +33,8 @@ const GroupedTasksLarge = styled(GroupedTasks)`
 `
 
 const MeasurementDurationScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
+
+  const { id } = useParams()
 
   const [checkedDuration, setCheckedDuration] = useState({
     daily: currentTask.measurementDuration.type === 'daily',
@@ -80,12 +82,18 @@ const MeasurementDurationScreen = ({ currentTask, handleTaskChange, automaticCol
     handleCheck('monthly')
   }
 
-  console.log(checkedDuration)
+  const getLinkURL = () => {
+    if (id) {
+      return `/confirm/edit/${id}`
+    }
+
+    return '/confirm'
+  }
 
   return (
     <div>
       <ListHeader>
-        <Link to="/confirm">
+        <Link to={getLinkURL()}>
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ListTitle>Measurement Duration</ListTitle>

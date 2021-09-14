@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ListElem from '../../../ListElem/ListElem'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
@@ -30,9 +30,8 @@ const GroupedTasks = styled.div`
 
 const StartWeekOnScreen = ({ currentTask, handleTaskChange, automaticColor }) => {
 
+  const { id } = useParams()
   const startWeekOn = {...currentTask.weekly.startWeekOn}
-
-  console.log(currentTask)
 
   const handleCheck = (e) => {
     const checkedDay = e.target.getAttribute('value')
@@ -51,10 +50,18 @@ const StartWeekOnScreen = ({ currentTask, handleTaskChange, automaticColor }) =>
     handleTaskChange({...currentTask, weekly: newWeekly})
   }
 
+  const getLinkURL = () => {
+    if (id) {
+      return `/confirm/edit/${id}`
+    }
+
+    return '/confirm'
+  }
+
   return (
     <div>
       <ListHeader>
-        <Link to="/confirm">
+        <Link to={getLinkURL()}>
           <i value="goBack" className="fas fa-less-than fa-2x"></i>
         </Link>
         <ListTitle>Start Week On</ListTitle>
