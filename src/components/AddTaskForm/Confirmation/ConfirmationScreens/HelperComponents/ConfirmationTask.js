@@ -4,8 +4,8 @@ import styled from 'styled-components'
 const taskContainerWidth = 100
 const taskContainerHeight = 100
 
-const taskIconSettingsContainerWidth = 50
-const taskIconSettingsContainerHeight = 50
+const taskIconSettingsContainerWidth = 25
+const taskIconSettingsContainerHeight = 25
 
 const TaskContainer = styled.span`
   
@@ -22,6 +22,7 @@ const TaskIconContainer = styled.div`
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
+  margin-bottom: 0px;
 
 `
 
@@ -53,6 +54,9 @@ const TaskSettingsIconContainer = styled(TaskIconContainer)`
   width: ${taskIconSettingsContainerWidth}px;
   height: ${taskIconSettingsContainerHeight}px;
   padding: 10px;
+  margin-top: -40px;
+  margin-left: 100px;
+  margin-bottom: 10px;
 `
 
 const TaskSettingsIcon = styled.div`
@@ -62,6 +66,7 @@ const TaskSettingsIcon = styled.div`
 const CenterElem = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `
 
 const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
@@ -84,22 +89,8 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
     })
   }, [chosenColor])
 
-  const toggleComplete = () => {
-    
-    if (colors.color === 'gray') {
-      setColors({
-        ...colors,
-        color: chosenColor,
-        backgroundColor: chosenColor,
-        automaticColor: chosenColor
-      })
-    } else {
-      setColors({
-        ...colors,
-        color: "gray",
-        backgroundColor: "none"
-      })
-    }
+  const handleChangeIcon = () => {
+    console.log('changing icon boys')
   }
 
   return (
@@ -107,12 +98,20 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
       <div>
         <TaskContainer>
           <CenterElem>
-            <TaskIconContainer colors={colors} onClick={toggleComplete}>
+            <TaskIconContainer colors={colors}>
               <TaskIcon colors={colors}>
                 <i className={iconClassName}></i>
               </TaskIcon>
             </TaskIconContainer>
-          </CenterElem>  
+          </CenterElem>
+
+          <CenterElem>
+            <TaskSettingsIconContainer colors={colors} onClick={handleChangeIcon}>
+              <TaskSettingsIcon>
+                <i className="fas fa-ellipsis-h"></i>
+              </TaskSettingsIcon>
+            </TaskSettingsIconContainer>
+          </CenterElem>
           
           <TaskNameContainer colors={colors}>
             <TaskName>{taskObject ? taskObject.title : 'pray to god'}</TaskName>

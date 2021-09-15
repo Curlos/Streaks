@@ -23,7 +23,7 @@ const TaskIconContainer = styled.div`
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
-
+  margin-bottom: 0px;
 `
 
 const TaskIcon = styled.div`
@@ -36,6 +36,10 @@ const TaskSettingsIconContainer = styled(TaskIconContainer)`
   width: ${taskIconSettingsContainerWidth}px;
   height: ${taskIconSettingsContainerHeight}px;
   padding: 10px;
+  margin-top: -70px;
+  margin-left: 170px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 10px 4px rgba(0,0,0,.8);
 `
 
 const TaskSettingsIcon = styled.div`
@@ -65,7 +69,7 @@ const TaskStreakNum = styled.div`
 `
 
 const DisplayElem = styled.div`
-  display: ${props => props.display};
+  visibility: ${props => props.display};
 `
 
 const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask, handleEditTask, toggleModal }) => {
@@ -121,7 +125,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
   return (
   
       <div>
-        <TaskContainer >
+        <TaskContainer>
             <TaskIconContainer colors={colors} onClick={toggleComplete}>
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
@@ -129,23 +133,21 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
 
             <TaskStreakNum>{taskObj ? taskObj.currentStreak : 69}</TaskStreakNum>
           </TaskIconContainer>
+
+          <DisplayElem display={showSettings ? 'visible' : 'hidden'}>
+            <Link to={`/confirm/edit/${taskObj.id}`}>
+                <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
+                  <TaskSettingsIcon>
+                    <i className="fas fa-ellipsis-h"></i>
+                  </TaskSettingsIcon>
+                </TaskSettingsIconContainer>
+            </Link>
+          </DisplayElem>
           
           <TaskNameContainer colors={colors}>
-          
             <TaskName>{taskObj ? taskObj.title : 'pray to god'}</TaskName>
-
           </TaskNameContainer>
         </TaskContainer>
-
-        <DisplayElem display={showSettings ? 'inline' : 'none'}>
-        <Link to={`/confirm/edit/${taskObj.id}`}>
-            <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
-              <TaskSettingsIcon>
-                <i className="fas fa-ellipsis-h"></i>
-              </TaskSettingsIcon>
-            </TaskSettingsIconContainer>
-        </Link>
-        </DisplayElem>
       </div>
   )
 }
