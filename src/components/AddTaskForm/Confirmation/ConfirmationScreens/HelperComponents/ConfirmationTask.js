@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const taskContainerWidth = 100
@@ -60,7 +61,7 @@ const TaskSettingsIconContainer = styled(TaskIconContainer)`
 `
 
 const TaskSettingsIcon = styled.div`
-  font-size: ${taskContainerWidth / 8}px;
+  font-size: ${taskContainerWidth / 5}px;
 `
 
 const CenterElem = styled.div`
@@ -69,7 +70,7 @@ const CenterElem = styled.div`
   align-items: center;
 `
 
-const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
+const ConfirmationTask = ({ taskObject, iconClassName, chosenColor, edit }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
@@ -106,11 +107,13 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor }) => {
           </CenterElem>
 
           <CenterElem>
-            <TaskSettingsIconContainer colors={colors} onClick={handleChangeIcon}>
-              <TaskSettingsIcon>
-                <i className="fas fa-ellipsis-h"></i>
-              </TaskSettingsIcon>
-            </TaskSettingsIconContainer>
+            <Link to={edit ? "/confirm/edit/icons/:id" : "/confirm/icons"}>
+              <TaskSettingsIconContainer colors={colors} onClick={handleChangeIcon}>
+                <TaskSettingsIcon>
+                  <i className="fas fa-ellipsis-h"></i>
+                </TaskSettingsIcon>
+              </TaskSettingsIconContainer>
+            </Link>
           </CenterElem>
           
           <TaskNameContainer colors={colors}>

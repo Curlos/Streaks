@@ -12,6 +12,7 @@ import MeasurementDurationScreen from '../Confirmation/ConfirmationScreens/Final
 import TaskDaysScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/TaskDaysScreen'
 import StartWeekOnScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/StartWeekOnScreen'
 import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/ColorScreen'
+import IconScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/IconScreen'
 
 const AddTaskHeader = styled.div`
   border-radius: 20px 20px 0 0;
@@ -224,6 +225,14 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
             </Route>
 
             <Route path="/confirm/edit/color/:id" exact>
+              <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={true}/>
+            </Route>
+
+            <Route path="/confirm/icons" exact>
+              <IconScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={true}/>
+            </Route>
+
+            <Route path="/confirm/edit/icons/:id" exact>
               <ColorScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={true}/>
             </Route>
 

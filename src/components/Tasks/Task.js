@@ -11,7 +11,6 @@ const taskIconSettingsContainerHeight = 50
 const TaskContainer = styled.span`
 
 `
-
 const TaskIconContainer = styled.div`
   display: flex;
   flex-direction: column;
