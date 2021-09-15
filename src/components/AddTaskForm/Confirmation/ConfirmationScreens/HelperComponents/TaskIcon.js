@@ -14,7 +14,7 @@ const TaskIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: ${props => props.colors.backgroundColor};
+  background-color: ${props => props.backgroundColor};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
@@ -25,44 +25,16 @@ const TaskIconFont = styled.div`
   font-size: ${taskContainerWidth / 2}px;
 `
 
-const TaskIcon = ({ iconClassName, chosenColor, taskObj, toggleCompleteTask, toggleModal }) => {
-
-  const [colors, setColors] = useState({
-    color: "gray",
-    backgroundColor: "none",
-    chosenColor
-  })
+const TaskIcon = ({ iconClassName, chosenColor, iconObj, handleIconSelection, toggleCompleteTask, toggleModal }) => {
 
   const [iconSelected, setIconSelected] = useState(false)
 
-  useEffect(() => {
-
-    const newColor = colors.color !== 'gray' ? chosenColor : 'gray'
-    const newBackgroundColor = 'gray'
-    
-    setColors({
-      color: newColor,
-      backgroundColor: newBackgroundColor,
-      chosenColor
-    })
-  }, [chosenColor])
-
   const handleClick = () => {
     
-    if (colors.color === 'gray') {
-      setColors({
-        ...colors,
-        color: chosenColor,
-        backgroundColor: chosenColor,
-        automaticColor: chosenColor
-      })
-
+    if (!iconObj.selected) {
+      handleIconSelection(iconObj)
+      
     } else {
-      setColors({
-        ...colors,
-        color: "gray",
-        backgroundColor: "gray"
-      })
 
       setIconSelected(true)
 
@@ -72,8 +44,8 @@ const TaskIcon = ({ iconClassName, chosenColor, taskObj, toggleCompleteTask, tog
   return (
       <span>
         <TaskContainer>
-            <TaskIconContainer colors={colors} onClick={handleClick}>
-            <TaskIconFont colors={colors}>
+            <TaskIconContainer backgroundColor={iconObj.backgroundColor} onClick={handleClick}>
+            <TaskIconFont backgroundColor={iconObj.backgroundColor}>
               <i className={iconClassName}></i>
             </TaskIconFont>
           </TaskIconContainer>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
+import getIcons from '../Helpers/getIcons'
 import TaskIcon from '../HelperComponents/TaskIcon'
 import styled from 'styled-components'
 
@@ -32,9 +32,11 @@ const GroupedTasks = styled.div`
 `
 
 
-const ColorScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, edit }) => {
+const IconScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, edit }) => {
 
   const { id } = useParams()
+  const [icons, setIcons] = useState(getIcons())
+  const [lastSelectedIcon, setLastSelectedIcon] = useState(null)
 
   const getLinkURL = () => {
     if (edit) {
@@ -42,6 +44,33 @@ const ColorScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, e
     }
 
     return '/confirm'
+  }
+
+  const unselectIcon = (iconObj) => {
+    if (!iconObj) {
+      return
+    }
+
+    console.log(iconObj)
+
+    const newIconObj = {...iconObj, backgroundColor: 'gray', selected: false}
+    const newTypeIcons = {...icons[iconObj.type], [iconObj.iconClassName]: newIconObj }
+    const newIcons = {...icons, [iconObj.type]: newTypeIcons}
+    setIcons(newIcons)
+
+    return newIcons
+  }
+
+  const handleIconSelection = (iconObj) => {
+    const newIcons = unselectIcon(lastSelectedIcon)
+
+    const newIconObj = {...iconObj, backgroundColor: 'red', selected: true}
+    const newTypeIcons = {...icons[iconObj.type], [iconObj.iconClassName]: newIconObj }
+    setIcons({...newIcons, [iconObj.type]: newTypeIcons})
+    setLastSelectedIcon(iconObj)
+    console.log(newIconObj)
+    console.log({...icons, [iconObj.type]: newTypeIcons})
+
   }
 
   return (
@@ -54,24 +83,21 @@ const ColorScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, e
       </ListHeader>
 
       <ListBody>
-        <GroupedTasks>
-          <TaskIcon iconClassName="fas fa-snowboarding" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-skiing-nordic" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-skiing" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-snowboarding" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-skiing-nordic" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-skiing" chosenColor={currentTask.color.color} taskObj={taskObj} />
-        </GroupedTasks>
+          {Object.keys(icons).map((category) => {
+            return (
+              <GroupedTasks>
+                {Object.values(icons[category]).map(iconObj => {
 
-        <GroupedTasks>
-          <TaskIcon iconClassName="fas fa-burn" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-heartbeat" chosenColor={currentTask.color.color} taskObj={taskObj} />
-          <TaskIcon iconClassName="fas fa-spa" chosenColor={currentTask.color.color} taskObj={taskObj} />
-        </GroupedTasks>
-
+                  return (
+                    <TaskIcon key={iconObj.iconClassName} iconClassName={iconObj.iconClassName} chosenColor={currentTask.color.color} iconObj={iconObj} handleIconSelection={handleIconSelection}/>
+                  )
+                })}
+              </GroupedTasks>
+            )
+          })}
       </ListBody>
     </div>
   )
 }
 
-export default ColorScreen;
+export default IconScreen;
