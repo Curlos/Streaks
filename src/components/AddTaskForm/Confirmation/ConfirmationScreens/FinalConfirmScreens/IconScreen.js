@@ -51,26 +51,34 @@ const IconScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, ed
       return
     }
 
-    console.log(iconObj)
-
     const newIconObj = {...iconObj, backgroundColor: 'gray', selected: false}
     const newTypeIcons = {...icons[iconObj.type], [iconObj.iconClassName]: newIconObj }
-    const newIcons = {...icons, [iconObj.type]: newTypeIcons}
-    setIcons(newIcons)
-
-    return newIcons
+    
+    return newTypeIcons
   }
 
   const handleIconSelection = (iconObj) => {
-    const newIcons = unselectIcon(lastSelectedIcon)
-
-    const newIconObj = {...iconObj, backgroundColor: 'red', selected: true}
+    const lastSelectedTypeIcons = unselectIcon(lastSelectedIcon)
+    const newIconObj = {...iconObj, backgroundColor: currentTask.color.color, selected: true}
     const newTypeIcons = {...icons[iconObj.type], [iconObj.iconClassName]: newIconObj }
-    setIcons({...newIcons, [iconObj.type]: newTypeIcons})
-    setLastSelectedIcon(iconObj)
-    console.log(newIconObj)
-    console.log({...icons, [iconObj.type]: newTypeIcons})
 
+    if (lastSelectedIcon) {
+      console.log(currentTask)
+      
+      if (lastSelectedIcon.type === iconObj.type) {
+        setIcons({...icons, [iconObj.type]: {...lastSelectedTypeIcons, [newIconObj.iconClassName]: newIconObj}})
+      } else {
+        setIcons({...icons, [lastSelectedIcon.type]: lastSelectedTypeIcons, [iconObj.type]: newTypeIcons})
+      }
+    } else {
+      setIcons({...icons, [iconObj.type]: newTypeIcons})
+    }
+    setLastSelectedIcon(newIconObj)
+
+  }
+
+  const handleIconChange = (iconObj) => {
+    handleTaskChange({...currentTask, icon: iconObj.iconClassName})
   }
 
   return (
@@ -89,7 +97,7 @@ const IconScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, ed
                 {Object.values(icons[category]).map(iconObj => {
 
                   return (
-                    <TaskIcon key={iconObj.iconClassName} iconClassName={iconObj.iconClassName} chosenColor={currentTask.color.color} iconObj={iconObj} handleIconSelection={handleIconSelection}/>
+                    <TaskIcon key={iconObj.iconClassName} iconClassName={iconObj.iconClassName} chosenColor={currentTask.color.color} iconObj={iconObj} handleIconSelection={handleIconSelection} handleIconChange={handleIconChange}/>
                   )
                 })}
               </GroupedTasks>

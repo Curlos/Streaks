@@ -25,7 +25,7 @@ const TaskIconFont = styled.div`
   font-size: ${taskContainerWidth / 2}px;
 `
 
-const TaskIcon = ({ iconClassName, chosenColor, iconObj, handleIconSelection, toggleCompleteTask, toggleModal }) => {
+const TaskIcon = ({ iconClassName, chosenColor, iconObj, handleIconChange, handleIconSelection, toggleCompleteTask, toggleModal }) => {
 
   const [iconSelected, setIconSelected] = useState(false)
 
@@ -35,7 +35,7 @@ const TaskIcon = ({ iconClassName, chosenColor, iconObj, handleIconSelection, to
       handleIconSelection(iconObj)
       
     } else {
-
+      handleIconChange(iconObj)
       setIconSelected(true)
 
     }
