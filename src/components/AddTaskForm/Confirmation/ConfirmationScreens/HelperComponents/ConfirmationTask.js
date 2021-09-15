@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 const taskContainerWidth = 100
@@ -78,6 +78,8 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor, edit }) => {
     chosenColor
   })
 
+  const { id } = useParams()
+
   useEffect(() => {
 
     const newColor = colors.color !== 'gray' ? chosenColor : 'gray'
@@ -88,6 +90,7 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor, edit }) => {
       backgroundColor: newBackgroundColor,
       chosenColor
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenColor])
 
   const handleChangeIcon = () => {
@@ -107,7 +110,7 @@ const ConfirmationTask = ({ taskObject, iconClassName, chosenColor, edit }) => {
           </CenterElem>
 
           <CenterElem>
-            <Link to={edit ? "/confirm/edit/icons/:id" : "/confirm/icons"}>
+            <Link to={edit ? `/confirm/edit/icons/${id}` : "/confirm/icons"}>
               <TaskSettingsIconContainer colors={colors} onClick={handleChangeIcon}>
                 <TaskSettingsIcon>
                   <i className="fas fa-ellipsis-h"></i>

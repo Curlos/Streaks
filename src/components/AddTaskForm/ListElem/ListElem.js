@@ -10,14 +10,6 @@ const ListElemBody = styled.div`
 
 const ListElem = ({ title, iconClassName, currentTask, handleTaskChange, automaticColor}) => {
 
-  const handleClick = () => {
-
-    if (handleTaskChange) {
-      console.log('changing contents')
-      handleTaskChange({...currentTask, title: title, icon: iconClassName })
-    }
-  }
-
   return (
     <span>
       <ListElemBody>

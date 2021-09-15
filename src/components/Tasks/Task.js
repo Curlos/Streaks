@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const taskContainerWidth = 200
 const taskContainerHeight = 200
@@ -52,6 +52,7 @@ const TaskNameContainer = styled.div`
   font-size: 1.5em;
   text-align: center;
   text-transform: uppercase;
+  max-width: ${taskContainerWidth + 50}px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -89,6 +90,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
       backgroundColor: newBackgroundColor,
       chosenColor
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenColor])
 
   const toggleComplete = () => {

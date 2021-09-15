@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import styled from 'styled-components'
 import Tasks from './components/Tasks/Tasks'
 import Footer from './components/Tasks/Footer'
@@ -20,12 +20,6 @@ const LoginButton = styled.span`
 const FooterBottom = styled.span`
   margin-top: auto;
 `
-
-const filteredTasks = (obj, idToFilterOut) => {
-  const asArray = Object.entries(obj)
-  const filtered = asArray.filter(([id, value]) => id !== idToFilterOut)
-  return Object.fromEntries(filtered)
-}
 
 const App = () => {
 

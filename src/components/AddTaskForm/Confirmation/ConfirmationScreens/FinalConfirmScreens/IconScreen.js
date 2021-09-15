@@ -18,12 +18,6 @@ const ListBody = styled.div`
   background-color: black;
 `
 
-const ListDesc = styled.div`
-  padding: 20px;
-  padding-top: 40px;
-  color: #9e9e9e;
-`
-
 const GroupedTasks = styled.div`
   display: flex;
   justify-content: center;
@@ -93,7 +87,7 @@ const IconScreen = ({ currentTask, handleTaskChange, automaticColor, taskObj, ed
       <ListBody>
           {Object.keys(icons).map((category) => {
             return (
-              <GroupedTasks>
+              <GroupedTasks key={category}>
                 {Object.values(icons[category]).map(iconObj => {
 
                   return (

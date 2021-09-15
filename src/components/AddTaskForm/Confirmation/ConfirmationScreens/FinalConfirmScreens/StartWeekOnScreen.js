@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ListElem from '../../../ListElem/ListElem'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
 

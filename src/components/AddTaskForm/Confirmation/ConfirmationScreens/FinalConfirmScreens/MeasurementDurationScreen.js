@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ListElemWithIcon from '../../../ListElem/ListElemWithIcon'
 import ConfirmationListElem from '../HelperComponents/ConfirmationListElem'
 import styled from 'styled-components'
 

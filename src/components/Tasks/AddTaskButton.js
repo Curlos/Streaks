@@ -48,10 +48,6 @@ const TaskStreakNum = styled.div`
   font-size: 1.7em;
 `
 
-const DisplayElem = styled.div`
-  display: ${props => props.display};
-`
-
 const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) => {
 
   const [colors, setColors] = useState({
@@ -70,6 +66,7 @@ const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) 
       backgroundColor: newBackgroundColor,
       chosenColor
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenColor])
 
   const handleAddTask = () => {

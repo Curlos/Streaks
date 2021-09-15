@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Redirect, Link, useParams } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const taskContainerWidth = 70
 const taskContainerHeight = 70

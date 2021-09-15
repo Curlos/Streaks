@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import ListElemWithIcon from '../../ListElem/ListElemWithIcon'
 import ConfirmationTask from './HelperComponents/ConfirmationTask'
@@ -154,7 +154,7 @@ const ConfirmationScreen = ({ selectedTaskType, task, handleTaskChange, chosenCo
           )}
           <ConfirmTaskTitle>{edit ? 'Edit Task' : 'Confirm Task'}</ConfirmTaskTitle>
         </ConfirmTaskTitleContainer>
-        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={currentTask.color.color}/>
+        <ConfirmationTask taskObject={currentTask} iconClassName={currentTask.icon} chosenColor={currentTask.color.color} edit={edit}/>
       </ConfirmTaskHeader>
 
       <ConfirmTaskBody>
