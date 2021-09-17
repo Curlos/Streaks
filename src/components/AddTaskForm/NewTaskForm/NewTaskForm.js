@@ -13,6 +13,7 @@ import TaskDaysScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScre
 import StartWeekOnScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/StartWeekOnScreen'
 import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/ColorScreen'
 import IconScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/IconScreen'
+import CalendarScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/CalendarScreen'
 
 const AddTaskHeader = styled.div`
   border-radius: 20px 20px 0 0;
@@ -234,6 +235,10 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
 
             <Route path="/confirm/edit/icons/:id" exact>
               <IconScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={false}/>
+            </Route>
+
+            <Route path="/confirm/edit/calendar/:id" exact>
+              <CalendarScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={false}/>
             </Route>
 
           </Switch>
