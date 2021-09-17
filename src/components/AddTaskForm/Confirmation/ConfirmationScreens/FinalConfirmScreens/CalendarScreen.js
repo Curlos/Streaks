@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import getIcons from '../Helpers/getIcons'
+import CalendarHeaderIcon from '../HelperComponents/CalendarHeaderIcon'
 import CalendarIcon from '../HelperComponents/CalendarIcon'
 import styled from 'styled-components'
 
@@ -33,6 +34,20 @@ const GroupedTasks = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 40px;
+`
+
+const DaysHeader = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+
+const DayOfWeek = styled.div`
+  font-size: 20px;
+`
+
+const DaysContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `
 
 
@@ -74,12 +89,16 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit }) => {
     return new Date(year, month, 0).getDate();
   }
 
+  const getArraySequence = (end=7, start=1) => {
+    return [...Array(end + 1).keys()].slice(start)
+  }
+
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   return (
     <div>
       <ListIconHeader>
-        <CalendarIcon currentTask={currentTask} />
+        <CalendarHeaderIcon currentTask={currentTask} />
       </ListIconHeader>
 
       <ListTitleHeader>
@@ -93,14 +112,20 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit }) => {
       </ListTitleHeader>
 
       <ListBody>
-          {daysOfWeek.map((day) => (
-            <div>
-              {currentMonth + 1} {currentYear} Days in Month: {daysInMonth(currentMonth + 1, currentYear)}
-            </div>
-          ))}
-          {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14].map((num) => {
-            return num
-          })}
+          <DaysHeader>
+            {daysOfWeek.map((day) => (
+              <DayOfWeek>
+                {day[0]}
+              </DayOfWeek>
+            ))}
+          </DaysHeader>
+          <DaysContainer>
+            {getArraySequence(daysInMonth(currentMonth + 1, currentYear), 1).map((num) => {
+              return (
+                <CalendarIcon num={num} currentTask={currentTask} />
+              )
+            })}
+          </DaysContainer>
       </ListBody>
     </div>
   )

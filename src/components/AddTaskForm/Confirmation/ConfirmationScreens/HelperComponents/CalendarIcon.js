@@ -19,26 +19,88 @@ const TaskIconContainer = styled.div`
   height: ${taskContainerHeight}px;
   margin: 20px;
   margin-bottom: 0px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `
 
 const TaskIconFont = styled.div`
   font-size: ${taskContainerWidth / 2}px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `
 
-const TaskIcon = ({ currentTask }) => {
+const TaskIconSkipped = styled(TaskIconContainer)`
+  opacity: 0.5;
+`
+
+const TaskIconX = styled.div`
+  font-size: ${taskContainerWidth}px;
+  color: gray;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`
+
+const CalendarIcon = ({ currentTask, handleTaskChange, num }) => {
+  const iconTypes = ['skipped', 'complete','missed']
+  const [iconIndex, setIconIndex] = useState(0)
+
+
+  const toggleIcon = () => {
+    if (iconIndex === 2) {
+      setIconIndex(0)
+    } else {
+      setIconIndex(iconIndex + 1)
+    }
+  }
+
+  const getIcon = () => {
+    switch (iconTypes[iconIndex]) {
+      case 'skipped':
+        return (
+          <TaskIconSkipped backgroundColor={currentTask.color.color}>
+            <TaskIconFont backgroundColor={currentTask.color.color}>
+              {num}
+            </TaskIconFont>
+          </TaskIconSkipped>
+        )
+      case 'missed':
+        return (
+          <TaskIconContainer backgroundColor="none">
+            <TaskIconX backgroundColor="none">
+              {<i class="fas fa-times"></i>}
+            </TaskIconX>
+          </TaskIconContainer>
+        )
+      case 'complete':
+        return (
+          <TaskIconContainer backgroundColor={currentTask.color.color}>
+            <TaskIconFont backgroundColor={currentTask.color.color}>
+              {num}
+            </TaskIconFont>
+          </TaskIconContainer>
+        )
+      default:
+        return null
+    }
+  }
 
   return (
       <span>
-        <TaskContainer>
-            <TaskIconContainer backgroundColor={currentTask.color.color}>
-            <TaskIconFont backgroundColor={currentTask.color.color}>
-              <i className={currentTask.icon}></i>
-            </TaskIconFont>
-          </TaskIconContainer>
+        <TaskContainer onClick={toggleIcon}>
+          {getIcon()}
         </TaskContainer>
       </span>
   )
 }
 
 
-export default TaskIcon;
+export default CalendarIcon;
