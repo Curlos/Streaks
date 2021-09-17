@@ -50,19 +50,13 @@ const App = () => {
 
   const handleEditTask = (taskObj) => {
     setTasks({...tasks, [taskObj.id]: taskObj})
-
-    console.log({...tasks, [taskObj.id]: taskObj})
   }
 
   const handleDeleteTask = (taskObj) => {
-    console.log(taskObj)
 
     const newTasks = {...tasks}
     delete newTasks[taskObj.id]
-
     setTasks(newTasks)
-
-    console.log(tasks)
   }
 
   const toggleCompleteTask = (completedTask) => {

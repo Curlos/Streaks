@@ -45,6 +45,15 @@ const TaskSettingsIcon = styled.div`
   font-size: ${taskContainerWidth / 8}px;
 `
 
+const TaskCalendarIconContainer = styled(TaskSettingsIconContainer)`
+  margin-left: 20px;
+  margin-top: -86px;
+`
+
+const TaskStatsIconContainer = styled(TaskSettingsIconContainer)`
+  
+`
+
 const TaskNameContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -120,13 +129,18 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
 
   const displayEditScreen = () => {
     toggleModal()
-    handleEditTask(taskObj)
+    //handleEditTask(taskObj)
+  }
+
+  const displayCalendarScreen = () => {
+    toggleModal()
   }
 
   return (
   
       <div>
         <TaskContainer>
+
             <TaskIconContainer colors={colors} onClick={toggleComplete}>
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
@@ -136,6 +150,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
           </TaskIconContainer>
 
           <DisplayElem display={showSettings ? 'visible' : 'hidden'}>
+
             <Link to={`/confirm/edit/${taskObj.id}`}>
                 <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
                   <TaskSettingsIcon>
@@ -143,6 +158,15 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
                   </TaskSettingsIcon>
                 </TaskSettingsIconContainer>
             </Link>
+
+            <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
+                <TaskCalendarIconContainer colors={colors} onClick={displayCalendarScreen}>
+                  <TaskSettingsIcon>
+                    <i className="fas fa-calendar"></i>
+                  </TaskSettingsIcon>
+                </TaskCalendarIconContainer>
+            </Link>
+
           </DisplayElem>
           
           <TaskNameContainer colors={colors}>

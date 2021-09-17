@@ -25,33 +25,17 @@ const TaskIconFont = styled.div`
   font-size: ${taskContainerWidth / 2}px;
 `
 
-const TaskIcon = ({ iconClassName, iconObj, handleIconChange, handleIconSelection }) => {
-
-  const [iconSelected, setIconSelected] = useState(false)
-
-  const handleClick = () => {
-    
-    if (!iconObj.selected) {
-      handleIconSelection(iconObj)
-      
-    } else {
-      handleIconChange(iconObj)
-      setIconSelected(true)
-
-    }
-  }
+const TaskIcon = ({ currentTask }) => {
 
   return (
       <span>
         <TaskContainer>
-            <TaskIconContainer backgroundColor={iconObj.backgroundColor} onClick={handleClick}>
-            <TaskIconFont backgroundColor={iconObj.backgroundColor}>
-              <i className={iconClassName}></i>
+            <TaskIconContainer backgroundColor={currentTask.color.color}>
+            <TaskIconFont backgroundColor={currentTask.color.color}>
+              <i className={currentTask.icon}></i>
             </TaskIconFont>
           </TaskIconContainer>
         </TaskContainer>
-
-        {iconSelected ? <Redirect push to="/confirm" /> : null}
       </span>
   )
 }
