@@ -92,6 +92,9 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
     monthly: {
       frequency: 1,
     },
+    completedDays: {},
+    missedDays: {},
+    longestStreak: 0,
     currentStreak: 0,
     completed: false,
   }
@@ -103,11 +106,7 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
     id = window.location.pathname.split("/").pop()
   }
 
-  console.log(id)
-
   const [currentTask, setCurrentTask] = useState(id ? {...tasksObj[id]} : defaultTask)
-
-  console.log(currentTask)
 
   const handleTaskChange = (newTask) => {
     console.log('changing...')

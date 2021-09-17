@@ -45,7 +45,24 @@ const defaultTasks = () => {
 				frequency: 1,
 			},
 			monthly: { frequency: 1 },
-			currentStreak: 61,
+			completedDays: {
+				'2021-09-01': 'Wed Sep 01 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
+				'2021-09-02':'Thu Sep 02 2021 00:00:00 GMT-0400 (Eastern Daylight Time)' ,
+				'2021-09-03': 'Fri Sep 03 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
+			},
+			missedDays: {
+				'2021-09-04': 'Sat Sep 4 2021 00:00:00 GMT-0400 (Eastern Daylight Time)'
+			},
+			longestStreak: {
+				num: 3,
+				from: '2021-09-15',
+				to: '2021-09-17'
+			},
+			currentStreak: {
+				num: 3,
+				from: '2021-09-15',
+				to: '2021-09-17'
+			},
 			completed: false,
 		},
 		'RAlxPGAdo5AS09JbUN0b2': {
@@ -93,6 +110,9 @@ const defaultTasks = () => {
 				frequency: 2,
 			},
 			monthly: { frequency: 1 },
+			completedDays: {},
+			missedDays: {},
+			longestStreak: 0,
 			currentStreak: 67,
 			completed: false,
 		},
@@ -141,12 +161,15 @@ const defaultTasks = () => {
 				frequency: 1,
 			},
 			monthly: { frequency: 1 },
+			completedDays: {},
+			missedDays: {},
+			longestStreak: 61,
 			currentStreak: 57,
 			completed: false,
 		},
 		'5bDfPLMOj0dSYX9ILVJx_': {
 			id: '5bDfPLMOj0dSYX9ILVJx_',
-			title: "Pray to god",
+			title: "Go to church",
 			icon: "fas fa-bible",
 			color: {
 				type: "custom",
@@ -189,6 +212,9 @@ const defaultTasks = () => {
 				frequency: 1,
 			},
 			monthly: { frequency: 1 },
+			completedDays: {},
+			missedDays: {},
+			longestStreak: 72,
 			currentStreak: 72,
 			completed: false,
 		},
@@ -237,6 +263,9 @@ const defaultTasks = () => {
 				frequency: 4,
 			},
 			monthly: { frequency: 19 },
+			completedDays: {},
+			missedDays: {},
+			longestStreak: 129,
 			currentStreak: 69,
 			completed: false,
 		},
@@ -285,6 +314,9 @@ const defaultTasks = () => {
 				frequency: 1,
 			},
 			monthly: { frequency: 1 },
+			completedDays: {},
+			missedDays: {},
+			longestStreak: 79,
 			currentStreak: 62,
 			completed: false,
 		},

@@ -29,13 +29,6 @@ const ListBody = styled.div`
   background-color: black;
 `
 
-const GroupedTasks = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-`
-
 const DaysHeader = styled.div`
   display: flex;
   justify-content: space-around;
@@ -51,7 +44,7 @@ const DaysContainer = styled.div`
 `
 
 
-const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit }) => {
+const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit, date }) => {
 
   const { id } = useParams()
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
@@ -60,16 +53,6 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit }) => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
   ];
-
-
-
-  const getLinkURL = () => {
-    if (edit) {
-      return `/confirm/edit/${id}`
-    }
-
-    return '/confirm'
-  }
 
   const goToPrevMonth = () => {
     const prevDate = new Date(currentYear, currentMonth - 1)
@@ -114,15 +97,18 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit }) => {
       <ListBody>
           <DaysHeader>
             {daysOfWeek.map((day) => (
-              <DayOfWeek>
+              <DayOfWeek key={day}>
                 {day[0]}
               </DayOfWeek>
             ))}
           </DaysHeader>
           <DaysContainer>
-            {getArraySequence(daysInMonth(currentMonth + 1, currentYear), 1).map((num) => {
+            {getArraySequence(daysInMonth(currentMonth + 1, currentYear), 1).map((dayNum) => {
+
+              const currentDate = new Date(currentYear, currentMonth, dayNum).toISOString().split('T')[0]
+
               return (
-                <CalendarIcon num={num} currentTask={currentTask} />
+                <CalendarIcon key={currentDate} dayNum={dayNum} currentTask={currentTask} handleTaskChange={handleTaskChange} currentMonth={currentMonth} currentYear={currentYear}/>
               )
             })}
           </DaysContainer>
