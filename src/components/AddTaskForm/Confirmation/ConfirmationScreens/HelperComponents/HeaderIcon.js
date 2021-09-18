@@ -25,7 +25,7 @@ const TaskIconFont = styled.div`
   font-size: ${taskContainerWidth / 2}px;
 `
 
-const CalendarHeaderIcon = ({ currentTask }) => {
+const HeaderIcon = ({ currentTask }) => {
 
   return (
       <span>
@@ -41,4 +41,4 @@ const CalendarHeaderIcon = ({ currentTask }) => {
 }
 
 
-export default CalendarHeaderIcon;
+export default HeaderIcon;

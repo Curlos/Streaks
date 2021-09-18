@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import CalendarHeaderIcon from '../HelperComponents/CalendarHeaderIcon'
+import HeaderIcon from '../HelperComponents/HeaderIcon'
 import CalendarIcon from '../HelperComponents/CalendarIcon'
 import styled from 'styled-components'
 
@@ -115,7 +115,7 @@ const CalendarScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm
   return (
     <div>
       <ListIconHeader>
-        <CalendarHeaderIcon currentTask={currentTask} />
+        <HeaderIcon currentTask={currentTask} />
       </ListIconHeader>
 
       <ListTitleHeader>
