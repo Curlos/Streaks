@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { completeTask, missTask, skipTask } from '../AddTaskForm/Confirmation/ConfirmationScreens/Helpers/taskCompletion'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -113,6 +114,8 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     chosenColor
   })
 
+  const [icon, setIcon] = useState(iconClassName)
+
   const [dropdown, setDropdown] = useState(false)
 
   useEffect(() => {
@@ -128,32 +131,73 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenColor])
 
-  const toggleComplete = () => {
+  const handleCompleteTask = (currentDateStr, taskObj, currentYear, currentMonth, dayNum, handleTaskChange) => {
+    setColors({
+      ...colors,
+      color: chosenColor,
+      backgroundColor: chosenColor,
+      automaticColor: chosenColor
+    })
     
-    if (taskObj.completed === false) {
-      setColors({
-        ...colors,
-        color: chosenColor,
-        backgroundColor: chosenColor,
-        automaticColor: chosenColor
-      })
-      const currentDate = new Date()
-      
-      const newCurrentStreak = {from: (taskObj.from === '' ? currentDate : taskObj.from), to: currentDate, num: taskObj.currentStreak.num + 1 }
-      
-      const completedTask = {...taskObj, completed: true, currentStreak: newCurrentStreak}
-      toggleCompleteTask(completedTask)
-    } else {
-      setColors({
-        ...colors,
-        color: "gray",
-        backgroundColor: "none"
-      })
-      
-      const newCurrentStreak = {from: '', to: '', num: 0 }
+    const completedTask = {...taskObj, completed: true}
+    setIcon(iconClassName)
 
-      const incompleteTask = {...taskObj, completed: false, currentStreak: newCurrentStreak}
-      toggleCompleteTask(incompleteTask)
+    completeTask(currentDateStr, completedTask, currentYear, currentMonth, dayNum, handleTaskChange)
+
+
+  }
+
+  const handleMissTask = (currentDateStr, taskObj, currentYear, currentMonth, dayNum, handleTaskChange) => {
+    const missedTaskColor = 'gray'
+    const missedTaskIcon = 'fas fa-times'
+    setColors({
+      ...colors,
+      color: missedTaskColor,
+      backgroundColor: missedTaskColor,
+      automaticColor: missedTaskColor
+    })
+    
+    const missedTask = {...taskObj, completed: false}
+    setIcon(missedTaskIcon)
+
+    missTask(currentDateStr, missedTask, currentYear, currentMonth, dayNum, handleTaskChange)
+  }
+
+  const handleSkipTask = (currentDateStr, taskObj, currentYear, currentMonth, dayNum, handleTaskChange) => {
+    setColors({
+      ...colors,
+      color: 'gray',
+      backgroundColor: 'none',
+      automaticColor: chosenColor
+    })
+    
+    const skippedTask = {...taskObj, completed: false}
+    setIcon(iconClassName)
+
+    skipTask(currentDateStr, skippedTask, currentYear, currentMonth, dayNum, handleTaskChange)
+  }
+
+  const toggleComplete = () => {
+    const currentDate = new Date().getDate()
+    const currentMonth = new Date().getMonth()
+    const currentYear = new Date().getFullYear()
+    const currentDay = new Date(currentYear, currentMonth, currentDate)
+    let currentDateStr = currentDay.toISOString().split('T')[0]
+
+    const completed = Object.keys(taskObj.completedDays).includes(currentDateStr)
+    const missed = Object.keys(taskObj.missedDays).includes(currentDateStr)
+    const notCompletedButNotMissed = completed === false && missed === false
+
+    console.log(`${currentDateStr} completed? ${completed}`)
+    console.log(`${currentDateStr} missed? ${missed}`)
+    console.log(`${currentDateStr} skipped or day hasn't ended and not completed yet? ${notCompletedButNotMissed}`)
+    
+    if (notCompletedButNotMissed) {
+      handleCompleteTask(currentDateStr, taskObj, currentYear, currentMonth, currentDate, handleEditTask)
+    } else if (completed) {
+      handleMissTask(currentDateStr, taskObj, currentYear, currentMonth, currentDate, handleEditTask)
+    } else {
+      handleSkipTask(currentDateStr, taskObj, currentYear, currentMonth, currentDate, handleEditTask)
     }
   }
 
@@ -173,26 +217,6 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     toggleDropdown()
   }
 
-  /*
-
-  <Link to={`/confirm/edit/${taskObj.id}`}>
-      <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
-        <TaskSettingsIcon>
-          <i className="fas fa-ellipsis-h"></i>
-        </TaskSettingsIcon>
-      </TaskSettingsIconContainer>
-  </Link>
-
-  <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
-      <TaskCalendarIconContainer colors={colors} onClick={displayCalendarScreen}>
-        <TaskSettingsIcon>
-          <i className="fas fa-calendar"></i>
-        </TaskSettingsIcon>
-      </TaskCalendarIconContainer>
-  </Link>
-
-            */
-
   return (
   
       <div>
@@ -200,7 +224,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
 
             <TaskIconContainer colors={colors} onClick={toggleComplete}>
             <TaskIcon colors={colors}>
-              <i className={iconClassName}></i>
+              <i className={icon}></i>
             </TaskIcon>
 
             <TaskStreakNum>{taskObj ? taskObj.currentStreak.num : 69}</TaskStreakNum>
@@ -214,7 +238,6 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
             </TaskSettingsIconContainer>
 
             <DropdownContent colors={colors} dropdown={dropdown}>
-
               <Link to={`/confirm/edit/${taskObj.id}`}>
                 <DropdownLink colors={colors} onClick={displayEditScreen}>
                   <i className="fas fa-ellipsis-h"></i> 
@@ -242,7 +265,6 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
                   </DropdownLinkName>
                 </DropdownLink>
               </Link>
-              
             </DropdownContent>
 
           </DisplayElem>

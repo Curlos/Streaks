@@ -60,6 +60,8 @@ const App = () => {
   }
 
   const toggleCompleteTask = (completedTask) => {
+
+    console.log({...tasks, [completedTask.id]: completedTask})
     
     setTasks({...tasks, [completedTask.id]: completedTask})
   }
