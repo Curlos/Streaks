@@ -9,6 +9,7 @@ export const completeTask = (currentDateStr, currentTask, currentYear, currentMo
   let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
 
   console.log(newTask)
+
   handleTaskChange({...newTask})
 }
 
@@ -132,15 +133,19 @@ export const getCurrentStreak = (newTask, streaks) => {
   let dayBeforeStr = dayBefore.toISOString().split('T')[0]
   let currentDayStr = currentDay.toISOString().split('T')[0]
 
-  if (Object.keys(newTask.missedDays).includes(dayBeforeStr) || Object.keys(newTask.missedDays).includes(currentDayStr)) {
+  if (Object.keys(newTask.missedDays).includes(currentDayStr)) {
     return {num: 0, from: '', to: ''}
-  } else if (!Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
-    return {num: 0, from: '', to: ''}
-  } else {
-    for (let streak of streaks) {
-      if (streak.to === dayBeforeStr || streak.to === currentDayStr) {
-        return streak
-      }
+  }
+
+  for (let streak of streaks) {
+    if (streak.to === dayBeforeStr || streak.to === currentDayStr) {
+      return streak
     }
+  }
+
+  // if day is not found in current streaks, set it back to 0
+
+  if (!Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
+    return {num: 0, from: '', to: ''}
   }
 }

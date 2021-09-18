@@ -92,10 +92,10 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
     monthly: {
       frequency: 1,
     },
-    completedDays: {},
-    missedDays: {},
-    longestStreak: 0,
-    currentStreak: 0,
+    completedDays: [],
+    missedDays: [],
+    longestStreak: {num: 0, from: '', to: ''},
+    currentStreak: {num: 0, from: '', to: ''},
     completed: false,
   }
 

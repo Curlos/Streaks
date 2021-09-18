@@ -23,6 +23,7 @@ const TaskIconContainer = styled.div`
 `
 
 const TaskIcon = styled.div`
+  color: ${props => props.colors.iconColor};
   font-size: ${taskContainerWidth / 2}px;
 `
 
@@ -44,16 +45,13 @@ const TaskName = styled.span`
   text-align: center;
 `
 
-const TaskStreakNum = styled.div`
-  font-size: 1.7em;
-`
-
 const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) => {
 
   const [colors, setColors] = useState({
-    color: "gray",
+    color: chosenColor,
     backgroundColor: "none",
-    chosenColor
+    chosenColor,
+    iconColor: chosenColor
   })
 
   useEffect(() => {
@@ -64,28 +62,13 @@ const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) 
     setColors({
       color: newColor,
       backgroundColor: newBackgroundColor,
-      chosenColor
+      chosenColor,
+      iconColor: newColor
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenColor])
 
   const handleAddTask = () => {
-    
-    if (colors.color === 'gray') {
-      setColors({
-        ...colors,
-        color: chosenColor,
-        backgroundColor: chosenColor,
-        automaticColor: chosenColor
-      })
-    } else {
-      setColors({
-        ...colors,
-        color: "gray",
-        backgroundColor: "none"
-      })
-    }
-
     toggleModal()
   }
 
@@ -97,8 +80,6 @@ const AddTaskButton = ({ taskObject, iconClassName, chosenColor, toggleModal }) 
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
             </TaskIcon>
-
-            <TaskStreakNum>4</TaskStreakNum>
           </TaskIconContainer>
           
           <TaskNameContainer colors={colors}>

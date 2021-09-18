@@ -27,6 +27,7 @@ const TaskIconContainer = styled.div`
 `
 
 const TaskIcon = styled.div`
+  color: ${props => props.colors.iconColor};
   font-size: ${taskContainerWidth / 2}px;
 `
 
@@ -106,17 +107,18 @@ const DropdownLinkName = styled.span`
   user-select: none;
 `
 
-const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask, handleEditTask, toggleModal }) => {
+const Task = ({ iconClassName, chosenColor, showSettings, taskObj, handleEditTask, toggleModal, defaultDropdown, handleDropdownToggle }) => {
 
   const [colors, setColors] = useState({
     color: "gray",
     backgroundColor: "none",
-    chosenColor
+    chosenColor,
+    iconColor: "#ffffff"
   })
 
   const [icon, setIcon] = useState(iconClassName)
 
-  const [dropdown, setDropdown] = useState(false)
+  const [dropdown, setDropdown] = useState(defaultDropdown)
 
   useEffect(() => {
 
@@ -136,7 +138,8 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
       ...colors,
       color: chosenColor,
       backgroundColor: chosenColor,
-      automaticColor: chosenColor
+      automaticColor: chosenColor,
+      iconColor: '#ffffff'
     })
     
     const completedTask = {...taskObj, completed: true}
@@ -148,13 +151,14 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
   }
 
   const handleMissTask = (currentDateStr, taskObj, currentYear, currentMonth, dayNum, handleTaskChange) => {
-    const missedTaskColor = 'gray'
+    const missedTaskColor = '#494949'
     const missedTaskIcon = 'fas fa-times'
     setColors({
       ...colors,
       color: missedTaskColor,
       backgroundColor: missedTaskColor,
-      automaticColor: missedTaskColor
+      automaticColor: missedTaskColor,
+      iconColor: 'gray'
     })
     
     const missedTask = {...taskObj, completed: false}
@@ -168,7 +172,8 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
       ...colors,
       color: 'gray',
       backgroundColor: 'none',
-      automaticColor: chosenColor
+      automaticColor: chosenColor,
+      iconColor: '#ffffff'
     })
     
     const skippedTask = {...taskObj, completed: false}
@@ -187,10 +192,6 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     const completed = Object.keys(taskObj.completedDays).includes(currentDateStr)
     const missed = Object.keys(taskObj.missedDays).includes(currentDateStr)
     const notCompletedButNotMissed = completed === false && missed === false
-
-    console.log(`${currentDateStr} completed? ${completed}`)
-    console.log(`${currentDateStr} missed? ${missed}`)
-    console.log(`${currentDateStr} skipped or day hasn't ended and not completed yet? ${notCompletedButNotMissed}`)
     
     if (notCompletedButNotMissed) {
       handleCompleteTask(currentDateStr, taskObj, currentYear, currentMonth, currentDate, handleEditTask)
@@ -202,7 +203,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
   }
 
   const toggleDropdown = () => {
-    console.log(dropdown)
+    handleDropdownToggle()
     setDropdown(!dropdown)
   }
 

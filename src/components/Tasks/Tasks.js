@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Task from './Task'
 import AddTaskButton from './AddTaskButton'
@@ -11,9 +12,16 @@ const TasksContainer = styled.div`
 `
 
 const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleCompleteTask, handleEditTask }) => {
+  
+  const [defaultDropdown, setDefaultDropdown] = useState(false)
 
   const sampleTask = {
     title: 'ADD A TASK'
+  }
+
+  const handleDropdownToggle = () => {
+
+    setDefaultDropdown(true)
   }
 
   return (
@@ -22,11 +30,13 @@ const Tasks = ({ chosenColor, showSettings, toggleModal, taskObjs, toggleComplet
         const task = taskObjs[id]
 
         return (
-          <Task key={id} iconClassName={task.icon} chosenColor={task.color.color} showSettings={showSettings} taskObj={task} toggleCompleteTask={toggleCompleteTask} handleEditTask={handleEditTask} toggleModal={toggleModal}/>
+          <Task key={id} iconClassName={task.icon} chosenColor={task.color.color} showSettings={showSettings} taskObj={task} toggleCompleteTask={toggleCompleteTask} handleEditTask={handleEditTask} toggleModal={toggleModal} defaultDropdown={defaultDropdown} handleDropdownToggle={handleDropdownToggle} />
         )
       })}
 
-      <AddTaskButton taskObject={sampleTask} iconClassName="fas fa-plus" chosenColor={chosenColor} toggleModal={toggleModal}/>
+      {showSettings ? (
+        <AddTaskButton taskObject={sampleTask} iconClassName="fas fa-plus" chosenColor={chosenColor} toggleModal={toggleModal}/>
+      ): null}
 
     </TasksContainer>
   )
