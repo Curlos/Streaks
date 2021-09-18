@@ -235,8 +235,12 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
               <IconScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={false}/>
             </Route>
 
+            <Route path="/edit/calendar/:id" exact>
+              <CalendarScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} fromConfirm={false} toggleModal={toggleModal}/>
+            </Route>
+
             <Route path="/confirm/edit/calendar/:id" exact>
-              <CalendarScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} tasksObj={tasksObj} edit={false}/>
+              <CalendarScreen currentTask={currentTask} handleTaskChange={handleTaskChange} chosenColor={currentTask.color.color} automaticColor={automaticColor} fromConfirm={true}/>
             </Route>
 
           </Switch>

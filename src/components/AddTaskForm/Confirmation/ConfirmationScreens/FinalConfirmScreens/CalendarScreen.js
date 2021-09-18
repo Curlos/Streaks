@@ -43,8 +43,26 @@ const DaysContainer = styled.div`
   flex-wrap: wrap;
 `
 
+const GroupedTasks = styled.div`
+  margin-top: 25px;
+  margin-bottom: 25px;
+`
 
-const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit, date }) => {
+const SaveTaskContainer = styled.span`
+  display: flex;
+  justify-content: center;
+`
+
+const SaveTaskButton = styled.div`
+  text-align: center;
+  background-color: ${props => props.color};
+  border-radius: 10px;
+  padding: 15px;
+  padding-left: 45%;
+  padding-right: 45%;
+`
+
+const CalendarScreen = ({ currentTask, handleTaskChange, fromConfirm, toggleModal }) => {
 
   const { id } = useParams()
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
@@ -77,6 +95,20 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit, date }) 
   }
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+  const getLinkURL = () => {
+    if (fromConfirm) {
+      return `/confirm/edit/${id}`
+    }
+
+    return '/'
+  }
+
+  const handleDone = () => {
+    if (getLinkURL() === '/') {
+      toggleModal()
+    }
+  }
 
   return (
     <div>
@@ -112,6 +144,14 @@ const CalendarScreen = ({ currentTask, handleTaskChange, taskObj, edit, date }) 
               )
             })}
           </DaysContainer>
+
+          <GroupedTasks>
+            <Link to={getLinkURL()}>
+              <SaveTaskContainer onClick={handleDone}>
+                <SaveTaskButton color={currentTask.color.color}>Done</SaveTaskButton>
+              </SaveTaskContainer>
+            </Link>
+          </GroupedTasks>
       </ListBody>
     </div>
   )

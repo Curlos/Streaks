@@ -193,6 +193,12 @@ const ConfirmationScreen = ({ selectedTaskType, task, handleTaskChange, chosenCo
           <Link to={edit ? `/confirm/edit/color/${id}`: "/confirm/color"}>
             <ListElemWithIcon title={"Color"} iconClassName={"fas fa-palette"} changeColor={changeColor} currentTask={currentTask} chosenColor={currentTask.color.color} description="color"/>
           </Link>
+
+          {edit ? (
+            <Link to={`/confirm/edit/calendar/${id}`}>
+              <ListElemWithIcon title={"Calendar"} iconClassName={"fas fa-calendar"} changeColor={changeColor} currentTask={currentTask} chosenColor={currentTask.color.color}/>
+            </Link>
+          ): null}
         </GroupedTasks>
 
         {edit ? (
@@ -203,12 +209,12 @@ const ConfirmationScreen = ({ selectedTaskType, task, handleTaskChange, chosenCo
         
         {edit ? (
           <GroupedTasks>
-          <Link to="/">
-            <SaveTaskContainer>
-              <SaveTaskButton color={currentTask.color.color} onClick={handleEdit}>Done</SaveTaskButton>
-            </SaveTaskContainer>
-          </Link>
-        </GroupedTasks>
+            <Link to="/">
+              <SaveTaskContainer>
+                <SaveTaskButton color={currentTask.color.color} onClick={handleEdit}>Done</SaveTaskButton>
+              </SaveTaskContainer>
+            </Link>
+          </GroupedTasks>
         ) : (
           <GroupedTasks>
             <Link to="/">

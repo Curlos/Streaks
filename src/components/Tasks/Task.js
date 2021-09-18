@@ -224,7 +224,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
                 </DropdownLink>
               </Link>
 
-              <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
+              <Link to={`/edit/calendar/${taskObj.id}`}>
                 <DropdownLink colors={colors} onClick={displayCalendarScreen}>
                   <i className="fas fa-calendar"></i> 
                   <DropdownLinkName>
