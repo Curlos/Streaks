@@ -46,9 +46,9 @@ const defaultTasks = () => {
 			},
 			monthly: { frequency: 1 },
 			completedDays: {
-				'2021-09-01': 'Wed Sep 01 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
-				'2021-09-02':'Thu Sep 02 2021 00:00:00 GMT-0400 (Eastern Daylight Time)' ,
-				'2021-09-03': 'Fri Sep 03 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
+				'2021-09-15': 'Wed Sep 15 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
+				'2021-09-16':'Thu Sep 16 2021 00:00:00 GMT-0400 (Eastern Daylight Time)' ,
+				'2021-09-17': 'Fri Sep 17 2021 00:00:00 GMT-0400 (Eastern Daylight Time)',
 			},
 			missedDays: {
 				'2021-09-04': 'Sat Sep 4 2021 00:00:00 GMT-0400 (Eastern Daylight Time)'

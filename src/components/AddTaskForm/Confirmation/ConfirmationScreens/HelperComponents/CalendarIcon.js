@@ -59,7 +59,6 @@ const getTaskCompletion = (currentTask, currentDate) => {
 }
 
 const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, currentYear }) => {
-  const currentDate = new Date(currentYear, currentMonth, dayNum).toString()
   const currentDateStr = new Date(currentYear, currentMonth, dayNum).toISOString().split('T')[0]
 
   const [dateStatus, setDateStatus] = useState(getTaskCompletion(currentTask, currentDateStr))
@@ -67,6 +66,7 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
   const toggleIcon = () => {
 
     if (dateStatus === 'skipped') {
+      // If the task is completed
       setDateStatus('complete')
       const newCompletedDays = {...currentTask.completedDays, [currentDateStr]: new Date(currentYear, currentMonth, dayNum).toString()}
 
@@ -76,16 +76,26 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
       
       let newTask = {...currentTask, completedDays: newCompletedDays, longestStreak: newLongestStreak, currentStreak: newCurrentStreak}
 
-      console.log(`Adding ${currentDateStr}...`)
-      console.log(Object.keys(newTask.completedDays))
+      console.log(newTask)
       handleTaskChange(newTask)
     } else if (dateStatus === 'complete') {
+      // If the task is missed
       setDateStatus('missed')
+
+      const newMissedDays = {...currentTask.missedDays, [currentDateStr]: new Date(currentYear, currentMonth, dayNum).toString()}
+
+      const newLongestStreak = checkLongestStreak({...currentTask, missedDays: newMissedDays})
+
+      const newCurrentStreak = checkCurrentStreak({...currentTask, missedDays: newMissedDays})
+      
+      let newTask = {...currentTask, missedDays: newMissedDays, longestStreak: newLongestStreak, currentStreak: newCurrentStreak}
+
+      console.log(newTask)
+      handleTaskChange(newTask)
     } else {
+      // If the task is skipped
       setDateStatus('skipped')
     }
-
-    console.log(currentTask)
   }
 
   const checkCurrentStreak = (newTask) => {
@@ -94,11 +104,13 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     dayBefore.setDate(dayBefore.getDate() - 1)
 
     let dayBeforeStr = dayBefore.toISOString().split('T')[0]
-    let currentStreak = 1
+    let currentDayStr = currentDay.toISOString().split('T')[0]
+    const newCurrentStreak = {num: 1, from: currentDayStr, to: currentDayStr}
 
     while (true) {
       if (Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
-        currentStreak += 1
+        newCurrentStreak.num += 1
+        newCurrentStreak.from = dayBeforeStr
         dayBefore.setDate(dayBefore.getDate() - 1)
         dayBeforeStr = dayBefore.toISOString().split('T')[0]
       } else {
@@ -106,43 +118,42 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
       }
     }
 
-    if (currentStreak > newTask.currentStreak.num) {
-      const newCurrentStreak = {num: currentStreak, from: dayBefore, to: currentDay}
-      return newCurrentStreak
-    }
+    const newTaskCurrentStreak = {num: newCurrentStreak.num, from: newCurrentStreak.from, to: currentDayStr}
 
-    return newTask.currentStreak
+    return newTaskCurrentStreak
   }
+
 
   const checkLongestStreak = (newTask) => {
     const currentDay = new Date(currentYear, currentMonth, dayNum)
+
     const dayBefore = new Date(currentDay.toDateString())
     dayBefore.setDate(dayBefore.getDate() - 1)
+
     const dayAfter = new Date(currentDay.toDateString())
     dayAfter.setDate(dayAfter.getDate() + 1)
 
 
     let dayBeforeStr = dayBefore.toISOString().split('T')[0]
     let dayAfterStr = dayAfter.toISOString().split('T')[0]
-    let pastStreak = 1 // the current day is complete so starts at one
+    let currentDayStr = currentDay.toISOString().split('T')[0]
+    const newLongestStreak = {num: 1, from: currentDayStr, to: currentDayStr}
 
     // console.log(pastStreak)
     // console.log(Object.keys(newTask.completedDays))
 
     while (true) {
       if (Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
-        pastStreak += 1
-        // console.log(`Day before: ${dayBeforeStr}`)
-        // console.log(pastStreak)
-
+        console.log(`Day before: ${dayBeforeStr}`)
+        newLongestStreak.num += 1
+        newLongestStreak.from = dayBeforeStr
         dayBefore.setDate(dayBefore.getDate() - 1)
         dayBeforeStr = dayBefore.toISOString().split('T')[0]
 
       } else if (Object.keys(newTask.completedDays).includes(dayAfterStr)) {
-        pastStreak += 1
-        // console.log(`Day after: ${dayAfterStr}`)
-        // console.log(pastStreak)
-
+        console.log(`Day after: ${dayAfterStr}`)
+        newLongestStreak.num += 1
+        newLongestStreak.to = dayAfterStr
         dayAfter.setDate(dayAfter.getDate() + 1)
         dayAfterStr = dayAfter.toISOString().split('T')[0]
         
@@ -150,9 +161,10 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
         break
       }
     }
+    dayBefore.setDate(dayBefore.getDate() + 1)
+    dayAfter.setDate(dayAfter.getDate() - 1)
 
-    if (pastStreak > currentTask.longestStreak.num) {
-      const newLongestStreak = {num: pastStreak, from: dayBefore, to: dayAfter}
+    if (newLongestStreak.num > currentTask.longestStreak.num) {
       return newLongestStreak
     }
 
@@ -190,9 +202,14 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     }
   }
 
+  const currentDateInSec = new Date(currentYear, currentMonth, dayNum).getTime()
+  const todayInSec = new Date().getTime()
+  // A date can only be clicked if it is either the current day (today) or before the current day
+  const clickableDate = todayInSec >= currentDateInSec
+
   return (
       <span>
-        <TaskContainer onClick={toggleIcon}>
+        <TaskContainer onClick={clickableDate ? toggleIcon : null}>
           {getIcon()}
         </TaskContainer>
       </span>

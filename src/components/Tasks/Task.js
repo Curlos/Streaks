@@ -111,9 +111,11 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
         backgroundColor: chosenColor,
         automaticColor: chosenColor
       })
-
+      const currentDate = new Date()
       
-      const completedTask = {...taskObj, completed: true, currentStreak: taskObj.currentStreak + 1}
+      const newCurrentStreak = {from: (taskObj.from === '' ? currentDate : taskObj.from), to: currentDate, num: taskObj.currentStreak.num + 1 }
+      
+      const completedTask = {...taskObj, completed: true, currentStreak: newCurrentStreak}
       toggleCompleteTask(completedTask)
     } else {
       setColors({
@@ -122,7 +124,11 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
         backgroundColor: "none"
       })
 
-      const incompleteTask = {...taskObj, completed: false, currentStreak: taskObj.currentStreak - 1}
+      const currentDate = new Date()
+      
+      const newCurrentStreak = {from: '', to: '', num: 0 }
+
+      const incompleteTask = {...taskObj, completed: false, currentStreak: newCurrentStreak}
       toggleCompleteTask(incompleteTask)
     }
   }
@@ -146,7 +152,7 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
               <i className={iconClassName}></i>
             </TaskIcon>
 
-            <TaskStreakNum>{taskObj ? taskObj.currentStreak : 69}</TaskStreakNum>
+            <TaskStreakNum>{taskObj ? taskObj.currentStreak.num : 69}</TaskStreakNum>
           </TaskIconContainer>
 
           <DisplayElem display={showSettings ? 'visible' : 'hidden'}>

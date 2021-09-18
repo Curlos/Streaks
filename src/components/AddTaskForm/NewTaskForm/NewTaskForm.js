@@ -109,7 +109,6 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
   const [currentTask, setCurrentTask] = useState(id ? {...tasksObj[id]} : defaultTask)
 
   const handleTaskChange = (newTask) => {
-    console.log('changing...')
     setCurrentTask(newTask)
   }
 
