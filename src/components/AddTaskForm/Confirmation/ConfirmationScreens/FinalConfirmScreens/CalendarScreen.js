@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import getIcons from '../Helpers/getIcons'
 import CalendarHeaderIcon from '../HelperComponents/CalendarHeaderIcon'
 import CalendarIcon from '../HelperComponents/CalendarIcon'
 import styled from 'styled-components'
@@ -62,7 +61,7 @@ const SaveTaskButton = styled.div`
   padding-right: 45%;
 `
 
-const CalendarScreen = ({ currentTask, handleTaskChange, fromConfirm, toggleModal }) => {
+const CalendarScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, toggleModal }) => {
 
   const { id } = useParams()
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
@@ -108,6 +107,9 @@ const CalendarScreen = ({ currentTask, handleTaskChange, fromConfirm, toggleModa
     if (getLinkURL() === '/') {
       toggleModal()
     }
+
+    handleEdit()
+
   }
 
   return (
