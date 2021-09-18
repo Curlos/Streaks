@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { LineChart, Line } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 import HeaderIcon from '../HelperComponents/HeaderIcon'
 import styled from 'styled-components'
 
 const ListContainer = styled.div`
+  width: ;
+  height: 96%;
   padding: 15px;
 `
 
@@ -63,6 +67,20 @@ const FooterContainer = styled.div`
   float: right;
 `
 
+const CenteredElem = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+`
+
+const CompletionCharts = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40%;
+  margin: 0;
+  padding; 0px;
+  margin-right: 0px;
+`
+
 const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, toggleModal }) => {
 
   console.log(currentTask)
@@ -106,28 +124,7 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
     return Object.keys(currentTask.missedDays).length
   }
 
-  const data = [
-    {name: 'Page A', uv: 400, pv: 2400, amt: 2400}, 
-    {name: 'Page A', uv: 200, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 700, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 600, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 1200, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 200, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 100, pv: 2400, amt: 2400},
-    {name: 'Page A', uv: 500, pv: 2400, amt: 2400}]
-
-  const renderLineChart = () => {
-
-    // Line chart for completion percentage over time
-    return (
-      <LineChart width={600} height={400} data={getCompletionRateOverTime()}>
-        <Line type="monotone" dataKey="completionRate" stroke="#8884d8" />
-      </LineChart>
-    )
-  };
-
-
-  const getCompletionRateOverTime = () => {
+  const getCompletionRates = () => {
     const allDates = {...currentTask.completedDays, ...currentTask.missedDays}
     const orderedDates = Object.fromEntries(Object.entries(allDates).sort())
 
@@ -135,7 +132,7 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
     let completedDays = 0
     const completionRateOverTime = []
 
-    const completionRateOverSpecificDays = {
+    const completionOnSpecifcDays = {
       'Sunday': [],
       'Monday': [],
       'Tuesday': [],
@@ -153,8 +150,12 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
 
     Object.keys(orderedDates).forEach((date, dayCount) => {
 
+      let completionStatus = true
+
       if (Object.keys(currentTask.completedDays).includes(date)) {
         completedDays += 1
+      } else {
+        completionStatus = false
       }
 
       completionRate = completedDays / (dayCount + 1)
@@ -164,16 +165,108 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
         date: date,
         completionRate: (completionRate * 100).toFixed(1),
       })
+
+      const dayOfCompletion = Object.keys(completionOnSpecifcDays)[new Date(date).getDay()]
+
+      completionOnSpecifcDays[dayOfCompletion].push(completionStatus)
     })
 
-    console.log(completionRateOverTime)
-
-    return completionRateOverTime
+    return { 
+      completionRateOverTime, 
+      completionOnSpecifcDays, 
+      completionRateOverHours
+    }
   }
 
-  getCompletionRateOverTime()
+  const getCompletionRateOfSpecificDays = () => {
+    const {completionOnSpecifcDays} = getCompletionRates()
+    const completionRateOnSpecificDays = {}
 
-  let renderChart = false
+    Object.entries(completionOnSpecifcDays).forEach((arr) => {
+      const day = arr[0]
+      const completions = arr[1]
+
+      let completedDays = 0
+      let totalDays = completions.length
+
+      completions.forEach((completed) => {
+        completedDays += completed ? 1 : 0
+      })
+
+      const completionRate = ((completedDays / totalDays) * 100).toFixed(1)
+      console.log(`${day}: ${completions} ${completionRate}`)
+
+      completionRateOnSpecificDays[day] = {
+        day,
+        dayOneLetter: day[0],
+        completionRate,
+        completedDays,
+        totalDays,
+      }
+    })
+
+    console.log(completionRateOnSpecificDays)
+
+    return completionRateOnSpecificDays
+  }
+
+  const renderCompletionRateLineChart = () => {
+
+    const { completionRateOverTime } = getCompletionRates()
+
+    // Line chart for completion percentage over time
+    return (
+
+      <ResponsiveContainer width="100%" height="40%">
+        <LineChart margin={{ top: 5, left: 5, right: 5, bottom: 5 }} data={completionRateOverTime}>
+          <Line type="monotone" dataKey="completionRate" stroke={currentTask.color.color} strokeWidth={4} dot={false}/>
+          <Tooltip cursor={{fill: 'transparent'}} />
+          <XAxis dataKey="date" />
+          <YAxis width={40}/>
+        </LineChart>
+      </ResponsiveContainer>
+    )
+  };
+
+  // const CustomTooltip = ({ active, payload, label }) => {
+  //   if (active && payload && payload.length) {
+  //     return (
+  //       <div className="custom-tooltip">
+  //         <p className="label">{`${label} : ${payload[0].value}`}</p>
+  //         <p className="intro">{getIntroOfPage(label)}</p>
+  //         <p className="desc">Anything you want can be displayed here.</p>
+  //       </div>
+  //     );
+  //   }
+  
+  //   return null;
+  // };
+
+  const CompletionRateOverDays = () => {
+
+    const completionRateOfSpecificDays = getCompletionRateOfSpecificDays()
+    const data = Object.values(completionRateOfSpecificDays)
+
+    console.log(data)
+
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={data}
+          margin={{ top: 5, left: 5, right: 5, bottom: 5 }}
+        >
+          <XAxis dataKey="dayOneLetter" />
+          <YAxis width={40}/>
+          <Tooltip cursor={{fill: 'transparent'}} />
+          <Bar dataKey="completionRate" fill={currentTask.color.color} radius={[20, 20, 20, 20]}/>
+        </BarChart>
+      </ResponsiveContainer>
+    )
+  }
+
+
+
+  getCompletionRateOfSpecificDays()
 
   return (
     <ListContainer>
@@ -222,13 +315,24 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
       <ListBorder color={currentTask.color.color}/>
 
       <LineChartContainer>
-        {renderChart ? renderLineChart() : null}
+        {renderCompletionRateLineChart()}
       </LineChartContainer>
+
+      <ListBorder color={currentTask.color.color}/>
+
+      <CenteredElem>
+        Completions
+      </CenteredElem>
+
+      <CompletionCharts>
+        <CompletionRateOverDays />
+        <CompletionRateOverDays />
+      </CompletionCharts>
 
 
       <FooterContainer>
         <Link to="/">
-          <i value="start" className="fas fa-times fa-2x" onClick={toggleModal}></i>
+          <i value="start" className="fas fa-times fa-2x" onClick={handleClose}></i>
         </Link>
       </FooterContainer>
 
