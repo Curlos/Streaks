@@ -45,15 +45,6 @@ const TaskSettingsIcon = styled.div`
   font-size: ${taskContainerWidth / 8}px;
 `
 
-const TaskCalendarIconContainer = styled(TaskSettingsIconContainer)`
-  margin-left: 20px;
-  margin-top: -86px;
-`
-
-const TaskStatsIconContainer = styled(TaskSettingsIconContainer)`
-  
-`
-
 const TaskNameContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -81,6 +72,39 @@ const DisplayElem = styled.div`
   visibility: ${props => props.display};
 `
 
+const DropdownContent = styled.div`
+  display: ${props => props.dropdown ? 'flex' : 'none'};
+  flex-direction: column;
+  position: absolute;
+  background-color: ${props => props.colors.chosenColor};
+  min-width: 160px;
+  z-index: 1;
+
+  margin-top: -31px;
+  margin-left: 180px;
+  margin-bottom: 20px;
+`
+
+const DropdownLink = styled.a`
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: ${props => props.colors.chosenColor};
+
+  &:hover {
+    filter: brightness(0.85);
+  }
+`
+
+const DropdownLinkName = styled.span`
+  margin-left: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`
+
 const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleCompleteTask, handleEditTask, toggleModal }) => {
 
   const [colors, setColors] = useState({
@@ -88,6 +112,8 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     backgroundColor: "none",
     chosenColor
   })
+
+  const [dropdown, setDropdown] = useState(false)
 
   useEffect(() => {
 
@@ -123,8 +149,6 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
         color: "gray",
         backgroundColor: "none"
       })
-
-      const currentDate = new Date()
       
       const newCurrentStreak = {from: '', to: '', num: 0 }
 
@@ -133,14 +157,41 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
     }
   }
 
+  const toggleDropdown = () => {
+    console.log(dropdown)
+    setDropdown(!dropdown)
+  }
+
   const displayEditScreen = () => {
     toggleModal()
-    //handleEditTask(taskObj)
+    toggleDropdown()
+    handleEditTask(taskObj)
   }
 
   const displayCalendarScreen = () => {
     toggleModal()
+    toggleDropdown()
   }
+
+  /*
+
+  <Link to={`/confirm/edit/${taskObj.id}`}>
+      <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
+        <TaskSettingsIcon>
+          <i className="fas fa-ellipsis-h"></i>
+        </TaskSettingsIcon>
+      </TaskSettingsIconContainer>
+  </Link>
+
+  <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
+      <TaskCalendarIconContainer colors={colors} onClick={displayCalendarScreen}>
+        <TaskSettingsIcon>
+          <i className="fas fa-calendar"></i>
+        </TaskSettingsIcon>
+      </TaskCalendarIconContainer>
+  </Link>
+
+            */
 
   return (
   
@@ -156,22 +207,43 @@ const Task = ({ iconClassName, chosenColor, showSettings, taskObj, toggleComplet
           </TaskIconContainer>
 
           <DisplayElem display={showSettings ? 'visible' : 'hidden'}>
+            <TaskSettingsIconContainer colors={colors} onClick={toggleDropdown}>
+              <TaskSettingsIcon>
+                <i className="fas fa-ellipsis-h"></i>
+              </TaskSettingsIcon>
+            </TaskSettingsIconContainer>
 
-            <Link to={`/confirm/edit/${taskObj.id}`}>
-                <TaskSettingsIconContainer colors={colors} onClick={displayEditScreen}>
-                  <TaskSettingsIcon>
-                    <i className="fas fa-ellipsis-h"></i>
-                  </TaskSettingsIcon>
-                </TaskSettingsIconContainer>
-            </Link>
+            <DropdownContent colors={colors} dropdown={dropdown}>
 
-            <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
-                <TaskCalendarIconContainer colors={colors} onClick={displayCalendarScreen}>
-                  <TaskSettingsIcon>
-                    <i className="fas fa-calendar"></i>
-                  </TaskSettingsIcon>
-                </TaskCalendarIconContainer>
-            </Link>
+              <Link to={`/confirm/edit/${taskObj.id}`}>
+                <DropdownLink colors={colors} onClick={displayEditScreen}>
+                  <i className="fas fa-ellipsis-h"></i> 
+                  <DropdownLinkName>
+                    Edit Task
+                  </DropdownLinkName>
+                </DropdownLink>
+              </Link>
+
+              <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
+                <DropdownLink colors={colors} onClick={displayCalendarScreen}>
+                  <i className="fas fa-calendar"></i> 
+                  <DropdownLinkName>
+                    View Calendar
+                  </DropdownLinkName>
+                </DropdownLink>
+              </Link>
+
+              <Link to={`/confirm/edit/calendar/${taskObj.id}`}>
+                <DropdownLink colors={colors} onClick={displayCalendarScreen}>
+                  <i className="fas fa-chart-bar"></i>
+
+                  <DropdownLinkName>
+                    View Stats
+                  </DropdownLinkName>
+                </DropdownLink>
+              </Link>
+              
+            </DropdownContent>
 
           </DisplayElem>
           
