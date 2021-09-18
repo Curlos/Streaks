@@ -68,107 +68,106 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     if (dateStatus === 'skipped') {
       // If the task is completed
       setDateStatus('complete')
+      const newMissedDays = {...currentTask.missedDays}
+      delete newMissedDays[currentDateStr]
+
       const newCompletedDays = {...currentTask.completedDays, [currentDateStr]: new Date(currentYear, currentMonth, dayNum).toString()}
 
-      const newLongestStreak = checkLongestStreak({...currentTask, completedDays: newCompletedDays})
-
-      const newCurrentStreak = checkCurrentStreak({...currentTask, completedDays: newCompletedDays})
+      const {longestStreak, currentStreak, streaks} = checkStreaks({...currentTask, completedDays: newCompletedDays})
       
-      let newTask = {...currentTask, completedDays: newCompletedDays, longestStreak: newLongestStreak, currentStreak: newCurrentStreak}
+      let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
 
-      console.log(newTask)
       handleTaskChange(newTask)
     } else if (dateStatus === 'complete') {
       // If the task is missed
       setDateStatus('missed')
 
+      const newCompletedDays = {...currentTask.completedDays}
+      delete newCompletedDays[currentDateStr]
+
       const newMissedDays = {...currentTask.missedDays, [currentDateStr]: new Date(currentYear, currentMonth, dayNum).toString()}
 
-      const newLongestStreak = checkLongestStreak({...currentTask, missedDays: newMissedDays})
-
-      const newCurrentStreak = checkCurrentStreak({...currentTask, missedDays: newMissedDays})
+      const {longestStreak, currentStreak, streaks} = checkStreaks({...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays})
       
-      let newTask = {...currentTask, missedDays: newMissedDays, longestStreak: newLongestStreak, currentStreak: newCurrentStreak}
+      let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
 
-      console.log(newTask)
       handleTaskChange(newTask)
     } else {
       // If the task is skipped
       setDateStatus('skipped')
+
+      const newCompletedDays = {...currentTask.completedDays}
+      delete newCompletedDays[currentDateStr]
+
+      const newMissedDays = {...currentTask.missedDays}
+      delete newMissedDays[currentDateStr]
+
+      const {longestStreak, currentStreak, streaks} = checkStreaks({...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays})
+      
+      let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
+      
+      handleTaskChange(newTask)
     }
   }
 
-  const checkCurrentStreak = (newTask) => {
-    const currentDay = new Date()
+  const checkStreaks = (newTask) => {
+    const orderedDates = Object.fromEntries(Object.entries(newTask.completedDays).sort())
+    const firstDate = Object.keys(orderedDates)[0]
+    const orderedDatesKeys = Object.keys(orderedDates)
+
+    const currentStreak = {num: 1, from: firstDate, to: firstDate}
+    const streaks = []
+
+    for (let i = 0; i < orderedDatesKeys.length - 1; i++) {
+      const currentDate = orderedDatesKeys[i]
+      const dayAfter = new Date(currentDate)
+      dayAfter.setDate(dayAfter.getDate() + 1)
+      const dayAfterStr = dayAfter.toISOString().split('T')[0]
+      const nextDate = orderedDatesKeys[i + 1]
+
+      if (nextDate !== dayAfterStr) {
+        streaks.push({...currentStreak})
+        currentStreak.num = 1
+        currentStreak.from = nextDate
+        currentStreak.to = nextDate
+      } else {
+        currentStreak.num += 1
+        currentStreak.to = nextDate
+      }
+    }
+
+    streaks.push({...currentStreak})
+
+    streaks.sort((a, b) => (a.num > b.num) ? 1 : (a.num == b.num) ? ((a.from > b.from) ? 1 : -1): -1)
+    console.log(streaks)
+
+    const longestStreak = streaks[streaks.length - 1]
+
+    return {longestStreak: longestStreak, currentStreak: getCurrentStreak(newTask, streaks), streaks: streaks}
+  }
+
+  const getCurrentStreak = (newTask, streaks) => {
+    const currentDate = new Date().getDate()
+    const currentMonth = new Date().getMonth()
+    const currentYear = new Date().getFullYear()
+    const currentDay = new Date(currentYear, currentMonth, currentDate)
     const dayBefore = new Date(currentDay.toDateString())
     dayBefore.setDate(dayBefore.getDate() - 1)
 
     let dayBeforeStr = dayBefore.toISOString().split('T')[0]
     let currentDayStr = currentDay.toISOString().split('T')[0]
-    const newCurrentStreak = {num: 1, from: currentDayStr, to: currentDayStr}
 
-    while (true) {
-      if (Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
-        newCurrentStreak.num += 1
-        newCurrentStreak.from = dayBeforeStr
-        dayBefore.setDate(dayBefore.getDate() - 1)
-        dayBeforeStr = dayBefore.toISOString().split('T')[0]
-      } else {
-        break
+    if (Object.keys(newTask.missedDays).includes(dayBeforeStr) || Object.keys(newTask.missedDays).includes(currentDayStr)) {
+      return {num: 0, from: '', to: ''}
+    } else if (!Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
+      return {num: 0, from: '', to: ''}
+    } else {
+      for (let streak of streaks) {
+        if (streak.to === dayBeforeStr || streak.to === currentDayStr) {
+          return streak
+        }
       }
     }
-
-    const newTaskCurrentStreak = {num: newCurrentStreak.num, from: newCurrentStreak.from, to: currentDayStr}
-
-    return newTaskCurrentStreak
-  }
-
-
-  const checkLongestStreak = (newTask) => {
-    const currentDay = new Date(currentYear, currentMonth, dayNum)
-
-    const dayBefore = new Date(currentDay.toDateString())
-    dayBefore.setDate(dayBefore.getDate() - 1)
-
-    const dayAfter = new Date(currentDay.toDateString())
-    dayAfter.setDate(dayAfter.getDate() + 1)
-
-
-    let dayBeforeStr = dayBefore.toISOString().split('T')[0]
-    let dayAfterStr = dayAfter.toISOString().split('T')[0]
-    let currentDayStr = currentDay.toISOString().split('T')[0]
-    const newLongestStreak = {num: 1, from: currentDayStr, to: currentDayStr}
-
-    // console.log(pastStreak)
-    // console.log(Object.keys(newTask.completedDays))
-
-    while (true) {
-      if (Object.keys(newTask.completedDays).includes(dayBeforeStr)) {
-        console.log(`Day before: ${dayBeforeStr}`)
-        newLongestStreak.num += 1
-        newLongestStreak.from = dayBeforeStr
-        dayBefore.setDate(dayBefore.getDate() - 1)
-        dayBeforeStr = dayBefore.toISOString().split('T')[0]
-
-      } else if (Object.keys(newTask.completedDays).includes(dayAfterStr)) {
-        console.log(`Day after: ${dayAfterStr}`)
-        newLongestStreak.num += 1
-        newLongestStreak.to = dayAfterStr
-        dayAfter.setDate(dayAfter.getDate() + 1)
-        dayAfterStr = dayAfter.toISOString().split('T')[0]
-        
-      } else {
-        break
-      }
-    }
-    dayBefore.setDate(dayBefore.getDate() + 1)
-    dayAfter.setDate(dayAfter.getDate() - 1)
-
-    if (newLongestStreak.num > currentTask.longestStreak.num) {
-      return newLongestStreak
-    }
-
-    return currentTask.longestStreak
   }
 
   const getIcon = () => {
