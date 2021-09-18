@@ -88,10 +88,11 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
 
     console.log(newTask)
+    console.log(JSON.stringify(newTask))
     handleTaskChange(newTask)
   }
 
-  const missTask = (currentDateStr, dateStatus) => {
+  const missTask = (currentDateStr) => {
     setDateStatus('missed')
 
     const newCompletedDays = {...currentTask.completedDays}
@@ -107,7 +108,7 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     handleTaskChange(newTask)
   }
 
-  const skipTask = (currentDateStr, dateStatus) => {
+  const skipTask = (currentDateStr) => {
     setDateStatus('skipped')
 
     const newCompletedDays = {...currentTask.completedDays}
@@ -136,6 +137,8 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
 
   const daysMissingInBetween = (newTask, startDate, endDate) => {
 
+    console.log(`Days missing? ${startDate} - ${endDate}`)
+
     const startDateObj = new Date(startDate)
     startDateObj.setDate(startDateObj.getDate() + 1)
 
@@ -143,16 +146,15 @@ const CalendarIcon = ({ currentTask, handleTaskChange, dayNum, currentMonth, cur
     endDateObj.setDate(endDateObj.getDate() + 1)
 
     const numOfDays = dateDiffInDays(startDateObj, endDateObj)
-    console.log(`date difference ${startDate} - ${endDate}`)
-    console.log(numOfDays)
 
     let currDate = startDate
 
-    for (let i = 1; i < numOfDays; i++) {
+    for (let i = 1; i < numOfDays + 1; i++) {
       console.log(Object.keys(newTask.missedDays))
       console.log(currDate)
 
       if (Object.keys(newTask.missedDays).includes(currDate)) {
+        console.log(`${currDate} is missing`)
         return true
       }
 
