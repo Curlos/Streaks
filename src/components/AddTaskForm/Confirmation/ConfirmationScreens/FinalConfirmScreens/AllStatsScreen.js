@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { LineChart, Line } from 'recharts';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { getAllTimePercentage } from '../Helpers/statsModules';
 import HeaderIcon from '../HelperComponents/HeaderIcon'
 import FooterIcon from '../HelperComponents/FooterIcon'
 import styled from 'styled-components'
@@ -12,25 +13,11 @@ const ListContainer = styled.div`
   padding: 15px;
 `
 
-const ListTitle = styled.span`
-  color: ${props => props.color};
-  font-size: 30px;
-`
-
 const ListIconHeader = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 20px 20px 0 0;
-`
-
-const ListIcon = styled.span`
-
-`
-
-const ListTitleHeader = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 15px;
+  padding-bottom: 50px;
 `
 
 const ListBorder = styled.div`
@@ -65,11 +52,19 @@ const LineChartContainer = styled.span`
 
 const FooterContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 `
 
 const FooterIcons = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
+const FooterClose = styled.div`
+  float: right;
 `
 
 const CenteredElem = styled.div`
@@ -101,7 +96,31 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
     console.log(Object.values(tasksObj))
 
     console.log(longestStreakObj)
+
+    return longestStreakObj.longestStreak.num
   }
+
+  const getAllTasksAllTimeCompletion = () => {
+    let completedDays = 0
+    let totalDays = 0
+
+    Object.keys(tasksObj).forEach((id) => {
+      const task = tasksObj[id]
+
+      const { completedDaysLen, totalDaysLen } = getAllTimePercentage(task)
+
+      completedDays += completedDaysLen
+      totalDays += totalDaysLen
+
+
+    })
+
+    const allTimePercentageCompletion = ((completedDays / totalDays) * 100).toFixed(1)
+
+    return {allTimePercentageCompletion, completedDays, totalDays}
+  }
+
+  const {allTimePercentageCompletion, completedDays, totalDays} = getAllTasksAllTimeCompletion()
 
   
 
@@ -131,7 +150,10 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
         </StatBox>
 
         <StatBox>
-          
+
+          <StatNum>
+            {allTimePercentageCompletion}%
+          </StatNum>
           
           <StatDesc>
             ALL TIME
@@ -139,7 +161,9 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
         </StatBox>
 
         <StatBox>
-          
+          <StatNum>
+            {completedDays}
+          </StatNum>
           
           <StatDesc>
             COMPLETIONS
@@ -176,19 +200,19 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
             return (
               <span key={id}>
                 <Link to={`/confirm/edit/stats/${id}`}>
-                  <FooterIcon currentTask={tasksObj[id]} chosenId={id}/>
+                  <FooterIcon currentTask={tasksObj[id]}/>
                 </Link>
               </span>
             )
           })}
         </FooterIcons>
+      </FooterContainer>
 
-        
-
+      <FooterClose>
         <Link to="/">
           <FooterIcon handleClick={handleClose} footerType={'close'}/>
         </Link>
-      </FooterContainer>
+      </FooterClose>
 
       
     </ListContainer>

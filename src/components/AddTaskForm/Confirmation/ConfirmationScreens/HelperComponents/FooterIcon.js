@@ -31,6 +31,8 @@ const FooterIcon = ({ currentTask, chosenId, handleClick, footerType }) => {
   const getBrightnessForNonChosen = () => {
     if (footerType === 'close') {
       return "100"
+    } else if (footerType === 'allTasks' && !currentTask) {
+      return "100"
     } else {
       return "50"
     }

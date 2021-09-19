@@ -65,11 +65,19 @@ const LineChartContainer = styled.span`
 
 const FooterContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 `
 
 const FooterIcons = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
+const FooterClose = styled.div`
+  float: right;
 `
 
 const CenteredElem = styled.div`
@@ -326,7 +334,7 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
         <FooterIcons>
           <span onClick={() => setChosenId(id)}>
             <Link to={`/confirm/edit/stats/all`}>
-              <FooterIcon footerType={'allTasks'}/>
+              <FooterIcon currentTask={currentTask} footerType={'allTasks'}/>
             </Link>
           </span>
           
@@ -341,13 +349,13 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
             )
           })}
         </FooterIcons>
+      </FooterContainer>
 
-        
-
+      <FooterClose>
         <Link to="/">
           <FooterIcon handleClick={handleClose} footerType={'close'}/>
         </Link>
-      </FooterContainer>
+      </FooterClose>
 
       
     </ListContainer>
