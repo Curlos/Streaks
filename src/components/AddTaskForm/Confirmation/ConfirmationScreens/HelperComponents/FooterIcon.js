@@ -26,13 +26,23 @@ const TaskIconFont = styled.div`
   filter: brightness(${props => props.brightness}%);
 `
 
-const FooterIcon = ({ currentTask, chosenId, handleClick }) => {
+const FooterIcon = ({ currentTask, chosenId, handleClick, footerType }) => {
 
   const getBrightnessForNonChosen = () => {
-    if (!currentTask) {
+    if (footerType === 'close') {
       return "100"
     } else {
       return "50"
+    }
+  }
+
+  const getIconClassName = () => {
+    if (footerType === 'close') {
+      return 'fas fa-times'
+    } else if (footerType === 'allTasks') {
+      return 'fas fa-star'
+    } else {
+      return currentTask.icon
     }
   }
 
@@ -41,7 +51,7 @@ const FooterIcon = ({ currentTask, chosenId, handleClick }) => {
         <TaskContainer onClick={handleClick}>
             <TaskIconContainer backgroundColor="none">
             <TaskIconFont backgroundColor="none" brightness={currentTask && currentTask.id === chosenId ? "100" : getBrightnessForNonChosen()}>
-              <i className={currentTask ? currentTask.icon: 'fas fa-times'}></i>
+              <i className={getIconClassName()}></i>
             </TaskIconFont>
           </TaskIconContainer>
         </TaskContainer>

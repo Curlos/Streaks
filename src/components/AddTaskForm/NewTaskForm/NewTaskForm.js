@@ -15,6 +15,7 @@ import ColorScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens
 import IconScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/IconScreen'
 import CalendarScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/CalendarScreen'
 import StatsScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/StatsScreen'
+import AllStatsScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/AllStatsScreen'
 
 const AddTaskHeader = styled.div`
   border-radius: 20px 20px 0 0;
@@ -242,6 +243,10 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
 
             <Route path="/confirm/edit/calendar/:id" exact>
               <CalendarScreen currentTask={currentTask} handleTaskChange={handleTaskChange} handleEdit={handleEdit} chosenColor={currentTask.color.color} automaticColor={automaticColor} fromConfirm={true}/>
+            </Route>
+
+            <Route path="/confirm/edit/stats/all" exact>
+              <AllStatsScreen currentTask={currentTask} handleTaskChange={handleTaskChange} handleEdit={handleEdit} chosenColor={currentTask.color.color} automaticColor={automaticColor} fromConfirm={true} toggleModal={toggleModal} tasksObj={tasksObj}/>
             </Route>
 
             <Route path="/confirm/edit/stats/:id" exact>

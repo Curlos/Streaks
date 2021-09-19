@@ -91,6 +91,8 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
 
   const { id } = useParams()
 
+  console.log(id)
+
   const [chosenId, setChosenId] = useState(id)
   const currentTask = tasksObj[chosenId]
 
@@ -322,13 +324,19 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
       <FooterContainer>
 
         <FooterIcons>
+          <span onClick={() => setChosenId(id)}>
+            <Link to={`/confirm/edit/stats/all`}>
+              <FooterIcon footerType={'allTasks'}/>
+            </Link>
+          </span>
+          
           {Object.keys(tasksObj).map((id) => {
             
             return (
               <span onClick={() => setChosenId(id)}>
                 <Link to={`/confirm/edit/stats/${id}`}>
-                <FooterIcon currentTask={tasksObj[id]} chosenId={currentTask.id}/>
-              </Link>
+                  <FooterIcon currentTask={tasksObj[id]} chosenId={currentTask.id}/>
+                </Link>
               </span>
             )
           })}
@@ -337,7 +345,7 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
         
 
         <Link to="/">
-          <FooterIcon handleClick={handleClose}/>
+          <FooterIcon handleClick={handleClose} footerType={'close'}/>
         </Link>
       </FooterContainer>
 

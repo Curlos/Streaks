@@ -9,6 +9,7 @@ export const completeTask = (currentDateStr, currentTask, currentYear, currentMo
   let newTask = {...currentTask, missedDays: newMissedDays, completedDays: newCompletedDays, longestStreak: longestStreak, currentStreak: currentStreak, streaks: streaks}
 
   console.log(newTask)
+  console.log(JSON.stringify(newTask))
 
   handleTaskChange({...newTask})
 }
