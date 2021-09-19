@@ -9,15 +9,15 @@ const EmptyPresetTask = styled.div`
   height: 30px;
 `
 
-const HealthPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
+const EatPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
 
   const presetTasks = [
-    {title: "Walk or Run", iconClassName: "fas fa-walking"}, 
-    {title: "Stand Minutes", iconClassName: "fas fa-shoe-prints"}, 
-    {title: "Cycle", iconClassName: "fas fa-biking"}, 
-    {title: "Swim", iconClassName: "fas fa-swimmer"},
-    {title: "Mindful Minutes", iconClassName: "fas fa-wind"}, 
-    {title: "Climb Flights", iconClassName: "fas fa-running"}
+    {title: "Drink Water", iconClassName: "fas fa-tint"}, 
+    {title: "Energy Deficit", iconClassName: "fas fa-fire"}, 
+    {title: "Decrease Sugar Intake", iconClassName: "fas fa-utensil-spoon"}, 
+    {title: "Decrease Caffeine Intake", iconClassName: "fas fa-coffee"},
+    {title: "Increase Protein Intake", iconClassName: "fas fa-egg"}, 
+    {title: "Decrease Cholesterol Intake", iconClassName: "fas fa-egg"}
   ]
 
   return (
@@ -38,4 +38,4 @@ const HealthPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
   )
 }
 
-export default HealthPresetTasks;
+export default EatPresetTasks;

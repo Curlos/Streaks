@@ -6,8 +6,12 @@ import './addTaskForm.css'
 import HeaderTasks from '../HeaderTasks/HeaderTasks'
 import GeneralPresetTasks from '../PresetTasks/GeneralPresetTasks'
 import HealthPresetTasks from '../PresetTasks/HealthPresetTasks'
-import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/GeneralConfirmationScreen'
+import EatPresetTasks from '../PresetTasks/EatPresetTasks'
+import TimedPresetTasks from '../PresetTasks/TimedPresetTasks'
+import NegativePresetTasks from '../PresetTasks/NegativePresetTasks'
 
+
+import GeneralConfirmationScreen from '../Confirmation/ConfirmationScreens/GeneralConfirmationScreen'
 import MeasurementDurationScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/MeasurementDurationScreen'
 import TaskDaysScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/TaskDaysScreen'
 import StartWeekOnScreen from '../Confirmation/ConfirmationScreens/FinalConfirmScreens/StartWeekOnScreen'
@@ -144,16 +148,12 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
   const handleTaskHeaderClick = (e) => {
     const newSelectedTaskType = e.target.attributes[0].nodeValue
 
-    console.log(newSelectedTaskType)
-
     if (newSelectedTaskType.includes("Task")) {
       setSelectedTaskType(newSelectedTaskType)
-      console.log(newSelectedTaskType)
     } else if (newSelectedTaskType.includes("sc-gsTEea ")){
       // If the task circle is clicked then get the taskName which is two children below the current element (the task circle)
       const newSelectedTaskType = e.target.firstElementChild.firstElementChild.attributes[0].nodeValue
       setSelectedTaskType(newSelectedTaskType)
-      console.log(newSelectedTaskType)
     }
   }
 
@@ -164,7 +164,7 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
         <span className="close" onClick={toggleModal}>&times;</span>
           <p className="addTaskTitle">Add Task</p>
         </AddTaskHeader>
-        <HeaderTasks clickHandler={handleTaskHeaderClick} />
+        <HeaderTasks chosenColor={currentTask.color.color} clickHandler={handleTaskHeaderClick} selectedTaskType={selectedTaskType}/>
       </span>
     )
   }
@@ -185,7 +185,28 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
             <Route path="/health-task" exact>
               <span>
                 <TaskSelectorHeader />
-                <HealthPresetTasks currentTask={currentTask} automaticColor={automaticColor} />
+                <HealthPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
+              </span>
+            </Route>
+
+            <Route path="/eat-task" exact>
+              <span>
+                <TaskSelectorHeader />
+                <EatPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
+              </span>
+            </Route>
+
+            <Route path="/timed-task" exact>
+              <span>
+                <TaskSelectorHeader />
+                <TimedPresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
+              </span>
+            </Route>
+
+            <Route path="/negative-task" exact>
+              <span>
+                <TaskSelectorHeader />
+                <NegativePresetTasks chosenColor={currentTask.color.color} currentTask={currentTask} handleTaskChange={handleTaskChange}/>
               </span>
             </Route>
 

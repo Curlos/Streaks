@@ -9,7 +9,7 @@ const HeaderContainer = styled.div`
 `
 
 
-const HeaderTasks = ({ clickHandler, selectedTaskType }) => {
+const HeaderTasks = ({ chosenColor, clickHandler }) => {
 
   const allHeaderTasks = [
     {link: '/', iconClassName: "fas fa-check"},
@@ -21,11 +21,11 @@ const HeaderTasks = ({ clickHandler, selectedTaskType }) => {
 
   return (
     <HeaderContainer>
-      {allHeaderTasks.map((headerTask, i) => {
+      {allHeaderTasks.map((headerObj, i) => {
         
         return (
-          <Link to={headerTask.link} key={i}>
-            <HeaderTask iconClassName={headerTask.iconClassName} clickHandler={clickHandler} />
+          <Link to={headerObj.link} key={i}>
+            <HeaderTask headerObj={headerObj} chosenColor={chosenColor} clickHandler={clickHandler} />
            </Link>
         )
       })}

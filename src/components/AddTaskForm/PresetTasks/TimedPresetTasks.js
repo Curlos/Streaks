@@ -9,15 +9,17 @@ const EmptyPresetTask = styled.div`
   height: 30px;
 `
 
-const HealthPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
+const TimedPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
 
   const presetTasks = [
-    {title: "Walk or Run", iconClassName: "fas fa-walking"}, 
-    {title: "Stand Minutes", iconClassName: "fas fa-shoe-prints"}, 
-    {title: "Cycle", iconClassName: "fas fa-biking"}, 
-    {title: "Swim", iconClassName: "fas fa-swimmer"},
-    {title: "Mindful Minutes", iconClassName: "fas fa-wind"}, 
-    {title: "Climb Flights", iconClassName: "fas fa-running"}
+    {title: "Read for 10 Minutes", iconClassName: "fas fa-book"}, 
+    {title: "Learn a Language", iconClassName: "fas fa-language"}, 
+    {title: "Practice Instrument", iconClassName: "fas fa-guitar"}, 
+    {title: "Tidy Up", iconClassName: "fas fa-broom"},
+    {title: "Pomodoro", iconClassName: "fas fa-hourglass-start"}, 
+    {title: "Decrease Screen Time", iconClassName: "fas fa-mobile-alt"},
+    {title: "Mindful Minutes", iconClassName: "fas fa-wind"},
+    {title: "Brush Your Teeth", iconClassName: "fas fa-tooth"}
   ]
 
   return (
@@ -38,4 +40,4 @@ const HealthPresetTasks = ({ currentTask, handleTaskChange, chosenColor }) => {
   )
 }
 
-export default HealthPresetTasks;
+export default TimedPresetTasks;

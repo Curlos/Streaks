@@ -69,11 +69,8 @@ export const daysMissingInBetween = (newTask, startDate, endDate) => {
   let currDate = startDate
 
   for (let i = 1; i < numOfDays + 1; i++) {
-    console.log(Object.keys(newTask.missedDays))
-    console.log(currDate)
 
     if (Object.keys(newTask.missedDays).includes(currDate)) {
-      console.log(`${currDate} is missing`)
       return true
     }
 
@@ -131,7 +128,8 @@ export const getCurrentStreak = (newTask, streaks) => {
   const dayBefore = new Date(currentDay.toDateString())
   dayBefore.setDate(dayBefore.getDate() - 1)
 
-  let lastCompletedDayStr = Object.keys(newTask.completedDays).at(-1)
+  const orderedDates = Object.fromEntries(Object.entries(newTask.completedDays).sort())
+  let lastCompletedDayStr = Object.keys(orderedDates).at(-1)
   let currentDayStr = currentDay.toISOString().split('T')[0]
 
   if (Object.keys(newTask.missedDays).includes(currentDayStr)) {
@@ -139,6 +137,8 @@ export const getCurrentStreak = (newTask, streaks) => {
   }
 
   const anyDaysMissingInBetween = daysMissingInBetween(newTask, lastCompletedDayStr, currentDayStr)
+
+  console.log(lastCompletedDayStr)
 
   if (anyDaysMissingInBetween) {
     return {num: 0, from: '', to: ''} 

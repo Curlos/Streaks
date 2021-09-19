@@ -14,7 +14,7 @@ const TaskIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: gray;
+  background-color: ${props => props.colors.color || 'gray'};
   width: ${taskContainerWidth}px;
   height: ${taskContainerHeight}px;
   margin: 20px;
@@ -25,37 +25,21 @@ const TaskIcon = styled.div`
   font-size: ${taskContainerWidth / 2}px;
 `
 
-const HeaderTask = ({ taskObject, iconClassName, chosenColor, clickHandler }) => {
+const HeaderTask = ({ headerObj, chosenColor, clickHandler }) => {
+
+  const {link, iconClassName } = headerObj
 
   const [colors, setColors] = useState({
-    color: "gray",
+    color: 'gray',
     backgroundColor: "none",
     chosenColor
   })
-
-  const toggleComplete = () => {
-    
-    if (colors.color === 'gray') {
-      setColors({
-        ...colors,
-        color: chosenColor,
-        backgroundColor: chosenColor,
-        automaticColor: chosenColor
-      })
-    } else {
-      setColors({
-        ...colors,
-        color: "gray",
-        backgroundColor: "none"
-      })
-    }
-  }
 
   return (
   
       <div>
         <TaskContainer onClick={clickHandler}>
-            <TaskIconContainer colors={colors} onClick={toggleComplete}>
+            <TaskIconContainer colors={colors}>
             <TaskIcon colors={colors}>
               <i className={iconClassName}></i>
             </TaskIcon>
