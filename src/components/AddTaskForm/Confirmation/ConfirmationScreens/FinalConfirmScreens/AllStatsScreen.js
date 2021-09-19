@@ -174,7 +174,7 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
           {Object.keys(tasksObj).map((id) => {
             
             return (
-              <span>
+              <span key={id}>
                 <Link to={`/confirm/edit/stats/${id}`}>
                   <FooterIcon currentTask={tasksObj[id]} chosenId={id}/>
                 </Link>
