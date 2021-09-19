@@ -245,7 +245,7 @@ const NewTaskForm = ({ toggleModal, automaticColor, handleSaveTask, handleEditTa
             </Route>
 
             <Route path="/confirm/edit/stats/:id" exact>
-              <StatsScreen currentTask={currentTask} handleTaskChange={handleTaskChange} handleEdit={handleEdit} chosenColor={currentTask.color.color} automaticColor={automaticColor} fromConfirm={true} toggleModal={toggleModal}/>
+              <StatsScreen currentTask={currentTask} handleTaskChange={handleTaskChange} handleEdit={handleEdit} chosenColor={currentTask.color.color} automaticColor={automaticColor} fromConfirm={true} toggleModal={toggleModal} tasksObj={tasksObj}/>
             </Route>
 
           </Switch>

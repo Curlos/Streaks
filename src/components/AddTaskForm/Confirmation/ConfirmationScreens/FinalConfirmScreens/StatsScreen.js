@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { LineChart, Line } from 'recharts';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
 import HeaderIcon from '../HelperComponents/HeaderIcon'
+import FooterIcon from '../HelperComponents/FooterIcon'
 import styled from 'styled-components'
 
 const ListContainer = styled.div`
@@ -64,7 +64,12 @@ const LineChartContainer = styled.span`
 `
 
 const FooterContainer = styled.div`
-  float: right;
+  display: flex;
+  justify-content: space-between;
+`
+
+const FooterIcons = styled.div`
+  display: flex;
 `
 
 const CenteredElem = styled.div`
@@ -81,23 +86,19 @@ const CompletionCharts = styled.div`
   margin-right: 0px;
 `
 
-const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, toggleModal }) => {
+const StatsScreen = ({ toggleModal, tasksObj }) => {
 
-  console.log(currentTask)
 
   const { id } = useParams()
+
+  const [chosenId, setChosenId] = useState(id)
+  const currentTask = tasksObj[chosenId]
 
   const handleClose = () => {
     toggleModal()
   }
 
-  const getLinkURL = () => {
-    if (fromConfirm) {
-      return `/confirm/edit/${id}`
-    }
-
-    return '/'
-  }
+  console.log(chosenId)
 
   const getLongestStreak = () => {
     return currentTask.longestStreak.num
@@ -108,10 +109,6 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
     const completedDaysLen = Object.keys(currentTask.completedDays).length
     const missedDaysLen = Object.keys(currentTask.missedDays).length
     const totalDaysLen = completedDaysLen + missedDaysLen
-
-    console.log(`${completedDaysLen} completed days`)
-    console.log(`${missedDaysLen} missed days`)
-    console.log(`${totalDaysLen} total days`)
 
     return ((completedDaysLen / totalDaysLen) * 100).toFixed(1)
   }
@@ -166,7 +163,7 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
         completionRate: (completionRate * 100).toFixed(1),
       })
 
-      const dayOfCompletion = Object.keys(completionOnSpecifcDays)[new Date(date).getDay()]
+      const dayOfCompletion = Object.keys(completionOnSpecifcDays)[new Date(orderedDates[date]).getDay()]
 
       completionOnSpecifcDays[dayOfCompletion].push(completionStatus)
     })
@@ -194,7 +191,6 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
       })
 
       const completionRate = ((completedDays / totalDays) * 100).toFixed(1)
-      console.log(`${day}: ${completions} ${completionRate}`)
 
       completionRateOnSpecificDays[day] = {
         day,
@@ -204,8 +200,6 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
         totalDays,
       }
     })
-
-    console.log(completionRateOnSpecificDays)
 
     return completionRateOnSpecificDays
   }
@@ -247,8 +241,6 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
     const completionRateOfSpecificDays = getCompletionRateOfSpecificDays()
     const data = Object.values(completionRateOfSpecificDays)
 
-    console.log(data)
-
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -263,10 +255,6 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
       </ResponsiveContainer>
     )
   }
-
-
-
-  getCompletionRateOfSpecificDays()
 
   return (
     <ListContainer>
@@ -330,9 +318,26 @@ const StatsScreen = ({ currentTask, handleTaskChange, handleEdit, fromConfirm, t
       </CompletionCharts>
 
 
+
       <FooterContainer>
+
+        <FooterIcons>
+          {Object.keys(tasksObj).map((id) => {
+            
+            return (
+              <span onClick={() => setChosenId(id)}>
+                <Link to={`/confirm/edit/stats/${id}`}>
+                <FooterIcon currentTask={tasksObj[id]} chosenId={currentTask.id}/>
+              </Link>
+              </span>
+            )
+          })}
+        </FooterIcons>
+
+        
+
         <Link to="/">
-          <i value="start" className="fas fa-times fa-2x" onClick={handleClose}></i>
+          <FooterIcon handleClick={handleClose}/>
         </Link>
       </FooterContainer>
 
