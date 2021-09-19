@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { LineChart, Line } from 'recharts';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import HeaderIcon from '../HelperComponents/HeaderIcon'
 import FooterIcon from '../HelperComponents/FooterIcon'
 import styled from 'styled-components'
@@ -23,9 +23,9 @@ const ListIconHeader = styled.div`
   border-radius: 20px 20px 0 0;
 `
 
-const ListIcon = styled.span`
+// const ListIcon = styled.span`
 
-`
+// `
 
 const ListTitleHeader = styled.div`
   display: flex;
@@ -127,9 +127,9 @@ const StatsScreen = ({ toggleModal, tasksObj }) => {
     return Object.keys(currentTask.completedDays).length
   }
 
-  const getMisses = () => {
-    return Object.keys(currentTask.missedDays).length
-  }
+  // const getMisses = () => {
+  //   return Object.keys(currentTask.missedDays).length
+  // }
 
   const getCompletionRates = () => {
     const allDates = {...currentTask.completedDays, ...currentTask.missedDays}

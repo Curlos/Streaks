@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { LineChart, Line } from 'recharts';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getAllTimePercentage, getCompletionRates } from '../Helpers/statsModules';
+import React from 'react'
+import { Link } from 'react-router-dom'
+// import { LineChart, Line } from 'recharts';
+// import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { getAllTimePercentage } from '../Helpers/statsModules';
 import HeaderIcon from '../HelperComponents/HeaderIcon'
 import FooterIcon from '../HelperComponents/FooterIcon'
 import styled from 'styled-components'
@@ -44,10 +44,6 @@ const StatNum = styled.div`
 const StatDesc = styled.div`
   font-size: 15px;
   color: gray;
-`
-
-const LineChartContainer = styled.span`
-  
 `
 
 const FooterContainer = styled.div`
@@ -100,18 +96,18 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
     return longestStreakObj.longestStreak.num
   }
 
-  const getAllDatesTogether = () => {
-    Object.keys(tasksObj).forEach((id) => {
-      const task = tasksObj[id]
+  // const getAllDatesTogether = () => {
+  //   Object.keys(tasksObj).forEach((id) => {
+  //     const task = tasksObj[id]
 
-      console.log({...task.completedDays, ...task.missedDays})
-    })
-  }
+  //     console.log({...task.completedDays, ...task.missedDays})
+  //   })
+  // }
 
   const getAllTasksAllTimeCompletion = () => {
     let completedDays = 0
     let totalDays = 0
-    const allDates = getAllDatesTogether()
+    // const allDates = getAllDatesTogether()
     // const orderedDates = Object.fromEntries(Object.entries(allDates).sort())
 
     console.log(tasksObj)
@@ -132,23 +128,23 @@ const AllStatsScreen = ({ toggleModal, tasksObj }) => {
     return {allTimePercentageCompletion, completedDays, totalDays}
   }
 
-  const renderCompletionRateLineChart = () => {
+  // const renderCompletionRateLineChart = () => {
 
-    const { completionRateOverTime } = getCompletionRates()
+  //   const { completionRateOverTime } = getCompletionRates()
 
-    // Line chart for completion percentage over time
-    return (
+  //   // Line chart for completion percentage over time
+  //   return (
 
-      <ResponsiveContainer width="100%" height="40%">
-        <LineChart margin={{ top: 5, left: 5, right: 5, bottom: 5 }} data={completionRateOverTime}>
-          <Line type="monotone" dataKey="completionRate" stroke={'gray'} strokeWidth={4} dot={false}/>
-          <Tooltip cursor={{fill: 'transparent'}} />
-          <XAxis dataKey="date" />
-          <YAxis width={40}/>
-        </LineChart>
-      </ResponsiveContainer>
-    )
-  };
+  //     <ResponsiveContainer width="100%" height="40%">
+  //       <LineChart margin={{ top: 5, left: 5, right: 5, bottom: 5 }} data={completionRateOverTime}>
+  //         <Line type="monotone" dataKey="completionRate" stroke={'gray'} strokeWidth={4} dot={false}/>
+  //         <Tooltip cursor={{fill: 'transparent'}} />
+  //         <XAxis dataKey="date" />
+  //         <YAxis width={40}/>
+  //       </LineChart>
+  //     </ResponsiveContainer>
+  //   )
+  // };
 
   
 

@@ -115,7 +115,7 @@ export const checkStreaks = (newTask) => {
 
   streaks.push({...currentStreak})
 
-  streaks.sort((a, b) => (a.num > b.num) ? 1 : (a.num == b.num) ? ((a.from > b.from) ? 1 : -1): -1)
+  streaks.sort((a, b) => (a.num > b.num) ? 1 : (a.num === b.num) ? ((a.from > b.from) ? 1 : -1): -1)
   console.log(streaks)
 
   const longestStreak = streaks[streaks.length - 1]
